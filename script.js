@@ -1,0 +1,402 @@
+const $ = (q, el = document) => el.querySelector(q);
+const $$ = (q, el = document) => Array.from(el.querySelectorAll(q));
+
+function toast(msg) {
+  const t = document.createElement("div");
+  t.className = "toast";
+  t.textContent = msg;
+  document.body.appendChild(t);
+  requestAnimationFrame(() => t.classList.add("show"));
+  setTimeout(() => {
+    t.classList.remove("show");
+    setTimeout(() => t.remove(), 250);
+  }, 2200);
+}
+
+(() => {
+  const style = document.createElement("style");
+  style.textContent = `
+    .toast{
+      position:fixed; left:50%; bottom:22px; transform:translateX(-50%) translateY(10px);
+      background:rgba(15,18,26,.96); color:#eef2ff; border:1px solid rgba(255,255,255,.10);
+      padding:12px 14px; border-radius:14px; opacity:0; transition:.22s ease;
+      box-shadow:0 20px 60px rgba(0,0,0,.35); z-index:999;
+    }
+    .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+  `;
+  document.head.appendChild(style);
+})();
+
+// Mobile menu
+const menuBtn = $("#menuBtn");
+const mobileNav = $("#mobileNav");
+
+menuBtn?.addEventListener("click", () => {
+  const open = mobileNav.classList.toggle("is-open");
+  menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+  mobileNav.setAttribute("aria-hidden", open ? "false" : "true");
+});
+
+$$(".mobileNav a").forEach(a => a.addEventListener("click", () => {
+  mobileNav.classList.remove("is-open");
+  menuBtn.setAttribute("aria-expanded", "false");
+  mobileNav.setAttribute("aria-hidden", "true");
+}));
+
+// Copy email
+const emailText = $("#emailText");
+function copyEmail() {
+  const email = emailText?.textContent?.trim() || "";
+  if (!email) return;
+  navigator.clipboard.writeText(email)
+    .then(() => toast("E-post kopierad ✅"))
+    .catch(() => toast("Kunde inte kopiera ❌"));
+}
+$("#copyEmailBtn2")?.addEventListener("click", copyEmail);
+
+// Portfolio filtering
+const chips = $$(".chip");
+const works = $$(".work");
+
+chips.forEach(chip => {
+  chip.addEventListener("click", () => {
+    chips.forEach(c => c.classList.remove("is-active"));
+    chip.classList.add("is-active");
+
+    const filter = chip.dataset.filter;
+    works.forEach(w => {
+      const type = w.dataset.type;
+      const show = filter === "all" || filter === type;
+      w.style.display = show ? "block" : "none";
+    });
+  });
+});
+
+// Modal
+const modal = $("#modal");
+const modalBody = $("#modalBody");
+const modalTitle = $("#modalTitle");
+const modalMeta = $("#modalMeta");
+const modalClose = $("#modalClose");
+
+function openModal({ title, meta, kind, src }) {
+  modalTitle.textContent = title || "Portfolio";
+  modalMeta.textContent = meta || "";
+  modalBody.innerHTML = "";
+
+  if (kind === "video") {
+    const iframe = document.createElement("iframe");
+    iframe.src = src;
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    iframe.allowFullscreen = true;
+    modalBody.appendChild(iframe);
+  } else {
+    const img = document.createElement("img");
+    img.src = src;
+    img.alt = title || "Bild";
+    img.className = "modalMedia";
+    modalBody.appendChild(img);
+  }
+
+  modal.classList.add("is-open");
+  modal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+  modal.classList.remove("is-open");
+  modal.setAttribute("aria-hidden", "true");
+  modalBody.innerHTML = "";
+  document.body.style.overflow = "";
+}
+
+works.forEach(w => {
+  w.addEventListener("click", () => {
+    openModal({
+      title: w.dataset.title,
+      meta: `${w.dataset.type.toUpperCase()} • demo`,
+      kind: w.dataset.kind,
+      src: w.dataset.src,
+    });
+  });
+});
+
+$("#openShowreel")?.addEventListener("click", () => {
+  openModal({
+    title: "Showreel (demo)",
+    meta: "VIDEO • demo",
+    kind: "video",
+    src: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+  });
+});
+
+modalClose?.addEventListener("click", closeModal);
+modal?.addEventListener("click", (e) => {
+  if (e.target?.dataset?.close === "true") closeModal();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
+});
+
+// Contact form (mailto demo)
+const form = $("#contactForm");
+const formStatus = $("#formStatus");
+
+form?.addEventListener("submit", (e) => {
+  e.preventDefault();
+  formStatus.textContent = "";
+
+  const data = new FormData(form);
+  const name = (data.get("name") || "").toString().trim();
+  const email = (data.get("email") || "").toString().trim();
+  const topic = (data.get("topic") || "").toString().trim();
+  const message = (data.get("message") || "").toString().trim();
+
+  if (!name || !email || !topic || !message) {
+    formStatus.textContent = "Fyll i alla fält.";
+    toast("Fyll i alla fält ⚠️");
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    formStatus.textContent = "Skriv en giltig e-post.";
+    toast("Ogiltig e-post ⚠️");
+    return;
+  }
+
+  const subject = encodeURIComponent(`Förfrågan (${topic}) – ${name}`);
+  const body = encodeURIComponent(`Namn: ${name}\nE-post: ${email}\nÄmne: ${topic}\n\nMeddelande:\n${message}\n`);
+  const to = (emailText?.textContent || "dansmedia@exempel.se").trim();
+  window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+
+  toast("Öppnar e-post ✉️");
+  form.reset();
+});
+
+// Kopiera mail (Kontakt-sektionen)
+const copyEmailBtn2 = document.getElementById("copyEmailBtn2");
+const emailText2 = document.getElementById("emailText2");
+
+if (copyEmailBtn2 && emailText2) {
+  copyEmailBtn2.addEventListener("click", async () => {
+    const email = (emailText2.textContent || "").trim();
+    try {
+      await navigator.clipboard.writeText(email);
+      copyEmailBtn2.textContent = "Kopierad!";
+      setTimeout(() => (copyEmailBtn2.textContent = "Kopiera mail"), 1200);
+    } catch (e) {
+      // fallback
+      const tmp = document.createElement("textarea");
+      tmp.value = email;
+      document.body.appendChild(tmp);
+      tmp.select();
+      document.execCommand("copy");
+      document.body.removeChild(tmp);
+      copyEmailBtn2.textContent = "Kopierad!";
+      setTimeout(() => (copyEmailBtn2.textContent = "Kopiera mail"), 1200);
+    }
+  });
+}
+
+// ===============================
+// Portfolio – album + lokal assets
+// ===============================
+
+// 1) Definiera album + media (lägg bara in dina filer här)
+const PORTFOLIO_ALBUMS = [
+  {
+    id: "promo",
+    title: "Promo / Teasers",
+    type: "video", // används av filter (video/bild/webb)
+    desc: "Videor som jag tidigare gjort för band mm.",
+    thumb: "assets/portfolio/albums/promo/badge.png",
+    items: [
+      { kind: "video", src: "assets/portfolio/albums/promo/03.mp4", thumb: "assets/portfolio/albums/promo/01.png", title: "Streaks Video" },
+      {
+  kind: "video",
+  src: "assets/portfolio/albums/promo/julsounders.mp4",
+  thumb: "assets/portfolio/albums/promo/sounders.png",
+  title: "Julvideo Sounders Dansorkester"
+},
+{
+  kind: "video",
+  src: "assets/portfolio/albums/promo/15julsounders.mp4",
+  thumb: "assets/portfolio/albums/promo/sounders.png",
+  title: "15 Juli spelning Sounders Dansorkester"
+}
+    ],
+  },
+  {
+    id: "bildpaket",
+    title: "Bild bank",
+    type: "bild",
+    desc: "Redo att posta: datum, ort, CTA.",
+    thumb: "assets/portfolio/albums/promo/bildbadge.png",
+    items: [
+      { kind: "image", src: "assets/portfolio/albums/bildpaket/01.jpg", title: "Poster 1" },
+      { kind: "image", src: "assets/portfolio/albums/bildpaket/02.jpg", title: "Poster 2" },
+    ],
+  },
+  {
+    id: "livefoto",
+    title: "Live Foto",
+    type: "bild",
+    desc: "Bilder tagna direkt på scen!",
+    thumb: "assets/portfolio/albums/promo/live.png",
+    items: [
+      { kind: "image", src: "assets/portfolio/albums/bildpaket/01.jpg", title: "Poster 1" },
+      { kind: "image", src: "assets/portfolio/albums/bildpaket/02.jpg", title: "Poster 2" },
+    ],
+  },
+];
+
+// 2) Element refs
+const albumGrid = document.getElementById("albumGrid");
+const albumPanel = document.getElementById("albumPanel");
+const mediaGrid = document.getElementById("mediaGrid");
+const albumTitle = document.getElementById("albumTitle");
+const albumDesc = document.getElementById("albumDesc");
+const albumBackBtn = document.getElementById("albumBackBtn");
+
+// 3) Filter buttons
+const filterButtons = Array.from(document.querySelectorAll(".filters .filter"));
+let activeFilter = "all";
+
+// 4) Render albumkort
+function renderAlbums() {
+  if (!albumGrid) return;
+  albumGrid.innerHTML = "";
+
+  const albums = PORTFOLIO_ALBUMS.filter(a => activeFilter === "all" ? true : a.type === activeFilter);
+
+  albums.forEach(album => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "albumCard";
+    btn.dataset.type = album.type;
+
+    btn.innerHTML = `
+      <div class="albumCard__thumb">
+        <img src="${album.thumb}" alt="${album.title}" loading="lazy" />
+        <span class="albumCard__tag">${album.type.toUpperCase()}</span>
+      </div>
+      <div class="albumCard__body">
+        <div class="albumCard__title">${album.title}</div>
+        <div class="muted tiny">${album.desc}</div>
+        <div class="albumCard__meta">${album.items.length} objekt</div>
+      </div>
+    `;
+
+    btn.addEventListener("click", () => openAlbum(album.id));
+    albumGrid.appendChild(btn);
+  });
+}
+
+// 5) Öppna album → visa media grid
+function openAlbum(albumId) {
+  const album = PORTFOLIO_ALBUMS.find(a => a.id === albumId);
+  if (!album) return;
+
+  albumTitle.textContent = album.title;
+  albumDesc.textContent = album.desc;
+
+  // göm album grid, visa panel
+  albumGrid.style.display = "none";
+  albumPanel.hidden = false;
+
+  renderMedia(album);
+}
+
+// 6) Tillbaka
+if (albumBackBtn) {
+  albumBackBtn.addEventListener("click", () => {
+    albumPanel.hidden = true;
+    albumGrid.style.display = "";
+    mediaGrid.innerHTML = "";
+  });
+}
+
+// 7) Render media items
+function renderMedia(album) {
+  if (!mediaGrid) return;
+  mediaGrid.innerHTML = "";
+
+  album.items.forEach(item => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "mediaItem";
+
+    const thumbSrc =
+      item.thumb ||
+      (item.kind === "image" ? item.src : album.thumb);
+
+    btn.innerHTML = `
+      <div class="mediaItem__thumb">
+        <img src="${thumbSrc}" alt="${item.title || album.title}" loading="lazy" />
+        <span class="mediaItem__badge">${item.kind === "video" ? "VIDEO" : "BILD"}</span>
+      </div>
+      <div class="mediaItem__title">${item.title || ""}</div>
+    `;
+
+    btn.addEventListener("click", () => openInModal(item, album));
+    mediaGrid.appendChild(btn);
+  });
+}
+
+// 8) Öppna i din befintliga modal
+// Den här bygger på att du redan har #modal, #modalTitle, #modalBody etc.
+function openInModal(item, album) {
+  const modal = document.getElementById("modal");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalMeta = document.getElementById("modalMeta");
+  const modalBody = document.getElementById("modalBody");
+
+  if (!modal || !modalBody || !modalTitle) return;
+
+  modalTitle.textContent = item.title || album.title;
+  if (modalMeta) modalMeta.textContent = album.title;
+
+  // rensa
+  modalBody.innerHTML = "";
+
+  if (item.kind === "image") {
+    const img = document.createElement("img");
+    img.src = item.src;
+    img.alt = item.title || album.title;
+    img.style.width = "100%";
+    img.style.height = "auto";
+    img.style.borderRadius = "16px";
+    modalBody.appendChild(img);
+  } else {
+    const video = document.createElement("video");
+    video.src = item.src;
+    video.controls = true;
+    video.playsInline = true;
+    video.style.width = "100%";
+    video.style.borderRadius = "16px";
+    modalBody.appendChild(video);
+  }
+
+  modal.setAttribute("aria-hidden", "false");
+  modal.classList.add("is-open");
+}
+
+// 9) Filter events
+filterButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    filterButtons.forEach(b => b.classList.remove("is-active"));
+    btn.classList.add("is-active");
+    activeFilter = btn.dataset.filter || "all";
+
+    // om albumPanel är öppet: stäng och gå tillbaka
+    if (albumPanel && !albumPanel.hidden) {
+      albumPanel.hidden = true;
+      mediaGrid.innerHTML = "";
+      albumGrid.style.display = "";
+    }
+
+    renderAlbums();
+  });
+});
+
+// 10) init
+renderAlbums();

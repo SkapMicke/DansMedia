@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>DansMedia Studio – Marknadsföringsinnehåll för band</title>
+  <meta name="description" content="DansMedia Studio skapar videor, bilder och marknadsföringsmaterial för band – samt hårdkodade hemsidor (EPK/presskit) med domän och uppdateringar." />
+  <meta name="theme-color" content="#0b0c10" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- Ambient background -->
+  <div class="bg">
+    <div class="bg__blob bg__blob--a"></div>
+    <div class="bg__blob bg__blob--b"></div>
+    <div class="bg__grid"></div>
+    <div class="bg__noise"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="top">
+    <div class="container header__inner">
+      <a class="brand" href="#top" aria-label="DansMedia Studio">
+        <img class="brand__logo" src="assets/logo.png" alt="DansMedia Studio logga" />
+        <span class="brand__text">
+          <strong>DansMedia</strong><span>Studio</span>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Huvudmeny">
+        <a href="#tjanster">Tjänster</a>
+        <a href="#upplagg">Upplägg</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#webb">Hemsidor</a>
+        <a href="#kontakt" class="btn btn--small">Kontakt</a>
+      </nav>
+
+      <div class="header__actions">
+        <button class="iconBtn" id="themeBtn" type="button" aria-label="Växla tema">
+          <span class="iconBtn__dot"></span>
+        </button>
+        <button class="menuBtn" id="menuBtn" type="button" aria-label="Öppna meny" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobileNav" id="mobileNav" aria-hidden="true">
+      <div class="container mobileNav__inner">
+        <a href="#tjanster">Tjänster</a>
+        <a href="#upplagg">Upplägg</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#webb">Hemsidor</a>
+        <a href="#kontakt" class="btn">Kontakt</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main>
+    <section class="hero">
+      <div class="container hero__inner">
+        <div class="hero__left">
+          <div class="badge">
+            <span class="badge__dot"></span>
+            Marknadsföringsinnehåll för band
+          </div>
+
+          <h1 class="hero__title">
+            Välkommen till<br/>
+            <span class="grad">Simons Dansmedia.</span>
+          </h1>
+
+          <p class="hero__lead">
+            Jag skapar videor & bildmaterial som är redo att postas.
+            För spelningar ligger videor ofta runt <strong>25–35 sek</strong> (men anpassas alltid).
+            Innehållet kan innehålla <strong>bilder</strong>, <strong>videoklipp</strong>, <strong>loggor</strong>, <strong>text</strong> och <strong>musik</strong> Och det kan även bara vara en simpel bild inför spelningar om man ej vill ha video.
+          </p>
+
+          <div class="hero__cta">
+            <a class="btn" href="#kontakt">Boka / Be om pris</a>
+            <button class="btn btn--ghost" id="openShowreel" type="button">Spela showreel (demo)</button>
+          </div>
+
+          <div class="hero__chips">
+            <div class="chip">🎬 Video</div>
+            <div class="chip">🖼️ Bild</div>
+            <div class="chip">✍️ Text/CTA</div>
+            <div class="chip">🎵 Musik</div>
+          </div>
+
+          <div class="hero__mini">
+            <div class="miniCard">
+              <div class="miniCard__k">Fördel</div>
+              <div class="miniCard__v">Ni slipper stress</div>
+              <div class="miniCard__d">Skicka info → jag levererar färdigt material.</div>
+            </div>
+            <div class="miniCard">
+              <div class="miniCard__k">Fördel</div>
+              <div class="miniCard__v">Röd tråd</div>
+              <div class="miniCard__d">Samma look i video/bild så ni ser mer seriösa ut.</div>
+            </div>
+            <div class="miniCard">
+              <div class="miniCard__k">Fördel</div>
+              <div class="miniCard__v">Löpande upplägg</div>
+              <div class="miniCard__d">Anlita mig inför alla spelningar + extra förfrågningar.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__right">
+          <div class="panel panel--glow">
+            <div class="panel__head">
+              <div>
+                <div class="muted">Snabb översikt</div>
+                <div class="panel__title">Vad du får</div>
+              </div>
+              <a class="link" href="#upplagg">Se upplägg →</a>
+            </div>
+
+            <div class="panel__grid">
+              <div class="stat">
+                <div class="stat__n">1–∞</div>
+                <div class="stat__l">Videor & bilder</div>
+              </div>
+              <div class="stat">
+                <div class="stat__n">SoMe</div>
+                <div class="stat__l">Rätt format</div>
+              </div>
+              <div class="stat">
+                <div class="stat__n">Pro</div>
+                <div class="stat__l">Enhetlig stil</div>
+              </div>
+              <div class="stat">
+                <div class="stat__n">Flex</div>
+                <div class="stat__l">Pris efter mängd</div>
+              </div>
+            </div>
+
+            <div class="panel__list">
+              <div class="tick">✅ Färdigt att posta (FB/IG)</div>
+              <div class="tick">✅ Text, datum, plats, CTA</div>
+              <div class="tick">✅ Variationer vid behov</div>
+              <div class="tick">✅ Värde > “dyrt” (byggt för långsiktighet)</div>
+            </div>
+
+            <div class="panel__foot">
+              <button class="btn btn--ghost wide" id="copyEmailBtn" type="button">Kopiera e-post</button>
+              <div class="mono tiny" id="emailText">dansmedia@exempel.se</div>
+            </div>
+          </div>
+
+          <div class="panel panel--thin">
+            <div class="muted tiny">Livefoto</div>
+            <div class="panel__title panel__title--sm">Finns som extra</div>
+            <p class="muted">
+              Jag kan även fota live, men vill vara tydlig att det är mer <strong>hobby</strong> än “proffsfoto”.
+              Perfekt som komplement när ni vill ha mer material.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="section" id="tjanster">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2>Tjänster</h2>
+            <p class="muted">Välj enstaka leveranser — eller ett upplägg som sköter allt åt er.</p>
+          </div>
+        </div>
+
+        <div class="cards3">
+          <article class="card">
+            <div class="card__top">
+              <div class="icon">🎬</div>
+              <h3>Marknadsföringsvideo</h3>
+            </div>
+            <p class="muted">
+              Promo, teasers och kampanjmaterial. Innehåller det som behövs för att få folk att komma:
+              bilder/klipp, logga, text och musik.
+            </p>
+            <ul class="list">
+              <li>Optimalt för Facebook/Instagram</li>
+              <li>Tydlig CTA + info</li>
+              <li>Flera versioner vid behov</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card__top">
+              <div class="icon">🖼️</div>
+              <h3>Bildmaterial</h3>
+            </div>
+            <p class="muted">
+              Bilder till inlägg/stories, affischmaterial, covers och “en röd tråd” i flödet.
+            </p>
+            <ul class="list">
+              <li>Enhetlig look</li>
+              <li>Redo att posta</li>
+              <li>Snabba ändringar</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card__top">
+              <div class="icon">🧩</div>
+              <h3>Content-paket</h3>
+            </div>
+            <p class="muted">
+              Ni anlitar mig löpande: jag ordnar videos & bilder inför alla spelningar + andra förfrågningar.
+              Pris varierar efter mängd — men idén är att det ska vara <strong>mycket värde</strong> så ni vill behålla mig.
+            </p>
+            <ul class="list">
+              <li>Ni slipper stress & sista minuten</li>
+              <li>Snabbare leveranser (mallar/stil redo)</li>
+              <li>Flexibelt antal varje månad</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Retainer -->
+    <section class="section section--alt" id="upplagg">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2>Upplägg som får band att stanna</h2>
+            <p class="muted">
+              Tanken är enkel: du får en “content-person” som alltid levererar.
+              Du kan få material inför alla spelningar + extra videos/bilder när ni behöver.
+            </p>
+          </div>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step__n">1</div>
+            <div>
+              <div class="step__t">Ni skickar info</div>
+              <div class="muted">Datum, plats, affisch/logga, ev. önskemål.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step__n">2</div>
+            <div>
+              <div class="step__t">Jag bygger material</div>
+              <div class="muted">Video + bild i er stil, med tydlig text & CTA.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step__n">3</div>
+            <div>
+              <div class="step__t">Ni postar & växer</div>
+              <div class="muted">Allt levereras redo att publiceras.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="valueGrid">
+          <div class="value">
+            <div class="value__t">✅ Alltid material</div>
+            <div class="muted">Ni har content inför varje spelning — och mellan spelningar.</div>
+          </div>
+          <div class="value">
+            <div class="value__t">✅ Enhetlig kvalitet</div>
+            <div class="muted">En röd tråd gör att bandet känns större & mer seriöst.</div>
+          </div>
+          <div class="value">
+            <div class="value__t">✅ Flexibel kostnad</div>
+            <div class="muted">Pris baseras på hur många leveranser ni vill ha — inte “låsta” paket.</div>
+          </div>
+          <div class="value">
+            <div class="value__t">✅ Snabbare när vi kör löpande</div>
+            <div class="muted">Jag har era mallar/stil redo, så det går fort att leverera.</div>
+          </div>
+          <div class="value">
+            <div class="value__t">✅ Små ändringar ingår</div>
+            <div class="muted">Datum/ort/byten? Fixas snabbt utan att det blir krångligt.</div>
+          </div>
+          <div class="value">
+            <div class="value__t">✅ “Inte dyrt” — byggt för långsiktighet</div>
+            <div class="muted">Målet är att ni får så mycket värde att ni vill anlita igen.</div>
+          </div>
+        </div>
+
+        <div class="ctaBar">
+          <div>
+            <div class="ctaBar__t">Vill du ha ett upplägg?</div>
+            <div class="muted">Säg hur många spelningar ni har per månad så föreslår jag mängd content.</div>
+          </div>
+          <a class="btn" href="#kontakt">Be om upplägg</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio -->
+<!-- Portfolio -->
+<section class="section" id="portfolio">
+  <div class="container">
+    <div class="section__head section__head--row">
+      <div>
+        <h2>Portfolio</h2>
+        <p class="muted">Välj ett album och klicka på det du vill se.</p>
+      </div>
+
+      <div class="filters" role="tablist" aria-label="Portfolio-filter">
+        <button class="filter is-active" data-filter="all" type="button">Alla</button>
+        <button class="filter" data-filter="video" type="button">Video</button>
+        <button class="filter" data-filter="bild" type="button">Bild</button>
+        <button class="filter" data-filter="webb" type="button">Webb</button>
+      </div>
+    </div>
+
+    <!-- Album grid -->
+    <div class="albumGrid" id="albumGrid"></div>
+
+    <!-- Album view (öppnas när man klickar på ett album) -->
+    <div class="albumPanel" id="albumPanel" hidden>
+      <div class="albumPanel__top">
+        <div>
+          <div class="muted tiny">Album</div>
+          <div class="albumPanel__title" id="albumTitle">—</div>
+          <div class="muted" id="albumDesc">—</div>
+        </div>
+        <button class="btn btn--ghost" id="albumBackBtn" type="button">← Tillbaka</button>
+      </div>
+
+      <div class="mediaGrid" id="mediaGrid"></div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- Websites -->
+    <section class="section section--alt" id="webb">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2>Hårdkodade hemsidor (EPK / bandsida)</h2>
+            <p class="muted">
+              Jag bygger snabba, hårdkodade hemsidor: spelplan, bilder, pressmaterial, kontakt, länkar.
+              Jag kan även hjälpa att få sidan live med egen domän + sköta uppdateringar vid behov.
+              <strong>Pris varierar</strong> beroende på innehåll.
+            </p>
+          </div>
+        </div>
+
+        <div class="webGrid">
+          <div class="webCard">
+            <div class="webCard__t">Innehåll som ofta ingår</div>
+            <ul class="list">
+              <li>Spelplan (datum/ort/lokal)</li>
+              <li>Pressbilder & loggor</li>
+              <li>Presskit/EPK-länkar</li>
+              <li>Kontakt / bokning</li>
+              <li>Länkar (Spotify, YouTube, sociala)</li>
+            </ul>
+          </div>
+
+          <div class="webCard">
+            <div class="webCard__t">Drift & uppdateringar</div>
+            <ul class="list">
+              <li>Hjälp med domän och att sidan blir live</li>
+              <li>Domänen betalas 1 gång per år.</li>
+              <li>Gratis Uppdateringar när ni vill (nya datum, bilder, osv)</li>
+              <li>Clean och snabb laddning</li>
+            </ul>
+          </div>
+
+          <div class="webCard webCard--accent">
+            <div class="webCard__t">Vill du att jag tar allt?</div>
+            <p class="muted">Säg vad ni vill ha på sidan så föreslår jag en lösning och ett pris.</p>
+            <a class="btn wide" href="#kontakt">Be om offert</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Social proof -->
+    <section class="section" id="omdomen">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2>Varför band gillar upplägget</h2>
+            <p class="muted">Här är exempeltexter du kan byta ut mot riktiga omdömen senare.</p>
+          </div>
+        </div>
+
+        <div class="quotes">
+          <div class="quote">
+            <div class="quote__t">“Vi slipper tänka på marknadsföringen.”</div>
+            <div class="muted">Allt kommer färdigt, i rätt stil, och vi kan posta direkt.</div>
+          </div>
+          <div class="quote">
+            <div class="quote__t">“Det känns mycket mer proffsigt.”</div>
+            <div class="muted">Röd tråd i videos och bilder gjorde stor skillnad.</div>
+          </div>
+          <div class="quote">
+            <div class="quote__t">“Flexibelt och smidigt.”</div>
+            <div class="muted">Vi tar fler leveranser när vi behöver – och mindre när det är lugnt.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section--alt" id="faq">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2>FAQ</h2>
+            <p class="muted">Snabba svar innan ni bokar.</p>
+          </div>
+        </div>
+
+        <div class="faq">
+          <button class="faq__q" type="button" aria-expanded="false">
+            <span>Kan vi få content inför varje spelning?</span>
+            <span class="faq__i">+</span>
+          </button>
+          <div class="faq__a">
+            <p class="muted">
+              Ja — det är hela poängen med upplägget. Ni skickar info, jag levererar videos/bilder löpande.
+              Kostnaden beror på hur många leveranser ni vill ha.
+            </p>
+          </div>
+
+          <button class="faq__q" type="button" aria-expanded="false">
+            <span>Är videor alltid samma längd?</span>
+            <span class="faq__i">+</span>
+          </button>
+          <div class="faq__a">
+            <p class="muted">
+              Nej, de anpassas efter syfte och plattform. För spelningar brukar det ofta landa runt 25–35 sek,
+              men det är inte en regel.
+            </p>
+          </div>
+
+          <button class="faq__q" type="button" aria-expanded="false">
+            <span>Gör du hemsidor också?</span>
+            <span class="faq__i">+</span>
+          </button>
+          <div class="faq__a">
+            <p class="muted">
+              Ja — hårdkodade, snabba sidor (EPK/bandsida) med spelplan, press, bilder och kontakt.
+              Jag kan även hjälpa med domän och uppdateringar vid behov.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <!-- Contact -->
+<section class="section" id="kontakt">
+  <div class="container">
+    <div class="contact">
+      <div class="contact__left">
+        <h2>Kontakt</h2>
+        <p class="muted">
+          Vill du hellre ringa eller skicka SMS? Inga problem. Annars kan du skriva via formuläret.
+          Skriv gärna <strong>datum/ort</strong>, <strong>typ av content</strong> och <strong>hur många spelningar per månad</strong>.
+        </p>
+
+        <!-- Kontaktkort -->
+        <div class="contactInfoCard">
+          <div class="muted tiny">Kontakt:</div>
+          <div class="contactInfoCard__name">Simon Rosenius</div>
+
+          <div class="contactInfoCard__row">
+            <span class="muted tiny">Telefon</span>
+            <a class="mono contactLink" href="tel:+46700984595">070 098 45 95</a>
+          </div>
+
+          <div class="contactInfoCard__row">
+            <span class="muted tiny">E-post</span>
+            <a class="mono contactLink" id="emailText2" href="mailto:simonrosenius112@gmail.com">simonrosenius112@gmail.com</a>
+          </div>
+
+          <div class="contactInfoCard__actions">
+            <a class="btn btn--ghost" href="tel:+46700984595">Ring</a>
+            <a class="btn btn--ghost" href="mailto:simonrosenius112@gmail.com">Mail</a>
+            <button class="btn btn--ghost" id="copyEmailBtn2" type="button">Kopiera mail</button>
+          </div>
+        </div>
+
+        <!-- Lite extra info på sidan -->
+        <div class="infoGrid">
+          <div class="infoItem">
+            <div class="infoItem__t">Svarstid</div>
+            <div class="muted">Oftast inom 12h.</div>
+          </div>
+          <div class="infoItem">
+            <div class="infoItem__t">För att ge pris</div>
+            <div class="muted">Kontakta mig gärna, så diskuterar vi något som passar ert band & mig.</div>
+          </div>
+          <div class="infoItem">
+            <div class="infoItem__t">Leverans</div>
+            <div class="muted">Redo att posta i rätt format (FB/IG).</div>
+          </div>
+        </div>
+
+        <div class="muted tiny">
+          Livefoto finns som extra (hobby). Fokus här är marknadsföring/content.
+        </div>
+      </div>
+
+      <!-- Form -->
+      <form class="form" id="contactForm" novalidate>
+        <div class="form__row">
+          <label>
+            Namn
+            <input name="name" type="text" placeholder="Ditt namn" required />
+          </label>
+          <label>
+            E-post
+            <input name="email" type="email" placeholder="din@mail.se" required />
+          </label>
+        </div>
+
+        <label>
+          Vad gäller det?
+          <select name="topic" required>
+            <option value="" selected disabled>Välj…</option>
+            <option value="video">Video / marknadsföring</option>
+            <option value="content">Löpande content</option>
+            <option value="bild">Bildmaterial</option>
+            <option value="webb">Hemsida / EPK</option>
+            <option value="annat">Annat</option>
+          </select>
+        </label>
+
+        <label>
+          Meddelande
+          <textarea name="message" rows="6" placeholder="Antal spelningar, datum/ort, önskemål, exempel på stil…" required></textarea>
+        </label>
+
+        <div class="form__actions">
+          <button class="btn" type="submit">Skicka</button>
+          <span class="muted tiny" id="formStatus" aria-live="polite"></span>
+        </div>
+
+        <p class="muted tiny">
+          *Formuläret öppnar din e-postklient (mailto). Vill du koppla på “riktig” formulär-sändning senare kan du.
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div class="footer__brand">
+          <img class="brand__logo brand__logo--small" src="assets/logo.png" alt="DansMedia Studio logga" />
+          <div>
+            <div class="footer__t">DansMedia Studio</div>
+            <div class="muted tiny">Video • Bild • Webb</div>
+          </div>
+        </div>
+
+        <div class="footer__links">
+          <a href="#tjanster">Tjänster</a>
+          <a href="#portfolio">Portfolio</a>
+          <a href="#kontakt">Kontakt</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal__backdrop" data-close="true"></div>
+    <div class="modal__panel" role="document">
+      <button class="modal__close" id="modalClose" type="button" aria-label="Stäng">✕</button>
+      <div class="modal__head">
+        <div class="modal__title" id="modalTitle">Titel</div>
+        <div class="modal__meta" id="modalMeta">—</div>
+      </div>
+      <div class="modal__body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
