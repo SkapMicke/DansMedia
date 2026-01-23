@@ -1,6 +1,33 @@
 const $ = (q, el = document) => el.querySelector(q);
 const $$ = (q, el = document) => Array.from(el.querySelectorAll(q));
 
+function preloadImages(urls, { concurrency = 10 } = {}) {
+  // Preloadar en lista bilder med "concurrency" så du inte dödar nätet helt.
+  const queue = [...urls];
+  let active = 0;
+
+  return new Promise((resolve) => {
+    const next = () => {
+      if (queue.length === 0 && active === 0) return resolve();
+
+      while (active < concurrency && queue.length > 0) {
+        const url = queue.shift();
+        active++;
+
+        const img = new Image();
+        img.decoding = "async";
+        img.onload = img.onerror = () => {
+          active--;
+          next();
+        };
+        img.src = url;
+      }
+    };
+    next();
+  });
+}
+
+
 function toast(msg) {
   const t = document.createElement("div");
   t.className = "toast";
@@ -332,13 +359,12 @@ function renderAlbums() {
       </div>
     `;
 
-    btn.addEventListener("click", () => openAlbum(album.id));
+    btn.addEventListener("click", () => openAlbum(album.id)); // funkar även om openAlbum är async
     albumGrid.appendChild(btn);
   });
 }
 
-// 5) Öppna album → visa media grid
-function openAlbum(albumId) {
+async function openAlbum(albumId) {
   const album = PORTFOLIO_ALBUMS.find(a => a.id === albumId);
   if (!album) return;
 
@@ -348,13 +374,11 @@ function openAlbum(albumId) {
   // Reset album filter
   activeAlbumFilter = "all";
 
-  // Check if album has both video and image items
   const hasVideo = album.items.some(item => item.kind === "video");
   const hasImage = album.items.some(item => item.kind === "image");
-  
+
   if (albumFilters) {
     albumFilters.style.display = (hasVideo && hasImage) ? "flex" : "none";
-    // Update active state
     albumFilters.querySelectorAll(".filter--album").forEach(btn => {
       btn.classList.toggle("active", btn.dataset.filter === "all");
     });
@@ -364,8 +388,19 @@ function openAlbum(albumId) {
   albumGrid.style.display = "none";
   albumPanel.hidden = false;
 
+  // 1) Rendera direkt (så UI känns instant)
   renderMedia(album);
+
+  // 2) Preloada ALLA thumbnails i albumet i bakgrunden
+  // (och även bild-src för image-items om du inte har separata thumbs)
+  const urlsToPreload = album.items
+    .filter(item => item.kind === "image")
+    .map(item => item.thumb || item.src);
+
+  // Kör preload utan att blocka UI
+  preloadImages(urlsToPreload, { concurrency: 12 });
 }
+
 
 // 6) Tillbaka
 if (albumBackBtn) {
@@ -395,17 +430,15 @@ if (albumFilters) {
   });
 }
 
-// 7) Render media items
 function renderMedia(album) {
   if (!mediaGrid) return;
   mediaGrid.innerHTML = "";
 
-  // Filter items based on activeAlbumFilter
-  const filteredItems = album.items.filter(item => 
+  const filteredItems = album.items.filter(item =>
     activeAlbumFilter === "all" || item.kind === activeAlbumFilter
   );
 
-  filteredItems.forEach(item => {
+  filteredItems.forEach((item, index) => {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "mediaItem";
@@ -414,18 +447,40 @@ function renderMedia(album) {
       item.thumb ||
       (item.kind === "image" ? item.src : album.thumb);
 
-    btn.innerHTML = `
-      <div class="mediaItem__thumb">
-        <img src="${thumbSrc}" alt="${item.title || album.title}" loading="lazy" />
-        <span class="mediaItem__badge">${item.kind === "video" ? "VIDEO" : "BILD"}</span>
-      </div>
-      <div class="mediaItem__title">${item.title || ""}</div>
-    `;
+    const thumbWrap = document.createElement("div");
+    thumbWrap.className = "mediaItem__thumb";
+
+    const img = document.createElement("img");
+    img.alt = item.title || album.title;
+
+    // 🔥 Detta gör att bilderna startar direkt (inte lazy)
+    img.loading = "eager";
+    img.decoding = "async";
+
+    // Första bilderna får högre prioritet
+    // (Chrome stödjer fetchPriority i många fall)
+    img.fetchPriority = index < 10 ? "high" : "auto";
+
+    img.src = thumbSrc;
+
+    const badge = document.createElement("span");
+    badge.className = "mediaItem__badge";
+    badge.textContent = item.kind === "video" ? "VIDEO" : "BILD";
+
+    const title = document.createElement("div");
+    title.className = "mediaItem__title";
+    title.textContent = item.title || "";
+
+    thumbWrap.appendChild(img);
+    thumbWrap.appendChild(badge);
+    btn.appendChild(thumbWrap);
+    btn.appendChild(title);
 
     btn.addEventListener("click", () => openInModal(item, album));
     mediaGrid.appendChild(btn);
   });
 }
+
 
 // 8) Öppna i din befintliga modal
 // Den här bygger på att du redan har #modal, #modalTitle, #modalBody etc.
