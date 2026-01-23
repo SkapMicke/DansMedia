@@ -254,14 +254,15 @@ const PORTFOLIO_ALBUMS = [
       { kind: "image", src: "assets/portfolio/albums/bildpaket/02.jpg", title: "Poster 2" },
     ],
   },
-  {
-    id: "livefoto",
-    title: "Live Foto",
-    type: "bild",
-    desc: "Bilder tagna direkt på scen!",
-    thumb: "assets/portfolio/albums/promo/live.png",
-    items: createLiveFotoItems(), // Automatiskt alla bilder från livefoto-mappen
-  },
+{
+  id: "livefoto",
+  title: "Live Foto",
+  type: "bild",
+  desc: "Bilder tagna direkt på scen!",
+  thumb: "assets/portfolio/albums/promo/live.png",
+  items: [],
+},
+
   {
     id: "sounders",
     title: "Sounders Dansorkester",
@@ -516,3 +517,78 @@ document.addEventListener("click", (e) => {
     if (i) i.textContent = "–";
   }
 });
+
+
+// ===============================
+// Live Foto – auto från manifest
+// ===============================
+
+// Hämtar livefoto-items från manifest (rekommenderat)
+// Fallback: 1.jpg..100.jpg om manifest saknas
+async function createLiveFotoItems() {
+  const basePath = "assets/portfolio/albums/livefoto/";
+  const manifestUrl = `${basePath}manifest.json`;
+
+  // Cache-bust så nya uppladdningar syns direkt efter refresh
+  const bust = `?v=${Date.now()}`;
+
+  try {
+    const res = await fetch(manifestUrl + bust, { cache: "no-store" });
+    if (!res.ok) throw new Error("manifest not found");
+
+    const data = await res.json();
+    const files = Array.isArray(data.files) ? data.files : [];
+    const prefix = (data.titlePrefix || "Live Foto").toString();
+
+    return files.map((file, idx) => ({
+      kind: "image",
+      src: `${basePath}${file}${bust}`,
+      title: `${prefix} ${idx + 1}`
+    }));
+  } catch (e) {
+    // Fallback: sekventiella filer 1.jpg..100.jpg
+    const items = [];
+    const maxImages = 100;
+    for (let i = 1; i <= maxImages; i++) {
+      items.push({
+        kind: "image",
+        src: `${basePath}${i}.jpg${bust}`,
+        title: `Live Foto ${i}`
+      });
+    }
+    return items;
+  }
+}
+
+/*
+  ✅ VIKTIGT: I din PORTFOLIO_ALBUMS ska livefoto-albumet se ut såhär.
+  Byt bara ut din livefoto-del mot denna:
+*/
+const LIVEFOTO_ALBUM_TEMPLATE = {
+  id: "livefoto",
+  title: "Live Foto",
+  type: "bild",
+  desc: "Bilder tagna direkt på scen!",
+  thumb: "assets/portfolio/albums/promo/live.png",
+  items: [], // fylls vid init
+};
+
+// ===============================
+// Init – laddar livefoto först
+// ===============================
+
+// Ersätt din nuvarande "renderAlbums();" längst ner med denna init.
+// (Den kommer själv kalla renderAlbums när livefoto är klart.)
+async function initPortfolio() {
+  // Om du redan har PORTFOLIO_ALBUMS definierad ovan, så hittar vi livefoto-albumet:
+  const liveAlbum = PORTFOLIO_ALBUMS.find(a => a.id === "livefoto");
+
+  if (liveAlbum) {
+    liveAlbum.items = await createLiveFotoItems();
+  }
+
+  renderAlbums();
+}
+
+// Kör init
+initPortfolio();
