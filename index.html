@@ -232,10 +232,10 @@
       <div class="container">
         <div class="section__head">
           <div>
-            <h2>Upplägg som får band att stanna</h2>
+            <h2>Upplägg för framgång</h2>
             <p class="muted">
-              Tanken är enkel: du får en “content-person” som alltid levererar.
-              Du kan få material inför alla spelningar + extra videos/bilder när ni behöver.
+              Ett genomtänkt upplägg som gör det enkelt att få högkvalitativt innehåll regelbundet.
+              Du får en dedikerad content-partner som levererar material inför spelningar och extra innehåll när det behövs.
             </p>
           </div>
         </div>
@@ -244,59 +244,59 @@
           <div class="step">
             <div class="step__n">1</div>
             <div>
-              <div class="step__t">Ni skickar info</div>
-              <div class="muted">Datum, plats, affisch/logga, ev. önskemål.</div>
+              <div class="step__t">Ni delar information</div>
+              <div class="muted">Skicka datum, plats, affisch eller logga, och eventuella önskemål.</div>
             </div>
           </div>
           <div class="step">
             <div class="step__n">2</div>
             <div>
-              <div class="step__t">Jag bygger material</div>
-              <div class="muted">Video + bild i er stil, med tydlig text & CTA.</div>
+              <div class="step__t">Jag skapar materialet</div>
+              <div class="muted">Video och bilder i er stil, med tydlig text och call-to-action.</div>
             </div>
           </div>
           <div class="step">
             <div class="step__n">3</div>
             <div>
-              <div class="step__t">Ni postar & växer</div>
-              <div class="muted">Allt levereras redo att publiceras.</div>
+              <div class="step__t">Ni delar och når ut</div>
+              <div class="muted">Allt är klart att publicera direkt.</div>
             </div>
           </div>
         </div>
 
         <div class="valueGrid">
           <div class="value">
-            <div class="value__t">✅ Alltid material</div>
-            <div class="muted">Ni har content inför varje spelning — och mellan spelningar.</div>
+            <div class="value__t">✅ Kontinuerligt innehåll</div>
+            <div class="muted">Regelbundet material inför varje spelning och däremellan.</div>
           </div>
           <div class="value">
-            <div class="value__t">✅ Enhetlig kvalitet</div>
-            <div class="muted">En röd tråd gör att bandet känns större & mer seriöst.</div>
+            <div class="value__t">✅ Enhetlig stil</div>
+            <div class="muted">En sammanhållen look som gör ert band mer professionellt.</div>
           </div>
           <div class="value">
-            <div class="value__t">✅ Flexibel kostnad</div>
-            <div class="muted">Pris baseras på hur många leveranser ni vill ha — inte “låsta” paket.</div>
+            <div class="value__t">✅ Flexibla kostnader</div>
+            <div class="muted">Betala för det antal leveranser ni behöver, utan fasta paket.</div>
           </div>
           <div class="value">
-            <div class="value__t">✅ Snabbare när vi kör löpande</div>
-            <div class="muted">Jag har era mallar/stil redo, så det går fort att leverera.</div>
+            <div class="value__t">✅ Snabb leverans</div>
+            <div class="muted">Med färdiga mallar går det snabbt att producera nytt material.</div>
           </div>
           <div class="value">
-            <div class="value__t">✅ Små ändringar ingår</div>
-            <div class="muted">Datum/ort/byten? Fixas snabbt utan att det blir krångligt.</div>
+            <div class="value__t">✅ Gratis justeringar</div>
+            <div class="muted">Små ändringar som datum eller plats fixas snabbt och kostnadsfritt.</div>
           </div>
           <div class="value">
-            <div class="value__t">✅ “Inte dyrt” — byggt för långsiktighet</div>
-            <div class="muted">Målet är att ni får så mycket värde att ni vill anlita igen.</div>
+            <div class="value__t">✅ Långsiktig värde</div>
+            <div class="muted">Designat för att ge maximal nytta över tid.</div>
           </div>
         </div>
 
         <div class="ctaBar">
           <div>
-            <div class="ctaBar__t">Vill du ha ett upplägg?</div>
-            <div class="muted">Säg hur många spelningar ni har per månad så föreslår jag mängd content.</div>
+            <div class="ctaBar__t">Intresserad av ett upplägg?</div>
+            <div class="muted">Berätta om era spelningar per månad så föreslår jag rätt mängd innehåll.</div>
           </div>
-          <a class="btn" href="#kontakt">Be om upplägg</a>
+          <a class="btn" href="#kontakt">Fråga om upplägg</a>
         </div>
       </div>
     </section>
@@ -331,6 +331,13 @@
           <div class="muted" id="albumDesc">—</div>
         </div>
         <button class="btn btn--ghost" id="albumBackBtn" type="button">← Tillbaka</button>
+      </div>
+
+      <!-- Album filters (visa bara om album har både video och bild) -->
+      <div class="albumFilters" id="albumFilters" style="display: none;">
+        <button class="filter filter--album active" data-filter="all">Alla</button>
+        <button class="filter filter--album" data-filter="video">Video</button>
+        <button class="filter filter--album" data-filter="image">Bilder</button>
       </div>
 
       <div class="mediaGrid" id="mediaGrid"></div>
@@ -378,7 +385,7 @@
           <div class="webCard webCard--accent">
             <div class="webCard__t">Vill du att jag tar allt?</div>
             <p class="muted">Säg vad ni vill ha på sidan så föreslår jag en lösning och ett pris.</p>
-            <a class="btn wide" href="#kontakt">Be om offert</a>
+            <a class="btn wide" href="#kontakt">Kontakt</a>
           </div>
         </div>
       </div>
@@ -467,7 +474,7 @@
         <h2>Kontakt</h2>
         <p class="muted">
           Vill du hellre ringa eller skicka SMS? Inga problem. Annars kan du skriva via formuläret.
-          Skriv gärna <strong>datum/ort</strong>, <strong>typ av content</strong> och <strong>hur många spelningar per månad</strong>.
+          Skriv gärna hur jag kan hjälpa er, video? bild? För varje spelning?.
         </p>
 
         <!-- Kontaktkort -->
@@ -500,7 +507,7 @@
           </div>
           <div class="infoItem">
             <div class="infoItem__t">För att ge pris</div>
-            <div class="muted">Kontakta mig gärna, så diskuterar vi något som passar ert band & mig.</div>
+            <div class="muted">Kontakta mig gärna, så diskuterar vi något som passar oss båda utefter vad som skall göras.</div>
           </div>
           <div class="infoItem">
             <div class="infoItem__t">Leverans</div>
@@ -509,7 +516,7 @@
         </div>
 
         <div class="muted tiny">
-          Livefoto finns som extra (hobby). Fokus här är marknadsföring/content.
+          Livefoto finns som extra (hobby). Fokus här är marknadsföring/content, och kan absolut kompletteras med livefoto från spelningar.
         </div>
       </div>
 
@@ -533,7 +540,7 @@
             <option value="video">Video / marknadsföring</option>
             <option value="content">Löpande content</option>
             <option value="bild">Bildmaterial</option>
-            <option value="webb">Hemsida / EPK</option>
+            <option value="webb">Hemsida</option>
             <option value="annat">Annat</option>
           </select>
         </label>
@@ -564,7 +571,7 @@
           <div>
             <div class="footer__t">DansMedia Studio</div>
             <div class="muted tiny">Video • Bild • Webb</div>
-            <div class="muted tiny">Bygger även hemsidor åt andra</div>
+            <div class="muted tiny">Bygger även hemsidor åt band!</div>
           </div>
         </div>
 

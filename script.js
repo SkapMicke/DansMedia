@@ -201,6 +201,24 @@ if (copyEmailBtn2 && emailText2) {
 // Portfolio – album + lokal assets
 // ===============================
 
+// Funktion för att skapa livefoto-items från förväntade filer
+function createLiveFotoItems() {
+  const basePath = "assets/portfolio/albums/livefoto/";
+  const items = [];
+  const maxImages = 100; // Stöd för upp till 100 bilder
+  
+  // Skapa items för sekventiella namn (1.jpg, 2.jpg, ..., 100.jpg)
+  for (let i = 1; i <= maxImages; i++) {
+    items.push({
+      kind: "image",
+      src: `${basePath}${i}.jpg`,
+      title: `Live Foto ${i}`
+    });
+  }
+  
+  return items;
+}
+
 // 1) Definiera album + media (lägg bara in dina filer här)
 const PORTFOLIO_ALBUMS = [
   {
@@ -242,9 +260,32 @@ const PORTFOLIO_ALBUMS = [
     type: "bild",
     desc: "Bilder tagna direkt på scen!",
     thumb: "assets/portfolio/albums/promo/live.png",
+    items: createLiveFotoItems(), // Automatiskt alla bilder från livefoto-mappen
+  },
+  {
+    id: "sounders",
+    title: "Sounders Dansorkester",
+    type: "video", // huvudtyp, men innehåller både video och bild
+    desc: "Videor och bilder från Sounders Dansorkester spelningar och events.",
+    thumb: "assets/portfolio/albums/sounders/images/banner.jpg",
     items: [
-      { kind: "image", src: "assets/portfolio/albums/bildpaket/01.jpg", title: "Poster 1" },
-      { kind: "image", src: "assets/portfolio/albums/bildpaket/02.jpg", title: "Poster 2" },
+      // Videos
+      { kind: "video", src: "assets/portfolio/albums/sounders/videos/1.mp4", thumb: "assets/portfolio/albums/sounders/videos/1bild.jpg", title: "Sounders Video 1" },
+      { kind: "video", src: "assets/portfolio/albums/sounders/videos/2.mp4", thumb: "assets/portfolio/albums/sounders/videos/2bild.jpg", title: "Sounders Video 2" },
+      { kind: "video", src: "assets/portfolio/albums/sounders/videos/3.mp4", thumb: "assets/portfolio/albums/sounders/images/banner.jpg", title: "Sounders Video 3" },
+      { kind: "video", src: "assets/portfolio/albums/sounders/videos/4.mp4", thumb: "assets/portfolio/albums/sounders/images/banner.jpg", title: "Sounders Video 4" },
+      { kind: "video", src: "assets/portfolio/albums/sounders/videos/5.mp4", thumb: "assets/portfolio/albums/sounders/images/banner.jpg", title: "Sounders Video 5" },
+      { kind: "video", src: "assets/portfolio/albums/sounders/videos/6.mp4", thumb: "assets/portfolio/albums/sounders/images/banner.jpg", title: "Sounders Video 6" },
+      { kind: "video", src: "assets/portfolio/albums/sounders/videos/7.mp4", thumb: "assets/portfolio/albums/sounders/images/banner.jpg", title: "Sounders Video 7" },
+      { kind: "video", src: "assets/portfolio/albums/sounders/videos/8.mp4", thumb: "assets/portfolio/albums/sounders/images/banner.jpg", title: "Sounders Video 8" },
+      { kind: "video", src: "assets/portfolio/albums/sounders/videos/9.mp4", thumb: "assets/portfolio/albums/sounders/images/banner.jpg", title: "Sounders Video 9" },
+      // Images
+      { kind: "image", src: "assets/portfolio/albums/sounders/images/banner.jpg", title: "Sounders Banner" },
+      { kind: "image", src: "assets/portfolio/albums/sounders/images/halloween.jpg", title: "Halloween Event" },
+      { kind: "image", src: "assets/portfolio/albums/sounders/images/logo.jpg", title: "Sounders Logo" },
+      { kind: "image", src: "assets/portfolio/albums/sounders/images/sounders.jpg", title: "Sounders Dansorkester" },
+      { kind: "image", src: "assets/portfolio/albums/sounders/images/tackbåt.jpg", title: "Tackbåt Event" },
+      { kind: "image", src: "assets/portfolio/albums/sounders/images/tacksundspärlan.jpg", title: "Tacksundspärlan" },
     ],
   },
 ];
@@ -260,6 +301,10 @@ const albumBackBtn = document.getElementById("albumBackBtn");
 // 3) Filter buttons
 const filterButtons = Array.from(document.querySelectorAll(".filters .filter"));
 let activeFilter = "all";
+
+// Album filter
+let activeAlbumFilter = "all";
+const albumFilters = document.getElementById("albumFilters");
 
 // 4) Render albumkort
 function renderAlbums() {
@@ -299,6 +344,21 @@ function openAlbum(albumId) {
   albumTitle.textContent = album.title;
   albumDesc.textContent = album.desc;
 
+  // Reset album filter
+  activeAlbumFilter = "all";
+
+  // Check if album has both video and image items
+  const hasVideo = album.items.some(item => item.kind === "video");
+  const hasImage = album.items.some(item => item.kind === "image");
+  
+  if (albumFilters) {
+    albumFilters.style.display = (hasVideo && hasImage) ? "flex" : "none";
+    // Update active state
+    albumFilters.querySelectorAll(".filter--album").forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.filter === "all");
+    });
+  }
+
   // göm album grid, visa panel
   albumGrid.style.display = "none";
   albumPanel.hidden = false;
@@ -315,12 +375,36 @@ if (albumBackBtn) {
   });
 }
 
+// 6.5) Album filter buttons
+if (albumFilters) {
+  albumFilters.addEventListener("click", (e) => {
+    if (!e.target.classList.contains("filter--album")) return;
+    
+    const filter = e.target.dataset.filter;
+    activeAlbumFilter = filter;
+    
+    // Update active state
+    albumFilters.querySelectorAll(".filter--album").forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.filter === filter);
+    });
+    
+    // Re-render current album
+    const currentAlbum = PORTFOLIO_ALBUMS.find(a => a.title === albumTitle.textContent);
+    if (currentAlbum) renderMedia(currentAlbum);
+  });
+}
+
 // 7) Render media items
 function renderMedia(album) {
   if (!mediaGrid) return;
   mediaGrid.innerHTML = "";
 
-  album.items.forEach(item => {
+  // Filter items based on activeAlbumFilter
+  const filteredItems = album.items.filter(item => 
+    activeAlbumFilter === "all" || item.kind === activeAlbumFilter
+  );
+
+  filteredItems.forEach(item => {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "mediaItem";
@@ -400,3 +484,35 @@ filterButtons.forEach(btn => {
 
 // 10) init
 renderAlbums();
+
+
+
+// FAQ (robust)
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".faq__q");
+  if (!btn) return;
+
+  const wrap = btn.closest(".faq");
+  const answer = btn.nextElementSibling;
+
+  if (!wrap || !answer || !answer.classList.contains("faq__a")) return;
+
+  const isOpen = btn.getAttribute("aria-expanded") === "true";
+
+  // Stäng alla
+  wrap.querySelectorAll(".faq__q").forEach((q) => {
+    q.setAttribute("aria-expanded", "false");
+    const a = q.nextElementSibling;
+    if (a && a.classList.contains("faq__a")) a.style.display = "none";
+    const i = q.querySelector(".faq__i");
+    if (i) i.textContent = "+";
+  });
+
+  // Öppna klickad (om den var stängd)
+  if (!isOpen) {
+    btn.setAttribute("aria-expanded", "true");
+    answer.style.display = "block";
+    const i = btn.querySelector(".faq__i");
+    if (i) i.textContent = "–";
+  }
+});
