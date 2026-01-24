@@ -149,13 +149,27 @@ works.forEach(w => {
 });
 
 $("#openShowreel")?.addEventListener("click", () => {
+  // Hämta alla video-items från alla album (som har kind === "video")
+  const allVideos = PORTFOLIO_ALBUMS
+    .flatMap(a => (a.items || []).map(it => ({ ...it, albumTitle: a.title })))
+    .filter(it => it.kind === "video" && it.src);
+
+  if (!allVideos.length) {
+    toast("Inga videor hittades ❌");
+    return;
+  }
+
+  // Random video
+  const pick = allVideos[Math.floor(Math.random() * allVideos.length)];
+
   openModal({
-    title: "Showreel (demo)",
-    meta: "VIDEO • demo",
+    title: pick.title || "Showreel",
+    meta: `VIDEO • ${pick.albumTitle || "Portfolio"}`,
     kind: "video",
-    src: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+    src: pick.src, // lokal mp4 funkar eftersom din openModal redan stödjer video
   });
 });
+
 
 modalClose?.addEventListener("click", closeModal);
 modal?.addEventListener("click", (e) => {
@@ -249,27 +263,33 @@ function createLiveFotoItems() {
 // 1) Definiera album + media (lägg bara in dina filer här)
 const PORTFOLIO_ALBUMS = [
   {
-    id: "promo",
-    title: "Promo / Teasers",
-    type: "video", // används av filter (video/bild/webb)
-    desc: "Videor som jag tidigare gjort för band mm.",
-    thumb: "assets/portfolio/albums/promo/badge.png",
+    id: "sounders",
+    title: "Sounders Dansorkester",
+    type: "video",
+    desc: "Videor och bilder från Sounders Dansorkester spelningar och events.",
+    thumb: "assets/portfolio/albums/sounders/images/banner.jpg",
     items: [
-      { kind: "video", src: "assets/portfolio/albums/promo/03.mp4", thumb: "assets/portfolio/albums/promo/01.png", title: "Streaks Video" },
-      {
-  kind: "video",
-  src: "assets/portfolio/albums/promo/julsounders.mp4",
-  thumb: "assets/portfolio/albums/promo/sounders.png",
-  title: "Julvideo Sounders Dansorkester"
-},
-{
-  kind: "video",
-  src: "assets/portfolio/albums/promo/15julsounders.mp4",
-  thumb: "assets/portfolio/albums/promo/sounders.png",
-  title: "15 Juli spelning Sounders Dansorkester"
-}
+      // Videos
+      { kind: "video", src: "assets/portfolio/albums/sounders/videos/1.mp4", title: "Sounders Video 1" },
+      { kind: "video", src: "assets/portfolio/albums/sounders/videos/2.mp4", title: "Sounders Video 2" },
+      { kind: "video", src: "assets/portfolio/albums/sounders/videos/3.mp4", title: "Sounders Video 3" },
+      { kind: "video", src: "assets/portfolio/albums/sounders/videos/4.mp4", title: "Sounders Video 4" },
+      { kind: "video", src: "assets/portfolio/albums/sounders/videos/5.mp4", title: "Sounders Video 5" },
+      { kind: "video", src: "assets/portfolio/albums/sounders/videos/6.mp4", title: "Sounders Video 6" },
+      { kind: "video", src: "assets/portfolio/albums/sounders/videos/7.mp4", title: "Sounders Video 7" },
+      { kind: "video", src: "assets/portfolio/albums/sounders/videos/8.mp4", title: "Sounders Video 8" },
+      { kind: "video", src: "assets/portfolio/albums/sounders/videos/9.mp4", title: "Sounders Video 9" },
+
+      // Images
+      { kind: "image", src: "assets/portfolio/albums/sounders/images/banner.jpg", title: "Sounders Banner" },
+      { kind: "image", src: "assets/portfolio/albums/sounders/images/halloween.jpg", title: "Halloween Event" },
+      { kind: "image", src: "assets/portfolio/albums/sounders/images/logo.jpg", title: "Sounders Logo" },
+      { kind: "image", src: "assets/portfolio/albums/sounders/images/sounders.jpg", title: "Sounders Dansorkester" },
+      { kind: "image", src: "assets/portfolio/albums/sounders/images/tackbåt.jpg", title: "Tackbåt Event" },
+      { kind: "image", src: " attachments/portfolio/albums/sounders/images/tacksundspärlan.jpg", title: "Tacksundspärlan" },
     ],
   },
+
   {
     id: "bildpaket",
     title: "Bild bank",
@@ -281,42 +301,17 @@ const PORTFOLIO_ALBUMS = [
       { kind: "image", src: "assets/portfolio/albums/bildpaket/02.jpg", title: "Poster 2" },
     ],
   },
-{
-  id: "livefoto",
-  title: "Live Foto",
-  type: "bild",
-  desc: "Bilder tagna direkt på scen!",
-  thumb: "assets/portfolio/albums/promo/live.png",
-  items: [],
-},
 
   {
-    id: "sounders",
-    title: "Sounders Dansorkester",
-    type: "video", // huvudtyp, men innehåller både video och bild
-    desc: "Videor och bilder från Sounders Dansorkester spelningar och events.",
-    thumb: "assets/portfolio/albums/sounders/images/banner.jpg",
-    items: [
-      // Videos
-      { kind: "video", src: "assets/portfolio/albums/sounders/videos/1.mp4", thumb: "assets/portfolio/albums/sounders/videos/1bild.jpg", title: "Sounders Video 1" },
-      { kind: "video", src: "assets/portfolio/albums/sounders/videos/2.mp4", thumb: "assets/portfolio/albums/sounders/videos/2bild.jpg", title: "Sounders Video 2" },
-      { kind: "video", src: "assets/portfolio/albums/sounders/videos/3.mp4", title: "Sounders Video 3" },
-      { kind: "video", src: "assets/portfolio/albums/sounders/videos/4.mp4", title: "Sounders Video 4" },
-      { kind: "video", src: "assets/portfolio/albums/sounders/videos/5.mp4", title: "Sounders Video 5" },
-      { kind: "video", src: "assets/portfolio/albums/sounders/videos/6.mp4", title: "Sounders Video 6" },
-      { kind: "video", src: "assets/portfolio/albums/sounders/videos/7.mp4", title: "Sounders Video 7" },
-      { kind: "video", src: "assets/portfolio/albums/sounders/videos/8.mp4", title: "Sounders Video 8" },
-      { kind: "video", src: "assets/portfolio/albums/sounders/videos/9.mp4", title: "Sounders Video 9" },
-      // Images
-      { kind: "image", src: "assets/portfolio/albums/sounders/images/banner.jpg", title: "Sounders Banner" },
-      { kind: "image", src: "assets/portfolio/albums/sounders/images/halloween.jpg", title: "Halloween Event" },
-      { kind: "image", src: "assets/portfolio/albums/sounders/images/logo.jpg", title: "Sounders Logo" },
-      { kind: "image", src: "assets/portfolio/albums/sounders/images/sounders.jpg", title: "Sounders Dansorkester" },
-      { kind: "image", src: "assets/portfolio/albums/sounders/images/tackbåt.jpg", title: "Tackbåt Event" },
-      { kind: "image", src: "assets/portfolio/albums/sounders/images/tacksundspärlan.jpg", title: "Tacksundspärlan" },
-    ],
+    id: "livefoto",
+    title: "Live Foto",
+    type: "bild",
+    desc: "Bilder tagna direkt på scen!",
+    thumb: "assets/portfolio/albums/promo/live.png",
+    items: [],
   },
 ];
+
 
 // 2) Element refs
 const albumGrid = document.getElementById("albumGrid");
@@ -430,6 +425,115 @@ if (albumFilters) {
   });
 }
 
+// ===============================
+// Video thumbnails (auto from mp4)
+// ===============================
+const videoThumbCache = new Map();
+
+function makeVideoThumbnail(videoSrc, { maxW = 900 } = {}) {
+  if (videoThumbCache.has(videoSrc)) return videoThumbCache.get(videoSrc);
+
+  const p = new Promise((resolve) => {
+    const video = document.createElement("video");
+    video.src = videoSrc;
+    video.muted = true;
+    video.playsInline = true;
+    video.preload = "metadata";
+
+    let done = false;
+    const finish = (val) => {
+      if (done) return;
+      done = true;
+      try {
+        video.pause();
+        video.removeAttribute("src");
+        video.load();
+      } catch {}
+      resolve(val);
+    };
+
+    const toDataUrl = () => {
+      try {
+        const w = video.videoWidth || 1280;
+        const h = video.videoHeight || 720;
+
+        const scale = Math.min(1, maxW / w);
+        const cw = Math.max(1, Math.round(w * scale));
+        const ch = Math.max(1, Math.round(h * scale));
+
+        const canvas = document.createElement("canvas");
+        canvas.width = cw;
+        canvas.height = ch;
+
+        const ctx = canvas.getContext("2d", { willReadFrequently: true });
+        ctx.drawImage(video, 0, 0, cw, ch);
+
+        // Snabb “är detta typ svart?”-koll (sample en pixel i mitten)
+        const mid = ctx.getImageData(Math.floor(cw/2), Math.floor(ch/2), 1, 1).data;
+        const brightness = (mid[0] + mid[1] + mid[2]) / 3;
+
+        const dataUrl = canvas.toDataURL("image/jpeg", 0.82);
+        return { dataUrl, brightness };
+      } catch (e) {
+        return null;
+      }
+    };
+
+    // Vi provar flera tidpunkter ifall början är svart
+    const seekCandidates = (duration) => {
+      const d = Number.isFinite(duration) ? duration : 0;
+      const a = [];
+      // 10% in (min 2s), sen 25% in, sen 50% in
+      if (d > 0) {
+        a.push(Math.min(d - 0.15, Math.max(2, d * 0.10)));
+        a.push(Math.min(d - 0.15, Math.max(3, d * 0.25)));
+        a.push(Math.min(d - 0.15, Math.max(4, d * 0.50)));
+      } else {
+        a.push(2, 4, 6);
+      }
+      return a.filter(t => t > 0.05);
+    };
+
+    let candidates = [];
+    let idx = 0;
+
+    const trySeek = () => {
+      if (idx >= candidates.length) return finish(null);
+      const t = candidates[idx++];
+      try {
+        video.currentTime = t;
+      } catch {
+        finish(null);
+      }
+    };
+
+    video.addEventListener("loadedmetadata", () => {
+      candidates = seekCandidates(video.duration);
+      trySeek();
+    });
+
+    video.addEventListener("seeked", () => {
+      const res = toDataUrl();
+      if (!res) return trySeek();
+
+      // Om för mörk/svart: prova nästa tidpunkt
+      if (res.brightness < 18) return trySeek();
+
+      finish(res.dataUrl);
+    });
+
+    video.addEventListener("error", () => finish(null));
+
+    // Timeout-säkring (så inget hänger)
+    setTimeout(() => finish(null), 3500);
+  });
+
+  videoThumbCache.set(videoSrc, p);
+  return p;
+}
+
+
+
 function renderMedia(album) {
   if (!mediaGrid) return;
   mediaGrid.innerHTML = "";
@@ -443,43 +547,120 @@ function renderMedia(album) {
     btn.type = "button";
     btn.className = "mediaItem";
 
-    const thumbSrc =
-      item.thumb ||
-      (item.kind === "image" ? item.src : album.thumb);
+    // =========================
+    // IMAGE
+    // =========================
+    if (item.kind === "image") {
+      const thumbSrc = item.thumb || item.src;
 
-    const thumbWrap = document.createElement("div");
-    thumbWrap.className = "mediaItem__thumb";
+      btn.innerHTML = `
+        <div class="mediaItem__thumb">
+          <img alt="${item.title || album.title}" />
+          <span class="mediaItem__badge">BILD</span>
+        </div>
+        <div class="mediaItem__title">${item.title || ""}</div>
+      `;
 
-    const img = document.createElement("img");
-    img.alt = item.title || album.title;
+      const img = btn.querySelector("img");
 
-    // 🔥 Detta gör att bilderna startar direkt (inte lazy)
-    img.loading = "eager";
-    img.decoding = "async";
+      // Dölj bildkort tills den laddat
+      btn.style.display = "none";
+      img.loading = "eager";
+      img.decoding = "async";
+      img.fetchPriority = index < 10 ? "high" : "auto";
 
-    // Första bilderna får högre prioritet
-    // (Chrome stödjer fetchPriority i många fall)
-    img.fetchPriority = index < 10 ? "high" : "auto";
+      img.onload = () => { btn.style.display = ""; };
+      img.onerror = () => { btn.remove(); };
+      img.src = thumbSrc;
 
-    img.src = thumbSrc;
+      btn.addEventListener("click", () => openInModal(item, album));
+      mediaGrid.appendChild(btn);
+      return;
+    }
 
-    const badge = document.createElement("span");
-    badge.className = "mediaItem__badge";
-    badge.textContent = item.kind === "video" ? "VIDEO" : "BILD";
+    // =========================
+    // VIDEO (hover preview)
+    // =========================
+    btn.innerHTML = `
+      <div class="mediaItem__thumb">
+        <video class="mediaThumbVideo" muted playsinline preload="metadata"></video>
+        <span class="mediaItem__badge">VIDEO</span>
+      </div>
+      <div class="mediaItem__title">${item.title || ""}</div>
+    `;
 
-    const title = document.createElement("div");
-    title.className = "mediaItem__title";
-    title.textContent = item.title || "";
+    const v = btn.querySelector("video");
+    v.src = item.src;
+    v.muted = true;
+    v.playsInline = true;
+    v.preload = "metadata";
 
-    thumbWrap.appendChild(img);
-    thumbWrap.appendChild(badge);
-    btn.appendChild(thumbWrap);
-    btn.appendChild(title);
+    // Förhindrar att knappen "stjäl" hover/click från videon i vissa browsers
+    v.style.pointerEvents = "none";
 
-    btn.addEventListener("click", () => openInModal(item, album));
+    // Visa en tidig frame (utan att spela)
+    const setPreviewFrame = () => {
+      try {
+        const t = Math.min(0.25, Math.max(0, (v.duration || 1) - 0.1));
+        v.currentTime = t;
+      } catch {}
+    };
+    v.addEventListener("loadedmetadata", setPreviewFrame, { once: true });
+
+    // Hover state
+    let hovered = false;
+
+    const playOnHover = async () => {
+      hovered = true;
+
+      // Starta lite in i videon så man slipper svart frame
+      try {
+        const t = Math.min(0.25, Math.max(0, (v.duration || 1) - 0.1));
+        if (!Number.isNaN(t)) v.currentTime = t;
+      } catch {}
+
+      try {
+        await v.play(); // muted + playsinline => brukar funka
+      } catch {
+        // Autoplay kan blockas i vissa lägen, men då står videon kvar på preview frame
+      }
+    };
+
+    const stopHover = () => {
+      hovered = false;
+      v.pause();
+      // tillbaks till preview frame
+      setPreviewFrame();
+    };
+
+    btn.addEventListener("mouseenter", playOnHover);
+    btn.addEventListener("mouseleave", stopHover);
+
+    // Spara CPU: spela inte om den inte syns
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) {
+          v.pause();
+        } else {
+          // Om användaren hovrar och kortet syns igen -> fortsätt spela
+          if (hovered) v.play().catch(() => {});
+        }
+      });
+    }, { threshold: 0.2 });
+
+    io.observe(btn);
+
+    // Klick öppnar i modal (stoppa preview först)
+    btn.addEventListener("click", () => {
+      v.pause();
+      openInModal(item, album);
+    });
+
     mediaGrid.appendChild(btn);
   });
 }
+
+
 
 
 // 8) Öppna i din befintliga modal
