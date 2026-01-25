@@ -828,3 +828,43 @@ async function initPortfolio() {
 
 // Kör init
 initPortfolio();
+
+
+// =====================
+// Contact form (Formspree)
+// =====================
+(() => {
+  const form = document.querySelector("#contactForm");
+  const statusEl = document.querySelector("#formStatus");
+
+  if (!form || !statusEl) return;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // Enkel front-check
+    if (!form.checkValidity()) {
+      statusEl.textContent = "Fyll i alla fält.";
+      return;
+    }
+
+    statusEl.textContent = "Skickar...";
+
+    try {
+      const res = await fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      });
+
+      if (res.ok) {
+        form.reset();
+        statusEl.textContent = "✅ Skickat! Jag återkommer så snart jag kan.";
+      } else {
+        statusEl.textContent = "❌ Kunde inte skicka. Testa igen eller maila: dansmedian@gmail.com";
+      }
+    } catch (err) {
+      statusEl.textContent = "❌ Nätverksfel. Testa igen eller maila: dansmedian@gmail.com";
+    }
+  });
+})();

@@ -275,7 +275,7 @@ strong{ font-weight: 800; }
   padding: 12px 16px;
   border-radius: 14px;
   border: 1px solid transparent;
-  background: linear-gradient(135deg, rgba(255,179,0,.95), rgba(58,168,255,.95));
+  background: linear-gradient(135deg, rgba(26, 24, 21, 0.95), rgba(2, 20, 34, 0.95));
   color: #ffffff;
   font-weight: 900;
   cursor:pointer;
@@ -1683,93 +1683,68 @@ input:focus, select:focus, textarea:focus{
   letter-spacing: -0.01em;
 }
 
-/* Form-kortet: bättre “panel” känsla */
-#kontakt .form{
-  background: rgba(255,255,255,.05);
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: 22px;
-  box-shadow: 0 22px 70px rgba(0,0,0,.45);
-  padding: 18px;
-  backdrop-filter: blur(12px);
-}
 
-#kontakt .form label{
-  display:block;
-  font-weight: 800;
-  font-size: 13px;
-  letter-spacing: .01em;
-  color: rgba(255,255,255,.85);
-  margin: 10px 0 6px;
-}
 
-#kontakt .form__row{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-@media (max-width: 620px){
-  #kontakt .form__row{ grid-template-columns: 1fr; }
-}
 
-/* Inputs */
-#kontakt input,
-#kontakt select,
-#kontakt textarea{
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 16px;
-  background: rgba(0,0,0,.25);
-  border: 1px solid rgba(255,255,255,.10);
-  color: rgba(255,255,255,.92);
-  outline: none;
-  transition: border-color .15s ease, background .15s ease, transform .12s ease;
-}
+/* ==========================================
+   Kontakt-knappar: blanka & svarta
+   (klistra längst ner i CSS)
+   ========================================== */
 
-#kontakt textarea{
-  min-height: 140px;
-  resize: vertical;
-}
-
-#kontakt input::placeholder,
-#kontakt textarea::placeholder{
-  color: rgba(255,255,255,.45);
-}
-
-#kontakt input:focus,
-#kontakt select:focus,
-#kontakt textarea:focus{
-  border-color: rgba(120,190,255,.55);
-  background: rgba(0,0,0,.32);
-}
-
-/* Skicka-raden */
-#kontakt .form__actions{
-  display:flex;
-  align-items:center;
-  gap: 12px;
-  margin-top: 14px;
-}
-
+#kontakt .contactInfoCard__actions .btn,
 #kontakt .form__actions .btn{
-  padding: 12px 16px;
-  border-radius: 16px;
-  font-weight: 900;
-  min-width: 120px;
+  background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.02)) , #050608;
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow:
+    0 18px 50px rgba(0,0,0,.55),
+    inset 0 1px 0 rgba(255,255,255,.16),
+    inset 0 -10px 20px rgba(0,0,0,.55);
 }
 
-/* Den lilla texten längst ner */
-#kontakt .form p.muted.tiny{
-  margin-top: 12px;
-  opacity: .75;
-  line-height: 1.35;
+#kontakt .contactInfoCard__actions .btn:hover,
+#kontakt .form__actions .btn:hover{
+  transform: translateY(-1px);
+  border-color: rgba(255,255,255,.22);
+  box-shadow:
+    0 24px 70px rgba(0,0,0,.60),
+    inset 0 1px 0 rgba(255,255,255,.20),
+    inset 0 -12px 22px rgba(0,0,0,.60);
+  filter: brightness(1.03);
 }
 
-/* Finare knapp-hover (om du använder btn--ghost) */
-#kontakt .btn.btn--ghost{
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(255,255,255,.10);
+#kontakt .contactInfoCard__actions .btn:active,
+#kontakt .form__actions .btn:active{
+  transform: translateY(0);
+  filter: brightness(.98);
+  box-shadow:
+    0 14px 40px rgba(0,0,0,.55),
+    inset 0 1px 0 rgba(255,255,255,.10),
+    inset 0 -8px 18px rgba(0,0,0,.65);
 }
-#kontakt .btn.btn--ghost:hover{
-  background: rgba(255,255,255,.07);
-  border-color: rgba(255,255,255,.16);
+
+/* Om du har ghost-knapp i kontakt: gör den också svart/glossy */
+#kontakt .contactInfoCard__actions .btn.btn--ghost,
+#kontakt .form__actions .btn.btn--ghost{
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.015)) , #050608;
+  border-color: rgba(255,255,255,.14);
+}
+
+/* Focus (tangentbord) */
+#kontakt .contactInfoCard__actions .btn:focus-visible,
+#kontakt .form__actions .btn:focus-visible{
+  outline: none;
+  box-shadow:
+    0 24px 70px rgba(0,0,0,.60),
+    0 0 0 4px rgba(58,168,255,.22),
+    inset 0 1px 0 rgba(255,255,255,.18),
+    inset 0 -12px 22px rgba(0,0,0,.60);
+}
+
+/* Light theme: håll dem fortfarande svarta (som du bad om) */
+:root[data-theme="light"] #kontakt .contactInfoCard__actions .btn,
+:root[data-theme="light"] #kontakt .form__actions .btn{
+  background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.02)) , #050608;
+  color: #ffffff;
+  border-color: rgba(0,0,0,.55);
 }
