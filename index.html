@@ -527,43 +527,46 @@
       </div>
 
       <!-- Form -->
-      <form class="form" id="contactForm" action="https://formspree.io/f/xdagodey" method="POST" novalidate>
-        <input type="hidden" name="_subject" value="Ny förfrågan – Simons DansMedia" />
-        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-        <div class="form__row">
-          <label>
-            Namn
-            <input name="name" type="text" placeholder="Ditt namn" required />
-          </label>
-          <label>
-            E-post
-            <input name="email" type="email" placeholder="din@mail.se" required />
-          </label>
-        </div>
+<form class="form" id="contactForm"
+  action="https://formspree.io/f/xdagodey"
+  method="POST"
+  novalidate>
 
-        <label>
-          Vad gäller det?
-          <select name="topic" required>
-            <option value="" selected disabled>Välj…</option>
-            <option value="video">Video</option>
-            <option value="bild">Bilder</option>
-            <option value="content">Löpande content</option>
-            <option value="webb">Hemsida</option>
-            <option value="annat">Annat</option>
-          </select>
-        </label>
+  <div class="form__row">
+    <label>
+      Namn
+      <input name="name" type="text" placeholder="Ditt namn" required />
+    </label>
+    <label>
+      E-post
+      <input name="email" type="email" placeholder="din@mail.se" required />
+    </label>
+  </div>
 
-        <label>
-          Meddelande
-          <textarea name="message" rows="6" placeholder="Antal spelningar, datum/ort, önskemål, exempel på stil…" required></textarea>
-        </label>
+  <label>
+    Vad gäller det?
+    <select name="topic" required>
+      <option value="" selected disabled>Välj…</option>
+      <option value="video">Video</option>
+      <option value="bild">Bilder</option>
+      <option value="content">Löpande content</option>
+      <option value="webb">Hemsida</option>
+      <option value="annat">Annat</option>
+    </select>
+  </label>
 
-        <div class="form__actions">
-          <button class="btn" type="submit">Skicka</button>
-          <span class="muted tiny" id="formStatus" aria-live="polite"></span>
-        </div>
+  <label>
+    Meddelande
+    <textarea name="message" rows="6" placeholder="Antal spelningar, datum/ort, önskemål…" required></textarea>
+  </label>
 
-      </form>
+  <div class="form__actions">
+    <button class="btn" type="submit">Skicka</button>
+    <span class="muted tiny" id="formStatus" aria-live="polite"></span>
+  </div>
+
+</form>
+
     </div>
   </div>
 </section>

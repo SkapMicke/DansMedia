@@ -830,41 +830,65 @@ async function initPortfolio() {
 initPortfolio();
 
 
-// =====================
-// Contact form (Formspree)
-// =====================
 (() => {
-  const form = document.querySelector("#contactForm");
-  const statusEl = document.querySelector("#formStatus");
+  const form = document.getElementById("contactForm");
+  const statusEl = document.getElementById("formStatus");
+  if (!form) return;
 
-  if (!form || !statusEl) return;
+  const setStatus = (msg, ok = true) => {
+    if (!statusEl) return;
+    statusEl.textContent = msg || "";
+    statusEl.style.opacity = msg ? "1" : "0";
+    statusEl.style.color = ok ? "" : "rgba(255,170,170,.95)";
+  };
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Enkel front-check
+    // enkel validering
     if (!form.checkValidity()) {
-      statusEl.textContent = "Fyll i alla fält.";
+      form.reportValidity();
       return;
     }
 
-    statusEl.textContent = "Skickar...";
+    const btn = form.querySelector('button[type="submit"]');
+    const prevText = btn ? btn.textContent : "";
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "Skickar…";
+    }
+    setStatus("Skickar…");
 
     try {
+      const formData = new FormData(form);
+
+      // Lägg till subject så mailen blir tydlig
+      const topic = formData.get("topic") || "Kontakt";
+      const name = formData.get("name") || "Okänd";
+      formData.append("_subject", `[${topic}] Ny förfrågan från ${name}`);
+
       const res = await fetch(form.action, {
         method: "POST",
-        body: new FormData(form),
-        headers: { Accept: "application/json" },
+        body: formData,
+        headers: { "Accept": "application/json" },
       });
 
       if (res.ok) {
         form.reset();
-        statusEl.textContent = "✅ Skickat! Jag återkommer så snart jag kan.";
+        setStatus("Skickat! Jag återkommer så snart jag kan. ✅", true);
       } else {
-        statusEl.textContent = "❌ Kunde inte skicka. Testa igen eller maila: dansmedian@gmail.com";
+        setStatus("Något gick fel. Testa igen eller maila mig direkt. ❌", false);
       }
     } catch (err) {
-      statusEl.textContent = "❌ Nätverksfel. Testa igen eller maila: dansmedian@gmail.com";
+      setStatus("Nätverksfel. Testa igen om en stund. ❌", false);
+    } finally {
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = prevText || "Skicka";
+      }
     }
   });
 })();
+
+
+
