@@ -889,8 +889,12 @@ initPortfolio();
     try {
       const formData = new FormData(contactForm);
 
-      const topic = (formData.get("topic") || "Kontakt").toString();
-      const name = (formData.get("name") || "Okänd").toString();
+    const topic = (formData.get("topic") || "Kontakt").toString();
+    const name = (formData.get("name") || "Okänd").toString();
+    const phone = (formData.get("phone") || "").toString().trim();
+
+    formData.append("_subject", `[${topic}] Ny förfrågan från ${name}${phone ? " • " + phone : ""}`);
+
 
       formData.append("_subject", `[${topic}] Ny förfrågan från ${name}`);
 

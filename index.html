@@ -532,16 +532,29 @@
   method="POST"
   novalidate>
 
-  <div class="form__row">
-    <label>
-      Namn
-      <input name="name" type="text" placeholder="Ditt namn" required />
-    </label>
-    <label>
-      E-post
-      <input name="email" type="email" placeholder="din@mail.se" required />
-    </label>
-  </div>
+<div class="form__row">
+  <label>
+    Namn
+    <input name="name" type="text" placeholder="Ditt namn" required />
+  </label>
+
+  <label>
+    E-post
+    <input name="email" type="email" placeholder="din@mail.se" required />
+  </label>
+
+  <label>
+    Telefon (valfritt)
+    <input
+      name="phone"
+      type="tel"
+      placeholder="070 123 45 67"
+      autocomplete="tel"
+      inputmode="tel"
+    />
+  </label>
+</div>
+
 
   <label>
     Vad gäller det?
