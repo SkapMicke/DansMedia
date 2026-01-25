@@ -179,40 +179,6 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
 });
 
-// Contact form (mailto demo)
-const form = $("#contactForm");
-const formStatus = $("#formStatus");
-
-form?.addEventListener("submit", (e) => {
-  e.preventDefault();
-  formStatus.textContent = "";
-
-  const data = new FormData(form);
-  const name = (data.get("name") || "").toString().trim();
-  const email = (data.get("email") || "").toString().trim();
-  const topic = (data.get("topic") || "").toString().trim();
-  const message = (data.get("message") || "").toString().trim();
-
-  if (!name || !email || !topic || !message) {
-    formStatus.textContent = "Fyll i alla fält.";
-    toast("Fyll i alla fält ⚠️");
-    return;
-  }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    formStatus.textContent = "Skriv en giltig e-post.";
-    toast("Ogiltig e-post ⚠️");
-    return;
-  }
-
-  const subject = encodeURIComponent(`Förfrågan (${topic}) – ${name}`);
-  const body = encodeURIComponent(`Namn: ${name}\nE-post: ${email}\nÄmne: ${topic}\n\nMeddelande:\n${message}\n`);
-  const to = (emailText?.textContent || "dansmedia@exempel.se").trim();
-  window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
-
-  toast("Öppnar e-post ✉️");
-  form.reset();
-});
-
 // Kopiera mail (Kontakt-sektionen)
 const copyEmailBtn2 = document.getElementById("copyEmailBtn2");
 const emailText2 = document.getElementById("emailText2");
@@ -890,5 +856,66 @@ initPortfolio();
   });
 })();
 
+(() => {
+  const contactForm = document.getElementById("contactForm");
+  const statusEl = document.getElementById("formStatus");
+  if (!contactForm) return;
 
+  const setStatus = (msg, ok = true) => {
+    if (!statusEl) return;
+    statusEl.textContent = msg || "";
+    statusEl.style.opacity = msg ? "1" : "0";
+    statusEl.style.color = ok ? "" : "rgba(255,170,170,.95)";
+  };
 
+  contactForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    e.stopPropagation(); // viktigt om nåt annat lyssnar
+
+    // Native validering (det är det som visar “fyll i detta fält”)
+    if (!contactForm.checkValidity()) {
+      contactForm.reportValidity();
+      return;
+    }
+
+    const btn = contactForm.querySelector('button[type="submit"]');
+    const prevText = btn ? btn.textContent : "";
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "Skickar…";
+    }
+    setStatus("Skickar…");
+
+    try {
+      const formData = new FormData(contactForm);
+
+      const topic = (formData.get("topic") || "Kontakt").toString();
+      const name = (formData.get("name") || "Okänd").toString();
+
+      formData.append("_subject", `[${topic}] Ny förfrågan från ${name}`);
+
+      const res = await fetch(contactForm.action, {
+        method: "POST",
+        body: formData,
+        headers: { Accept: "application/json" },
+      });
+
+      if (res.ok) {
+        contactForm.reset();
+        setStatus("Skickat! Jag återkommer så snart jag kan. ✅", true);
+        toast("Skickat ✅");
+      } else {
+        setStatus("Något gick fel. Testa igen eller maila mig direkt. ❌", false);
+        toast("Något gick fel ❌");
+      }
+    } catch {
+      setStatus("Nätverksfel. Testa igen om en stund. ❌", false);
+      toast("Nätverksfel ❌");
+    } finally {
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = prevText || "Skicka";
+      }
+    }
+  });
+})();
