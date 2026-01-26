@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>För arrangörer – Simons DansMedia AB</title>
+  <meta name="description" content="Special paket för arrangörer: marknadsföringsmaterial för era event och spelningar. Enhetlig branding, snabb leverans, flexibla priser." />
+  <meta name="theme-color" content="#0b0c10" />
+  <meta property="og:title" content="För arrangörer – DansMedia Studio" />
+  <meta property="og:description" content="Marknadsföringsmaterial för era event, festivals och spelningar." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="sv_SE" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+<link rel="icon" href="/assets/favicon/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
+</head>
+
+<body>
+  <!-- Ambient background -->
+  <div class="bg">
+    <div class="bg__blob bg__blob--a"></div>
+    <div class="bg__blob bg__blob--b"></div>
+    <div class="bg__grid"></div>
+    <div class="bg__noise"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="top">
+    <div class="container header__inner">
+      <a class="brand" href="index.html" aria-label="DansMedia Studio">
+        <img class="brand__logo" src="assets/logo.png" alt="DansMedia Studio logga" />
+        <span class="brand__text">
+          <strong>DansMedia</strong><span>Studio</span>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Huvudmeny">
+        <a href="index.html">Hem</a>
+        <a href="tjanster.html">Tjänster</a>
+        <a href="arrangor.html">Arrangörer</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="om-mig.html">Om mig</a>
+        <a href="kontakt.html" class="btn btn--small">Kontakt</a>
+      </nav>
+
+      <div class="header__actions">
+        <button class="chatbotBtn" id="chatbotBtn" type="button" aria-label="Öppna AI-chatt" title="Chatta med Ai-Roffe">
+          <span>🤖</span>
+        </button>
+        <button class="iconBtn" id="themeBtn" type="button" aria-label="Växla tema">
+          <span class="iconBtn__dot"></span>
+        </button>
+        <button class="menuBtn" id="menuBtn" type="button" aria-label="Öppna meny" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobileNav" id="mobileNav" aria-hidden="true">
+      <div class="container mobileNav__inner">
+        <a href="index.html">Hem</a>
+        <a href="tjanster.html">Tjänster</a>
+        <a href="arrangor.html">Arrangörer</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="om-mig.html">Om mig</a>
+        <a href="kontakt.html" class="btn">Kontakt</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero hero--alt">
+      <div class="container hero__inner">
+        <div class="hero__left">
+          <div class="badge">
+            <span class="badge__dot"></span>
+            Marknadsföringsmaterial för events & spelningar
+          </div>
+          <h1 class="hero__title">
+            För arrangörer<br/>
+            <span class="grad">som vill nå ut.</span>
+          </h1>
+
+          <div class="heroInfo">
+            <p class="heroInfo__lead">
+              Vi skapar all marknadsföringsmaterial för era event. Från affisar och sociala medier-poster 
+              till videosammanfattningar och presskit.
+            </p>
+
+            <div class="heroInfo__grid">
+              <div class="heroInfo__item">Affisar & posters</div>
+              <div class="heroInfo__item">Social media-material</div>
+              <div class="heroInfo__item">Video-sammanfattningar</div>
+              <div class="heroInfo__item">Presskit & information</div>
+            </div>
+          </div>
+
+          <div class="hero__cta">
+            <a class="btn" href="kontakt.html">Ta kontakt</a>
+            <button class="btn btn--ghost" id="openShowreel" type="button">Se exempel</button>
+          </div>
+        </div>
+
+        <div class="hero__right">
+          <div class="panel panel--glow">
+            <div class="panel__head">
+              <div>
+                <div class="muted">Snabb oversikt</div>
+                <div class="panel__title">Vad vi erbjuder</div>
+              </div>
+            </div>
+
+            <div class="panel__grid">
+              <div class="stat">
+                <div class="stat__n">24h</div>
+                <div class="stat__l">Snabb leverans</div>
+              </div>
+              <div class="stat">
+                <div class="stat__n">∞</div>
+                <div class="stat__l">Variationer</div>
+              </div>
+              <div class="stat">
+                <div class="stat__n">Pro</div>
+                <div class="stat__l">Design-kvalitet</div>
+              </div>
+              <div class="stat">
+                <div class="stat__n">Flex</div>
+                <div class="stat__l">Pris efter behov</div>
+              </div>
+            </div>
+
+            <div class="panel__list">
+              <div class="tick">✅ Allt på ett ställe</div>
+              <div class="tick">✅ Enhetlig design</div>
+              <div class="tick">✅ Redo att publicera</div>
+              <div class="tick">✅ Fördubbla er räckvidd</div>
+            </div>
+
+            <div class="panel__foot">
+              <a class="btn btn--ghost wide" href="kontakt.html">Fråga om paket</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Flexibel prissättning -->
+    <section class="section section--alt">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2>Flexibel prissättning</h2>
+            <p class="muted">Vi anpassar lösningen efter era behov och budget.</p>
+          </div>
+        </div>
+
+        <div class="panel panel--glow" style="text-align: center;">
+          <div class="panel__head">
+            <div>
+              <div class="muted">Hur det funkar</div>
+              <div class="panel__title">Berätta vad ni behöver</div>
+            </div>
+          </div>
+
+          <div style="padding: 30px 0;">
+            <p style="font-size: 18px; line-height: 1.8; margin-bottom: 30px;">
+              Vi erbjuder ingen standardpaket – vi skapar en anpassad lösning baserat på <strong>er event, era mål och er budget</strong>. 
+              Behöver ni bara sociala media-material? Bara video? Eller hela kampanjen? Vi gör det vi gör.
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 30px 0;">
+              <div style="padding: 20px;">
+                <div style="font-size: 28px; margin-bottom: 10px;">📋</div>
+                <div style="font-weight: 700; margin-bottom: 8px;">Kontakta oss</div>
+                <p class="muted" style="font-size: 14px;">Berätta om ert event och vad ni behöver</p>
+              </div>
+              <div style="padding: 20px;">
+                <div style="font-size: 28px; margin-bottom: 10px;">💬</div>
+                <div style="font-weight: 700; margin-bottom: 8px;">Vi diskuterar</div>
+                <p class="muted" style="font-size: 14px;">Vi föreslår en lösning och pris som passar er</p>
+              </div>
+              <div style="padding: 20px;">
+                <div style="font-size: 28px; margin-bottom: 10px;">✅</div>
+                <div style="font-weight: 700; margin-bottom: 8px;">Vi levererar</div>
+                <p class="muted" style="font-size: 14px;">Allt är anpassat efter era önskemål</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel__foot">
+            <a class="btn" href="kontakt.html">Kom igång – prata med mig</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Varför välja oss -->
+    <section class="section">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2>Varför arrangörer väljer oss</h2>
+            <p class="muted">Vi förstår event-branschen.</p>
+          </div>
+        </div>
+
+        <div class="benefitsGrid">
+          <div class="benefitCard">
+            <div class="benefitCard__icon">⚡</div>
+            <div class="benefitCard__title">Snabb turnaround</div>
+            <p class="muted">
+              Behöver ni material på kort notice? Vi levererar ofta samma dag. 
+              Perfekt för spontana event och sista minuten-ändringar.
+            </p>
+          </div>
+
+          <div class="benefitCard">
+            <div class="benefitCard__icon">🎯</div>
+            <div class="benefitCard__title">Rätt fokus</div>
+            <p class="muted">
+              Vi vet vad som funkar för att fylla er sal. Tydlig information, 
+              snygg design och starka call-to-action.
+            </p>
+          </div>
+
+          <div class="benefitCard">
+            <div class="benefitCard__icon">📱</div>
+            <div class="benefitCard__title">Optimerat för sociala medier</div>
+            <p class="muted">
+              Alla material är optimerade för Instagram, Facebook, TikTok och 
+              evenemang-hemsidor. Rätt format, rätt storlek, varje gång.
+            </p>
+          </div>
+
+          <div class="benefitCard">
+            <div class="benefitCard__icon">💰</div>
+            <div class="benefitCard__title">Kostnadseffektivt</div>
+            <p class="muted">
+              Mycket mindre än att anställa egen designer. En fast pris, 
+              ingen överraskningar. Flexibel skalning om ni växer.
+            </p>
+          </div>
+
+          <div class="benefitCard">
+            <div class="benefitCard__icon">🤝</div>
+            <div class="benefitCard__title">Långsiktigt samarbete</div>
+            <p class="muted">
+              Ju fler event ni arrangerar, desto bättre blir vi. Vi lär oss 
+              er stil, era gäster, vad som funkar för er.
+            </p>
+          </div>
+
+          <div class="benefitCard">
+            <div class="benefitCard__icon">✅</div>
+            <div class="benefitCard__title">Allt färdigt att publicera</div>
+            <p class="muted">
+              Ingen extra arbete på er sida. Ni får material som är helt 
+              klart att ladda upp och publicera direkt.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section class="section section--alt">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2>Hur det fungerar</h2>
+            <p class="muted">Enkelt, snabbt, flexibelt.</p>
+          </div>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step__n">1</div>
+            <div>
+              <div class="step__t">Ni kontaktar oss</div>
+              <div class="muted">Berätta om ert event: datum, plats, artistat, tema.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step__n">2</div>
+            <div>
+              <div class="step__t">Vi föreslår ett paket</div>
+              <div class="muted">Baserat på era behov och budget.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step__n">3</div>
+            <div>
+              <div class="step__t">Vi skapar materialet</div>
+              <div class="muted">Oftast inom 48 timmar (eller 24 vid brådska).</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step__n">4</div>
+            <div>
+              <div class="step__t">Ni publicerar och säljer biljetter</div>
+              <div class="muted">Allt är klart att posta, maila eller användas på webben.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section">
+      <div class="container">
+        <div class="ctaBar" style="justify-content: center;">
+          <div style="text-align: center;">
+            <div class="ctaBar__t">Klara för att sälja ut er event?</div>
+            <div class="muted">Vi hjälper er att få fler gäster med rätt marknadsföringsmaterial.</div>
+          </div>
+          <a class="btn" href="kontakt.html">Kom igång nu</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sidnavigation -->
+    <section class="section">
+      <div class="container">
+        <div class="pageNav">
+          <a href="tjanster.html" class="pageNav__prev">
+            <span class="pageNav__arrow">←</span>
+            <div>
+              <div class="muted tiny">Föregående</div>
+              <div class="pageNav__title">Tjänster</div>
+            </div>
+          </a>
+          <a href="portfolio.html" class="pageNav__next">
+            <div>
+              <div class="muted tiny">Nästa</div>
+              <div class="pageNav__title">Portfolio</div>
+            </div>
+            <span class="pageNav__arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Scroll to Top Button -->
+  <button class="scrollTopBtn" id="scrollTopBtn" aria-label="Gå till toppen">↑</button>
+
+  <!-- Modal -->
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal__backdrop" data-close="true"></div>
+    <div class="modal__panel" role="document">
+      <button class="modal__close" id="modalClose" type="button" aria-label="Stäng">✕</button>
+      <div class="modal__head">
+        <div class="modal__title" id="modalTitle">Titel</div>
+        <div class="modal__meta" id="modalMeta">—</div>
+      </div>
+      <div class="modal__body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img class="brand__logo brand__logo--small" src="assets/logo.png" alt="DansMedia Studio logga" />
+        <div>
+          <div class="footer__t">DansMedia Studio</div>
+          <div class="muted tiny">Video • Bild • Webb</div>
+        </div>
+      </div>
+
+      <div class="footer__links">
+        <div class="footer__col">
+          <div class="footer__heading">Navigering</div>
+          <a href="index.html">Hem</a>
+          <a href="tjanster.html">Tjänster</a>
+          <a href="arrangor.html">Arrangörer</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="om-mig.html">Om mig</a>
+          <a href="kontakt.html">Kontakt</a>
+        </div>
+
+        <div class="footer__col">
+          <div class="footer__heading">Kontakt</div>
+          <a href="tel:+46700984595">070 098 45 95</a>
+          <a href="mailto:dansmedian@gmail.com">dansmedian@gmail.com</a>
+        </div>
+
+        <div class="footer__col">
+          <div class="footer__heading">Följ</div>
+          <a href="#">Instagram</a>
+          <a href="https://www.facebook.com/share/1H7SdxtUKB/">Facebook</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <div class="container">
+        <div class="muted tiny">© 2026 DansMedia Studio. Alla rättigheter förbehållna.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Chat Modal -->
+  <div class="chatModal" id="chatModal" aria-hidden="true">
+    <div class="chatModal__backdrop" id="chatBackdrop"></div>
+    <div class="chatModal__panel">
+      <div class="chatModal__header">
+        <div>
+          <div class="chatModal__title">Ai-Roffe</div>
+          <div class="chatModal__subtitle">DansMedia Assistent</div>
+        </div>
+        <button class="chatModal__close" id="chatCloseBtn" type="button" aria-label="Stang chatt">x</button>
+      </div>
+      <div class="chatModal__messages" id="chatMessages"></div>
+      <div class="chatModal__input">
+        <input type="text" id="chatInput" placeholder="Stall en fraga..." />
+        <button id="chatSendBtn" type="button" aria-label="Skicka">Sand</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

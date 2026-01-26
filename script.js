@@ -1,6 +1,43 @@
 const $ = (q, el = document) => el.querySelector(q);
 const $$ = (q, el = document) => Array.from(el.querySelectorAll(q));
 
+/* =========================
+   SCROLL TO TOP BUTTON
+   ========================= */
+
+const scrollTopBtn = $("#scrollTopBtn");
+
+if (scrollTopBtn) {
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+      scrollTopBtn.classList.add("show");
+    } else {
+      scrollTopBtn.classList.remove("show");
+    }
+  });
+
+  scrollTopBtn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+}
+
+/* =========================
+   THEME ANIMATION
+   ========================= */
+
+const themeBtn = $("#themeBtn");
+if (themeBtn) {
+  themeBtn.addEventListener("click", () => {
+    document.documentElement.style.pointerEvents = "none";
+    setTimeout(() => {
+      document.documentElement.style.pointerEvents = "auto";
+    }, 350);
+  });
+}
+
 function preloadImages(urls, { concurrency = 10 } = {}) {
   // Preloadar en lista bilder med "concurrency" så du inte dödar nätet helt.
   const queue = [...urls];
@@ -79,6 +116,7 @@ function copyEmail() {
     .then(() => toast("E-post kopierad ✅"))
     .catch(() => toast("Kunde inte kopiera ❌"));
 }
+$("#copyEmailBtn")?.addEventListener("click", copyEmail);
 $("#copyEmailBtn2")?.addEventListener("click", copyEmail);
 
 // Portfolio filtering
@@ -923,3 +961,339 @@ initPortfolio();
     }
   });
 })();
+
+/* =========================
+   CHATBOT (Ai-Roffe)
+   ========================= */
+
+const chatbotBtn = $("#chatbotBtn");
+const chatModal = $("#chatModal");
+const chatCloseBtn = $("#chatCloseBtn");
+const chatBackdrop = $("#chatBackdrop");
+const chatInput = $("#chatInput");
+const chatSendBtn = $("#chatSendBtn");
+const chatMessages = $("#chatMessages");
+
+// Öppna chat
+if (chatbotBtn) {
+  chatbotBtn.addEventListener("click", () => {
+    chatModal.setAttribute("aria-hidden", "false");
+    chatInput?.focus();
+  });
+}
+
+// Stäng chat
+if (chatCloseBtn) {
+  chatCloseBtn.addEventListener("click", () => {
+    chatModal.setAttribute("aria-hidden", "true");
+  });
+}
+
+if (chatBackdrop) {
+  chatBackdrop.addEventListener("click", () => {
+    chatModal.setAttribute("aria-hidden", "true");
+  });
+}
+
+// Detektera språk
+function detectLanguage(text) {
+  const englishWords = /hello|hi|hey|what|how|where|when|why|help|contact|price|service|portfolio|video|photo|band|organizer|event|thank|thanks/i;
+  const swedishWords = /hej|hallo|vad|hur|var|när|varför|hjälp|kontakt|pris|tjänst|portfolio|video|bild|band|arrangör|event|tack|dansmedia/i;
+  
+  const englishMatches = (text.match(englishWords) || []).length;
+  const swedishMatches = (text.match(swedishWords) || []).length;
+  
+  // Kolla efter explicit engelska ord först
+  if (text.match(/^(hi|hello|hey|what|how|where|contact me|price|service)/i)) {
+    return "en";
+  }
+  
+  return englishMatches > swedishMatches ? "en" : "sv";
+}
+
+// Utökad kunskapsbas för svenska
+const knowledgebaseSV = {
+  // TJÄNSTER
+  videor: "Vi skapar marknadsföringsvideoer för band!\n✅ Videor inför spelningar\n✅ Livesessions & recordings\n✅ Teaser & promo-videos\n✅ Event-sammanfattningar\n\nVill du veta mer om något specifikt?",
+  
+  bilder: "Vi fotograferar och redigerar professionellt!\n✅ Livefoto på spelningar\n✅ Band-fotoshooter\n✅ Event-fotografering\n✅ Höga upplösningar för sociala medier\n\nKontakta mig för prissättning!",
+  
+  hemsida: "Vi bygger hemsidor för band!\n✅ Responsive design\n✅ Enkel att uppdatera\n✅ Tour-kalender\n✅ Musik & bilder-sektion\n✅ Kontaktformulär\n\nVill du diskutera ditt projekt?",
+  
+  content: "Vi skapar löpande marknadsföringsmaterial!\n✅ Instagram-stories\n✅ TikTok-videos\n✅ Facebook-inlägg\n✅ Snabb turnaround\n✅ Anpassat efter din stil\n\nMåndlig prenumeration tillgänglig!",
+  
+  // PRISER & PAKET
+  pris: "Våra priser anpassas helt efter dina behov!\n\nExempel:\n💬 Mindre event: från 1-2 timmar\n🎬 Videopaket: flexibelt efter omfattning\n📸 Foto-session: variabel längd\n💻 Hemsida: prisas individuellt\n\nKontakta för personlig offert:\n070 098 45 95",
+  
+  arrangor: "För arrangörer erbjuder vi flexibel prissättning!\n✅ Sociala medier-material\n✅ Affischer & presskit\n✅ Video-sammanfattningar\n✅ Campaign-material\n✅ Allt efter era behov\n\nBesök arrangor-sidan eller ring!",
+  
+  // KONTAKT
+  kontakt: "Kontakta mig här:\n\n📞 070 098 45 95\n📧 dansmedian@gmail.com\n🕐 Svarstid: Inom 12 timmar\n\nDu kan också fylla i kontaktformuläret på sidan!",
+  
+  // LEVERANSTID
+  leverans: "Leveranstider:\n⚡ Express (24h): Rush-avgift\n📅 Standard (1-2 veckor): Normalpriser\n🚀 Snabb turnaround: Möjligt för många projekt\n\nBeror på projektets omfattning. Diskutera med Simon!",
+  
+  // PORTFOLIO
+  portfolio: "Se vår portfolio för inspiration!\n✅ Tidigare band-projekt\n✅ Event-fotografering\n✅ Videosammanfattningar\n✅ Hemsidor vi gjort\n✅ Sociala medier-kampanjer\n\nBesök portfolio-sidan för exempel!",
+  
+  // OM SIMON
+  simon: "Simon Rosenius driver DansMedia Studio!\n\n✅ Specialist på band-marknadsföring\n✅ Videograf & fotograf\n✅ Webbutvecklare\n✅ Erfarenhet från många band\n\nMöt Simon: Besök Om mig-sidan!",
+  
+  // ALLMÄNNA FRÅGOR
+  vad: "Vi skapar marknadsföringsmaterial för band och arrangörer!\n\n✅ Videoproduktion\n✅ Fotografering\n✅ Hemsidor\n✅ Sociala medier-content\n✅ Livefoto\n\nVill du veta mer om något specifikt?",
+  
+  hur: "Kontakta mig för att diskutera ditt projekt:\n\n1️⃣ Ring eller maila\n2️⃣ Berätta vad du behöver\n3️⃣ Få offert & tidsplan\n4️⃣ Vi levererar professionellt material\n\n📞 070 098 45 95",
+  
+  // SPECIFIKA TJÄNSTER
+  livefoto: "Vi fotograferar livespelningar!\n✅ Professionell utrustning\n✅ Höga upplösningar\n✅ Redigerad material inom dagar\n✅ Klart för sociala medier\n\nPerfekt för dokumentation och marknadsföring!",
+  
+  sociala: "Vi skapar material för sociala medier!\n✅ Instagram-posts & stories\n✅ TikTok-videos\n✅ Facebook-content\n✅ YouTube-teasers\n✅ Rätt format & storlek\n\nAllt klart att posta direkt!",
+  
+  retainer: "Retainer-upplägg = löpande samarbete!\n✅ Fast pris per månad\n✅ Regelbubnden content\n✅ Dedikerad support\n✅ Flexibelt antal produktioner\n✅ Perfekt för aktiva band\n\nKontakta för möjligheter!",
+  
+  // PRAKTISKA FRÅGOR
+  hur_beta: "Betala via överföring, Swish eller kontant.\nBetalningsvillkor diskuteras individuellt.",
+  
+  garanterar: "Jag garanterar professionell kvalitet och snabb leverans!",
+  
+  revision: "Obegränsade ändringar ingår - du bestämmer när det är perfekt!",
+  
+  // BAND-SPECIFIKT
+  band: "Vi specialiserar oss på band-marknadsföring!\n✅ Spelnings-teaser\n✅ Bandporträtt\n✅ Studio-dokumentation\n✅ Tour-material\n✅ Albumrelease-kampanjer\n\nVill du se exempel?",
+  
+  spelning: "För spelningar erbjuder vi:\n✅ Livefoto-dokumentation\n✅ Video-sammanfattning\n✅ Sociala medier-content\n✅ Pressmeddelanden\n✅ Quick turnaround\n\nKontakta mig för pris!",
+  
+  // TEKNISKA ASPEKTER
+  format: "Vi levererar i alla format!\n✅ JPG/PNG för webben\n✅ RAW för egen redigering\n✅ 4K-video\n✅ Social media-format\n✅ Print-ready\n\nVad behöver du?",
+  
+  arkivering: "Allt material arkiveras säkert.\nDu får kopior av allt och kan använda det hur du vill!",
+  
+  // SKYDD & JURIDIK
+  upphovsratt: "Du äger det material vi skapar för dig!\nDu kan använda det för marketing, streaming, vad som helst.",
+  
+  // INSPIRERANDE FRÅGOR
+  varfor_vi: "Varför välja oss?\n✅ Snabb & professionell service\n✅ Priser efter dina behov\n✅ Längre erfarenhet\n✅ Personal support från Simon\n✅ Allt från foto till hemsida\n\nEnklare än att anställa flera personer!",
+  
+  // OMÖJLIGA FRÅGOR - BÄTTRE FALLBACK
+  fallback_sv: "Det är en bra fråga! 🤔\n\nJag kan inte svara precis på denna, men Simon kan det!\n\nKontakta direkt:\n📞 070 098 45 95\n📧 dansmedian@gmail.com\n\nVi svarar inom 12 timmar!"
+};
+
+// Utökad kunskapsbas för engelska
+const knowledgebaseEN = {
+  // SERVICES
+  video: "We create marketing videos for bands!\n✅ Pre-gig teaser videos\n✅ Live sessions & recordings\n✅ Promo & event videos\n✅ Live performance summaries\n\nWant to know more?",
+  
+  photography: "Professional photography & editing!\n✅ Live gig photos\n✅ Band photo shoots\n✅ Event photography\n✅ High-res for social media\n\nContact me for pricing!",
+  
+  website: "We build websites for bands!\n✅ Responsive design\n✅ Easy to update\n✅ Tour calendar\n✅ Music & photo sections\n✅ Contact forms\n\nWant to discuss your project?",
+  
+  content: "We create ongoing marketing content!\n✅ Instagram stories\n✅ TikTok videos\n✅ Facebook posts\n✅ Quick turnaround\n✅ Customized to your style\n\nMonthly subscriptions available!",
+  
+  // PRICING
+  price: "Our prices adapt to your needs!\n\nExamples:\n💬 Small events: from 1-2 hours\n🎬 Video packages: flexible scope\n📸 Photo session: variable length\n💻 Website: priced individually\n\nContact for personalized quote:\n+46 70 098 45 95",
+  
+  organizer: "For organizers we offer flexible pricing!\n✅ Social media materials\n✅ Posters & press kits\n✅ Video summaries\n✅ Campaign materials\n✅ Everything tailored to your needs\n\nVisit organizer page or call!",
+  
+  // CONTACT
+  contact: "Contact me here:\n\n📞 +46 70 098 45 95\n📧 dansmedian@gmail.com\n🕐 Response time: Within 12 hours\n\nYou can also fill the contact form on the site!",
+  
+  // DELIVERY
+  delivery: "Delivery times:\n⚡ Express (24h): Rush fee\n📅 Standard (1-2 weeks): Regular pricing\n🚀 Quick turnaround: Possible for many projects\n\nDepends on project scope. Discuss with Simon!",
+  
+  // PORTFOLIO
+  portfolio: "Check our portfolio for inspiration!\n✅ Previous band projects\n✅ Event photography\n✅ Video summaries\n✅ Websites we've built\n✅ Social media campaigns\n\nVisit portfolio page for examples!",
+  
+  // ABOUT SIMON
+  simon: "Simon Rosenius runs DansMedia Studio!\n\n✅ Specialist in band marketing\n✅ Videographer & photographer\n✅ Web developer\n✅ Experience from many bands\n\nMeet Simon: Visit About page!",
+  
+  // GENERAL QUESTIONS
+  what: "We create marketing materials for bands and organizers!\n\n✅ Video production\n✅ Photography\n✅ Websites\n✅ Social media content\n✅ Live photography\n\nWant to know more about something specific?",
+  
+  how: "Contact me to discuss your project:\n\n1️⃣ Call or email\n2️⃣ Tell me what you need\n3️⃣ Get quote & timeline\n4️⃣ We deliver professional material\n\n📞 +46 70 098 45 95",
+  
+  // SPECIFIC SERVICES
+  livephoto: "We photograph live performances!\n✅ Professional equipment\n✅ High resolution\n✅ Edited material within days\n✅ Ready for social media\n\nPerfect for documentation and marketing!",
+  
+  social: "We create social media content!\n✅ Instagram posts & stories\n✅ TikTok videos\n✅ Facebook content\n✅ YouTube teasers\n✅ Right format & size\n\nReady to post immediately!",
+  
+  retainer: "Retainer agreement = ongoing collaboration!\n✅ Fixed monthly price\n✅ Regular content\n✅ Dedicated support\n✅ Flexible number of productions\n✅ Perfect for active bands\n\nContact for options!",
+  
+  // PRACTICAL QUESTIONS
+  payment: "Payment via bank transfer, Swish, or cash.\nPayment terms discussed individually.",
+  
+  quality: "I guarantee professional quality and fast delivery!",
+  
+  revisions: "Unlimited revisions included - you decide when it's perfect!",
+  
+  // BAND-SPECIFIC
+  band: "We specialize in band marketing!\n✅ Gig teasers\n✅ Band portraits\n✅ Studio documentation\n✅ Tour materials\n✅ Album release campaigns\n\nWant to see examples?",
+  
+  gig: "For gigs we offer:\n✅ Live photo documentation\n✅ Video summary\n✅ Social media content\n✅ Press releases\n✅ Quick turnaround\n\nContact me for pricing!",
+  
+  // TECHNICAL ASPECTS
+  format: "We deliver in all formats!\n✅ JPG/PNG for web\n✅ RAW for editing\n✅ 4K video\n✅ Social media formats\n✅ Print-ready\n\nWhat do you need?",
+  
+  archive: "All material is safely archived.\nYou get copies of everything and can use it however you want!",
+  
+  // RIGHTS & LEGAL
+  copyright: "You own the material we create for you!\nYou can use it for marketing, streaming, anything you want.",
+  
+  // INSPIRING QUESTIONS
+  why: "Why choose us?\n✅ Fast & professional service\n✅ Prices tailored to your needs\n✅ Years of experience\n✅ Personal support from Simon\n✅ Everything from photos to websites\n\nEasier than hiring multiple people!",
+  
+  // FALLBACK
+  fallback_en: "That's a great question! 🤔\n\nI can't answer exactly on this one, but Simon can!\n\nContact directly:\n📞 +46 70 098 45 95\n📧 dansmedian@gmail.com\n\nWe respond within 12 hours!"
+};
+
+// Hämta svar baserat på language och keywords
+function getAiResponse(userMessage) {
+  const lang = detectLanguage(userMessage);
+  const msg = userMessage.toLowerCase().trim();
+  const kb = lang === "en" ? knowledgebaseEN : knowledgebaseSV;
+  
+  // Hälsningar
+  if (msg.match(/^(hej|hallo|hey|hi|hello|hey there)/i)) {
+    return lang === "en" 
+      ? "Hi! 👋 I'm Ai-Roffe, DansMedia's assistant. How can I help you today?"
+      : "Hej! 👋 Jag är Ai-Roffe, DansMedia:s assistent. Hur kan jag hjälpa dig idag?";
+  }
+  
+  // Sök efter keywords - MYCKET MER OMFATTANDE
+  const keywords = {
+    sv: [
+      { words: /tjänst|vad.*gör|service|vad.*erbjud|vad.*offer/, response: kb.vad },
+      { words: /video|videoproduktion|filmning/, response: kb.videor },
+      { words: /bild|foto|fotografering|fotoshoot/, response: kb.bilder },
+      { words: /hemsida|website|webb|webbutveckling/, response: kb.hemsida },
+      { words: /content|instagram|tiktok|facebook|sociala/, response: kb.content },
+      { words: /pris|kostnad|hur.*mycket|betala|offert|paket/, response: kb.pris },
+      { words: /arrangör|event|festival|spelning|konsert|live/, response: kb.arrangor },
+      { words: /kontakt|ring|mail|telefon|skicka|hur.*nå|hur.*kontakt/, response: kb.kontakt },
+      { words: /hur|hur.*gör|hur.*funkar|process/, response: kb.hur },
+      { words: /leverans|hur.*lång|tid|snabbt|när/, response: kb.leverans },
+      { words: /portfolio|exempel|tidigare|projekt|case|band/, response: kb.portfolio },
+      { words: /vem.*du|om.*dig|berättar|background|simon/, response: kb.simon },
+      { words: /livefoto|live.*foto|live.*photo/, response: kb.livefoto },
+      { words: /sociala|instagram|tiktok|facebook|snapchat/, response: kb.sociala },
+      { words: /retainer|löpande|prenumeration/, response: kb.retainer },
+      { words: /betala|betalning|pris.*betala|hur.*betala/, response: kb.hur_beta },
+      { words: /kvalitet|garantera|garantier/, response: kb.garanterar },
+      { words: /ändringar|revisions|ändra|omarbeta/, response: kb.revision },
+      { words: /band|musikband|artist/, response: kb.band },
+      { words: /spelning|gig|konsert|live|auktion/, response: kb.spelning },
+      { words: /format|filtyp|jpg|png|raw|4k|4k/, response: kb.format },
+      { words: /arkiv|spara|backup|lagring/, response: kb.arkivering },
+      { words: /upphovsratt|rättigheter|äga|copyright/, response: kb.upphovsratt },
+      { words: /varför|varför.*välja|vad.*bäst|fördelar/, response: kb.varfor_vi },
+    ],
+    en: [
+      { words: /service|what.*do|what.*offer|services/, response: kb.what },
+      { words: /video|production|filming|videography/, response: kb.video },
+      { words: /photo|photography|photoshoot|picture/, response: kb.photography },
+      { words: /website|web|webdev|web.*development/, response: kb.website },
+      { words: /content|instagram|tiktok|facebook|social/, response: kb.content },
+      { words: /price|cost|how.*much|pay|quote|package/, response: kb.price },
+      { words: /organizer|event|festival|gig|concert|show/, response: kb.organizer },
+      { words: /contact|call|email|phone|reach|reach.*out/, response: kb.contact },
+      { words: /how|how.*work|how.*do|process/, response: kb.how },
+      { words: /delivery|how.*long|timing|quick|when/, response: kb.delivery },
+      { words: /portfolio|example|previous|project|case/, response: kb.portfolio },
+      { words: /who.*are|about.*you|tell.*yourself|background|simon/, response: kb.simon },
+      { words: /live.*photo|livephoto|live.*shoot/, response: kb.livephoto },
+      { words: /social|instagram|tiktok|facebook|snapchat/, response: kb.social },
+      { words: /retainer|ongoing|subscription|recurring/, response: kb.retainer },
+      { words: /payment|pay|how.*pay|billing/, response: kb.payment },
+      { words: /quality|guarantee|warranty/, response: kb.quality },
+      { words: /revision|change|redo|revise/, response: kb.revisions },
+      { words: /band|music|artist|group/, response: kb.band },
+      { words: /gig|show|concert|live|performance/, response: kb.gig },
+      { words: /format|filetype|jpg|png|raw|4k/, response: kb.format },
+      { words: /archive|save|backup|storage/, response: kb.archive },
+      { words: /copyright|rights|own|ownership/, response: kb.copyright },
+      { words: /why|why.*choose|what.*best|benefits/, response: kb.why },
+    ]
+  };
+  
+  const langKeywords = keywords[lang];
+  for (let item of langKeywords) {
+    if (msg.match(item.words)) {
+      return item.response;
+    }
+  }
+  
+  // Tack
+  if (msg.match(/^(tack|thanks|ty|thank.*you|appreciate)/i)) {
+    return lang === "en"
+      ? "Happy to help! Is there anything else I can help with? 😊"
+      : "Gärna! Är det något mer jag kan hjälpa med? 😊";
+  }
+  
+  // Ja/Nej
+  if (msg.match(/^(ja|yes|yep|sure|ok|okay)$/i)) {
+    return lang === "en"
+      ? "Great! What would you like to know? 😊"
+      : "Bra! Vad vill du veta? 😊";
+  }
+  
+  // Default fallback - intelligent
+  return lang === "en" ? kb.fallback_en : knowledgebaseSV.fallback_sv;
+}
+
+// Skicka meddelande
+function sendMessage() {
+  const userText = chatInput.value.trim();
+  if (!userText) return;
+  
+  // Lägg till användarens meddelande
+  addMessage(userText, "user");
+  chatInput.value = "";
+  
+  // Simulera AI-svar med kort delay
+  setTimeout(() => {
+    const aiResponse = getAiResponse(userText);
+    addMessage(aiResponse, "bot");
+  }, 300);
+}
+
+// Lägg till meddelande i chatt
+function addMessage(text, sender) {
+  const msg = document.createElement("div");
+  msg.className = `chatMessage chatMessage--${sender}`;
+  
+  const bubble = document.createElement("div");
+  bubble.className = "chatMessage__bubble";
+  bubble.textContent = text;
+  
+  msg.appendChild(bubble);
+  chatMessages.appendChild(msg);
+  
+  // Scrolla ner automatiskt
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Skicka-knapp
+if (chatSendBtn) {
+  chatSendBtn.addEventListener("click", sendMessage);
+}
+
+// Enter-tangent
+if (chatInput) {
+  chatInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      sendMessage();
+    }
+  });
+}
+
+// Initiera med välkomstmeddelande
+if (chatMessages) {
+  const initMsg = document.createElement("div");
+  initMsg.className = "chatMessage chatMessage--bot";
+  const bubble = document.createElement("div");
+  bubble.className = "chatMessage__bubble";
+  bubble.textContent = "Hej! 👋 Jag är Ai-Roffe. Fråga mig vad som helst om DansMedia!";
+  initMsg.appendChild(bubble);
+  chatMessages.appendChild(initMsg);
+}
+
+

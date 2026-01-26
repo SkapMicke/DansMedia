@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portfolio – Simons DansMedia AB</title>
+  <meta name="description" content="Se vår portfolio: exempel på videor, livefoto, bildmaterial och hemsidor vi gjort för band och arrangörer." />
+  <meta name="theme-color" content="#0b0c10" />
+  <meta property="og:title" content="Portfolio – DansMedia Studio" />
+  <meta property="og:description" content="Se våra tidigare projekt: videor, bilder, livefoto och webbprojekt för band." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="sv_SE" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+<link rel="icon" href="/assets/favicon/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
+</head>
+
+<body>
+  <!-- Ambient background -->
+  <div class="bg">
+    <div class="bg__blob bg__blob--a"></div>
+    <div class="bg__blob bg__blob--b"></div>
+    <div class="bg__grid"></div>
+    <div class="bg__noise"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="top">
+    <div class="container header__inner">
+      <a class="brand" href="index.html" aria-label="DansMedia Studio">
+        <img class="brand__logo" src="assets/logo.png" alt="DansMedia Studio logga" />
+        <span class="brand__text">
+          <strong>DansMedia</strong><span>Studio</span>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Huvudmeny">
+        <a href="index.html">Hem</a>
+        <a href="tjanster.html">Tjänster</a>
+        <a href="arrangor.html">Arrangörer</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="om-mig.html">Om mig</a>
+        <a href="kontakt.html" class="btn btn--small">Kontakt</a>
+      </nav>
+
+      <div class="header__actions">
+        <button class="chatbotBtn" id="chatbotBtn" type="button" aria-label="Öppna AI-chatt" title="Chatta med Ai-Roffe">
+          <span>🤖</span>
+        </button>
+        <button class="iconBtn" id="themeBtn" type="button" aria-label="Växla tema">
+          <span class="iconBtn__dot"></span>
+        </button>
+        <button class="menuBtn" id="menuBtn" type="button" aria-label="Öppna meny" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobileNav" id="mobileNav" aria-hidden="true">
+      <div class="container mobileNav__inner">
+        <a href="index.html">Hem</a>
+        <a href="tjanster.html">Tjänster</a>
+        <a href="arrangor.html">Arrangörer</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="om-mig.html">Om mig</a>
+        <a href="kontakt.html" class="btn">Kontakt</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Portfolio -->
+    <section class="section">
+      <div class="container">
+        <div class="section__head section__head--row">
+          <div>
+            <h1>Portfolio</h1>
+            <p class="muted">Välj ett album och klicka på det du vill se.</p>
+          </div>
+
+          <div class="filters" role="tablist" aria-label="Portfolio-filter">
+            <button class="filter is-active" data-filter="all" type="button">Alla</button>
+            <button class="filter" data-filter="video" type="button">Video</button>
+            <button class="filter" data-filter="bild" type="button">Bild</button>
+            <button class="filter" data-filter="webb" type="button">Webb</button>
+          </div>
+        </div>
+
+        <!-- Album grid -->
+        <div class="albumGrid" id="albumGrid"></div>
+
+        <!-- Album view (öppnas när man klickar på ett album) -->
+        <div class="albumPanel" id="albumPanel" hidden>
+          <div class="albumPanel__top">
+            <div>
+              <div class="muted tiny">Album</div>
+              <div class="albumPanel__title" id="albumTitle">—</div>
+              <div class="muted" id="albumDesc">—</div>
+            </div>
+            <button class="btn btn--ghost" id="albumBackBtn" type="button">← Tillbaka</button>
+          </div>
+
+          <!-- Album filters (visa bara om album har både video och bild) -->
+          <div class="albumFilters" id="albumFilters" style="display: none;">
+            <button class="filter filter--album active" data-filter="all">Alla</button>
+            <button class="filter filter--album" data-filter="video">Video</button>
+            <button class="filter filter--album" data-filter="image">Bilder</button>
+          </div>
+
+          <div class="mediaGrid" id="mediaGrid"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Websites -->
+    <section class="section section--alt">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2>Hemsidor</h2>
+            <p class="muted">
+              Hemsidor för band och EPK. Snabb laddning och enkla uppdateringar.
+            </p>
+          </div>
+        </div>
+
+        <div class="webGrid">
+          <div class="webCard">
+            <div class="webCard__t">Innehåll som ofta ingår</div>
+            <ul class="list">
+              <li>Spelplan (datum/ort/lokal)</li>
+              <li>Pressbilder & loggor</li>
+              <li>Presskit/EPK-länkar</li>
+              <li>Kontakt / bokning</li>
+              <li>Länkar (Spotify, YouTube, sociala)</li>
+            </ul>
+          </div>
+
+          <div class="webCard">
+            <div class="webCard__t">Drift & uppdateringar</div>
+            <ul class="list">
+              <li>Hjälp med domän och att sidan blir live</li>
+              <li>Domänen betalas 1 gång per år.</li>
+              <li>Gratis Uppdateringar när ni vill (nya datum, bilder, osv)</li>
+              <li>Clean och snabb laddning</li>
+            </ul>
+          </div>
+
+          <div class="webCard webCard--accent">
+            <div class="webCard__t">Vill du att jag tar allt?</div>
+            <p class="muted">Säg vad ni vill ha på sidan så föreslår jag en lösning och ett pris.</p>
+            <a class="btn wide" href="kontakt.html">Kontakt</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sidnavigation -->
+    <section class="section">
+      <div class="container">
+        <div class="pageNav">
+          <a href="tjanster.html" class="pageNav__prev">
+            <span class="pageNav__arrow">←</span>
+            <div>
+              <div class="muted tiny">Föregående</div>
+              <div class="pageNav__title">Tjänster</div>
+            </div>
+          </a>
+          <a href="om-mig.html" class="pageNav__next">
+            <div>
+              <div class="muted tiny">Nästa</div>
+              <div class="pageNav__title">Om mig</div>
+            </div>
+            <span class="pageNav__arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Scroll to Top Button -->
+  <button class="scrollTopBtn" id="scrollTopBtn" aria-label="Gå till toppen">↑</button>
+
+  <!-- Modal -->
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal__backdrop" data-close="true"></div>
+    <div class="modal__panel" role="document">
+      <button class="modal__close" id="modalClose" type="button" aria-label="Stäng">✕</button>
+      <div class="modal__head">
+        <div class="modal__title" id="modalTitle">Titel</div>
+        <div class="modal__meta" id="modalMeta">—</div>
+      </div>
+      <div class="modal__body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img class="brand__logo brand__logo--small" src="assets/logo.png" alt="DansMedia Studio logga" />
+        <div>
+          <div class="footer__t">DansMedia Studio</div>
+          <div class="muted tiny">Video • Bild • Webb</div>
+        </div>
+      </div>
+
+      <div class="footer__links">
+        <div class="footer__col">
+          <div class="footer__heading">Navigering</div>
+          <a href="index.html">Hem</a>
+          <a href="tjanster.html">Tjänster</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="om-mig.html">Om mig</a>
+          <a href="kontakt.html">Kontakt</a>
+        </div>
+
+        <div class="footer__col">
+          <div class="footer__heading">Kontakt</div>
+          <a href="tel:+46700984595">070 098 45 95</a>
+          <a href="mailto:dansmedian@gmail.com">dansmedian@gmail.com</a>
+        </div>
+
+        <div class="footer__col">
+          <div class="footer__heading">Följ</div>
+          <a href="#">Instagram</a>
+          <a href="https://www.facebook.com/share/1H7SdxtUKB/">Facebook</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <div class="container">
+        <div class="muted tiny">© 2026 DansMedia Studio. Alla rättigheter förbehållna.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Chat Modal -->
+  <div class="chatModal" id="chatModal" aria-hidden="true">
+    <div class="chatModal__backdrop" id="chatBackdrop"></div>
+    <div class="chatModal__panel">
+      <div class="chatModal__header">
+        <div>
+          <div class="chatModal__title">Ai-Roffe</div>
+          <div class="chatModal__subtitle">DansMedia Assistent</div>
+        </div>
+        <button class="chatModal__close" id="chatCloseBtn" type="button" aria-label="Stang chatt">x</button>
+      </div>
+      <div class="chatModal__messages" id="chatMessages"></div>
+      <div class="chatModal__input">
+        <input type="text" id="chatInput" placeholder="Stall en fraga..." />
+        <button id="chatSendBtn" type="button" aria-label="Skicka">Sand</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
