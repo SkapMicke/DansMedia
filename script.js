@@ -290,7 +290,7 @@ const PORTFOLIO_ALBUMS = [
       { kind: "image", src: "assets/portfolio/albums/sounders/images/logo.jpg", title: "Sounders Logo" },
       { kind: "image", src: "assets/portfolio/albums/sounders/images/sounders.jpg", title: "Sounders Dansorkester" },
       { kind: "image", src: "assets/portfolio/albums/sounders/images/tackbåt.jpg", title: "Tackbåt Event" },
-      { kind: "image", src: " attachments/portfolio/albums/sounders/images/tacksundspärlan.jpg", title: "Tacksundspärlan" },
+      { kind: "image", src: "assets/portfolio/albums/sounders/images/tacksundspärlan.jpg", title: "Tacksundspärlan" },
     ],
   },
 
@@ -314,6 +314,15 @@ const PORTFOLIO_ALBUMS = [
     thumb: "assets/portfolio/albums/promo/live.png",
     items: [],
   },
+
+  {
+    id: "ovrigt",
+    title: "Övriga bilder",
+    type: "bild",
+    desc: "Fotografi: blandade bilder och favoriter.",
+    thumb: "assets/portfolio/albums/sounders/images/live1.jpg",
+    items: [],
+  },
 ];
 
 
@@ -324,6 +333,7 @@ const mediaGrid = document.getElementById("mediaGrid");
 const albumTitle = document.getElementById("albumTitle");
 const albumDesc = document.getElementById("albumDesc");
 const albumBackBtn = document.getElementById("albumBackBtn");
+const otherPhotosBtn = document.getElementById("otherPhotosBtn");
 
 // 3) Filter buttons
 const filterButtons = Array.from(document.querySelectorAll(".filters .filter"));
@@ -390,6 +400,21 @@ async function openAlbum(albumId) {
   // 1) Rendera direkt (så UI känns instant)
   renderMedia(album);
 
+  // Tomt album: visa instruktion istället för blank yta
+  if (album.items.length === 0 && mediaGrid) {
+    const extra = album.id === "ovrigt"
+      ? "Lägg dina bilder i assets/portfolio/ovrigt/images/ och fyll på assets/portfolio/ovrigt/manifest.json under files."
+      : "Inget innehåll uppladdat ännu.";
+
+    mediaGrid.innerHTML = `
+      <div class="emptyState">
+        <div class="emptyState__t">Inga bilder ännu</div>
+        <div class="muted">${extra}</div>
+      </div>
+    `;
+    return;
+  }
+
   // 2) Preloada ALLA thumbnails i albumet i bakgrunden
   // (och även bild-src för image-items om du inte har separata thumbs)
   const urlsToPreload = album.items
@@ -408,6 +433,11 @@ if (albumBackBtn) {
     albumGrid.style.display = "";
     mediaGrid.innerHTML = "";
   });
+}
+
+// Quick entry: "Visa övriga bilder"
+if (otherPhotosBtn) {
+  otherPhotosBtn.addEventListener("click", () => openAlbum("ovrigt"));
 }
 
 // 6.5) Album filter buttons
@@ -705,6 +735,23 @@ function openInModal(item, album) {
   modal.classList.add("is-open");
 }
 
+// Service galleries: click-to-enlarge (works on any page)
+document.addEventListener("click", (e) => {
+  const trigger = e.target.closest("[data-modal-src]");
+  if (!trigger) return;
+
+  const src = trigger.getAttribute("data-modal-src");
+  if (!src) return;
+
+  const title = trigger.getAttribute("data-modal-title") || "";
+  const meta = trigger.getAttribute("data-modal-meta") || "";
+
+  openInModal(
+    { kind: "image", src, title },
+    { title: meta || "" }
+  );
+});
+
 // 9) Filter events
 filterButtons.forEach(btn => {
   btn.addEventListener("click", () => {
@@ -724,7 +771,7 @@ filterButtons.forEach(btn => {
 });
 
 // 10) init
-renderAlbums();
+// (rendering is handled by initPortfolio() below)
 
 
 
@@ -800,6 +847,34 @@ async function createLiveFotoItems() {
   }
 }
 
+// ===============================
+// Övriga bilder – fotografi (manifest)
+// ===============================
+
+async function createOvrigtItems() {
+  const basePath = "assets/portfolio/ovrigt/images/";
+  const manifestUrl = "assets/portfolio/ovrigt/manifest.json";
+
+  const bust = `?v=${Date.now()}`;
+
+  try {
+    const res = await fetch(manifestUrl + bust, { cache: "no-store" });
+    if (!res.ok) throw new Error("manifest not found");
+
+    const data = await res.json();
+    const files = Array.isArray(data.files) ? data.files : [];
+    const prefix = (data.titlePrefix || "Övrig bild").toString();
+
+    return files.map((file, idx) => ({
+      kind: "image",
+      src: `${basePath}${file}${bust}`,
+      title: `${prefix} ${idx + 1}`,
+    }));
+  } catch (e) {
+    return [];
+  }
+}
+
 /*
   ✅ VIKTIGT: I din PORTFOLIO_ALBUMS ska livefoto-albumet se ut såhär.
   Byt bara ut din livefoto-del mot denna:
@@ -822,9 +897,14 @@ const LIVEFOTO_ALBUM_TEMPLATE = {
 async function initPortfolio() {
   // Om du redan har PORTFOLIO_ALBUMS definierad ovan, så hittar vi livefoto-albumet:
   const liveAlbum = PORTFOLIO_ALBUMS.find(a => a.id === "livefoto");
+  const ovrigtAlbum = PORTFOLIO_ALBUMS.find(a => a.id === "ovrigt");
 
   if (liveAlbum) {
     liveAlbum.items = await createLiveFotoItems();
+  }
+
+  if (ovrigtAlbum) {
+    ovrigtAlbum.items = await createOvrigtItems();
   }
 
   renderAlbums();

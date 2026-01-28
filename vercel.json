@@ -2,6 +2,10 @@
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
     { "source": "/tjanster", "destination": "/tjanster.html" },
+    { "source": "/tjanster/video", "destination": "/tjanster-video.html" },
+    { "source": "/tjanster/grafiskt", "destination": "/tjanster-grafiskt.html" },
+    { "source": "/tjanster/hemsida", "destination": "/tjanster-hemsida.html" },
+    { "source": "/tjanster/logga", "destination": "/tjanster-logga.html" },
     { "source": "/arrangor", "destination": "/arrangor.html" },
     { "source": "/portfolio", "destination": "/portfolio.html" },
     { "source": "/om-mig", "destination": "/om-mig.html" },

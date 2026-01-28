@@ -32,7 +32,7 @@
   <!-- Header -->
   <header class="header" id="top">
     <div class="container header__inner">
-      <a class="brand" href="/" aria-label="DansMedia Studio">
+      <a class="brand" href="index.html" aria-label="DansMedia Studio">
         <img class="brand__logo" src="assets/logo.png" alt="DansMedia Studio logga" />
         <span class="brand__text">
           <strong>DansMedia</strong><span>Studio</span>
@@ -40,12 +40,21 @@
       </a>
 
       <nav class="nav" aria-label="Huvudmeny">
-        <a href="/">Hem</a>
-        <a href="/tjanster">Tjänster</a>
-        <a href="/arrangor">Arrangörer</a>
-        <a href="/portfolio">Portfolio</a>
-        <a href="/om-mig">Om mig</a>
-        <a href="/kontakt" class="btn btn--small">Kontakt</a>
+       <a href="index.html">Hem</a>
+        <div class="navDrop">
+          <a class="navDrop__trigger" href="tjanster.html">Tjänster <span class="navDrop__chev" aria-hidden="true">▾</span></a>
+          <div class="navDrop__menu" role="menu" aria-label="Tjänster">
+            <a role="menuitem" href="tjanster.html">Översikt</a>
+            <a role="menuitem" href="tjanster-video.html">Video</a>
+            <a role="menuitem" href="tjanster-grafiskt.html">Grafiskt / bilder</a>
+            <a role="menuitem" href="tjanster-hemsida.html">Hemsida</a>
+            <a role="menuitem" href="tjanster-logga.html">Logga</a>
+          </div>
+        </div>
+        <a href="arrangor.html">Arrangörer</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="om-mig.html">Om mig</a>
+        <a href="kontakt.html" class="btn btn--small">Kontakt</a>
       </nav>
 
       <div class="header__actions">
@@ -63,12 +72,21 @@
 
     <div class="mobileNav" id="mobileNav" aria-hidden="true">
       <div class="container mobileNav__inner">
-        <a href="/">Hem</a>
-        <a href="/tjanster">Tjänster</a>
-        <a href="/arrangor">Arrangörer</a>
-        <a href="/portfolio">Portfolio</a>
-        <a href="/om-mig">Om mig</a>
-        <a href="/kontakt" class="btn">Kontakt</a>
+       <a href="index.html">Hem</a>
+        <details class="mobileNav__drop">
+          <summary>Tjänster</summary>
+          <div class="mobileNav__dropLinks">
+            <a href="tjanster.html">Översikt</a>
+            <a href="tjanster-video.html">Video</a>
+            <a href="tjanster-grafiskt.html">Grafiskt / bilder</a>
+            <a href="tjanster-hemsida.html">Hemsida</a>
+            <a href="tjanster-logga.html">Logga</a>
+          </div>
+        </details>
+        <a href="arrangor.html">Arrangörer</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="om-mig.html">Om mig</a>
+        <a href="kontakt.html" class="btn">Kontakt</a>
       </div>
     </div>
   </header>
@@ -256,7 +274,7 @@
               <div class="pageNav__title">Portfolio</div>
             </div>
           </a>
-          <a href="/" class="pageNav__next">
+          <a href="index.html" class="pageNav__next">
             <div>
               <div class="muted tiny">Nästa</div>
               <div class="pageNav__title">Hem</div>
