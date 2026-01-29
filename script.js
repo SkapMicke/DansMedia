@@ -301,7 +301,7 @@ const PORTFOLIO_ALBUMS = [
     id: "ovrigt",
     title: "Övriga bilder",
     type: "bild",
-    desc: "Fotografi: blandade bilder och favoriter.",
+    desc: "Fotografi: blandade bilder från annat än dans & band jag fotograferat.",
     thumb: "assets/portfolio/albums/sounders/images/live1.jpg",
     items: [],
   },
