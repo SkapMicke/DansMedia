@@ -246,24 +246,6 @@ if (copyEmailBtn2 && emailText2) {
 // Portfolio – album + lokal assets
 // ===============================
 
-// Funktion för att skapa livefoto-items från förväntade filer
-function createLiveFotoItems() {
-  const basePath = "assets/portfolio/albums/livefoto/";
-  const items = [];
-  const maxImages = 100; // Stöd för upp till 100 bilder
-  
-  // Skapa items för sekventiella namn (1.jpg, 2.jpg, ..., 100.jpg)
-  for (let i = 1; i <= maxImages; i++) {
-    items.push({
-      kind: "image",
-      src: `${basePath}${i}.jpg`,
-      title: `Live Foto ${i}`
-    });
-  }
-  
-  return items;
-}
-
 // 1) Definiera album + media (lägg bara in dina filer här)
 const PORTFOLIO_ALBUMS = [
   {
@@ -422,7 +404,7 @@ async function openAlbum(albumId) {
     .map(item => item.thumb || item.src);
 
   // Kör preload utan att blocka UI
-  preloadImages(urlsToPreload, { concurrency: 12 });
+  preloadImages(urlsToPreload.slice(0, 12), { concurrency: 4 });
 }
 
 
@@ -572,6 +554,27 @@ function renderMedia(album) {
   if (!mediaGrid) return;
   mediaGrid.innerHTML = "";
 
+  // Lazy-load image thumbs nära viewport för snabbare initial rendering
+  const ensureLazyObserver = (() => {
+    let observer;
+    return () => {
+      if (observer) return observer;
+      if (typeof IntersectionObserver === "undefined") return null;
+
+      observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const img = entry.target;
+          const src = img.dataset.src;
+          if (src && !img.src) img.src = src;
+          observer.unobserve(img);
+        });
+      }, { rootMargin: "300px 0px", threshold: 0.01 });
+
+      return observer;
+    };
+  })();
+
   const filteredItems = album.items.filter(item =>
     activeAlbumFilter === "all" || item.kind === activeAlbumFilter
   );
@@ -597,15 +600,23 @@ function renderMedia(album) {
 
       const img = btn.querySelector("img");
 
-      // Dölj bildkort tills den laddat
-      btn.style.display = "none";
-      img.loading = "eager";
+      // Visa kort direkt med "loading"-state (så det inte känns som att inget händer)
+      btn.classList.add("is-loading");
+      img.loading = index < 10 ? "eager" : "lazy";
       img.decoding = "async";
-      img.fetchPriority = index < 10 ? "high" : "auto";
+      img.fetchPriority = index < 6 ? "high" : "auto";
 
-      img.onload = () => { btn.style.display = ""; };
+      img.onload = () => { btn.classList.remove("is-loading"); };
       img.onerror = () => { btn.remove(); };
-      img.src = thumbSrc;
+
+      const obs = ensureLazyObserver();
+      if (obs && index >= 10) {
+        // Första raderna laddas direkt, resten lazy
+        img.dataset.src = thumbSrc;
+        obs.observe(img);
+      } else {
+        img.src = thumbSrc;
+      }
 
       btn.addEventListener("click", () => openInModal(item, album));
       mediaGrid.appendChild(btn);
@@ -810,40 +821,96 @@ document.addEventListener("click", (e) => {
 // Live Foto – auto från manifest
 // ===============================
 
+// Fallback-lista om manifest inte kan hämtas (t.ex. om du öppnar sidan via file://)
+// Håll denna i sync med assets/portfolio/albums/livefoto/manifest.json
+const LIVEFOTO_FILES_FALLBACK = [
+  "_DSC0319.JPG",
+  "_DSC0330.JPG",
+  "_DSC0448.JPG",
+  "DSC_0008.JPG",
+  "DSC_0010.JPG",
+  "DSC_0113.JPG",
+  "DSC_0200.JPG",
+  "DSC_0281.JPG",
+  "DSC_0311.JPG",
+  "DSC01457_resultat.png",
+  "DSC01465_resultat.png",
+  "DSC01534_resultat.png",
+  "DSC01546_resultat.png",
+  "DSC01582_resultat.png",
+  "DSC01597_resultat.png",
+  "DSC01605_resultat.png",
+  "DSC01610_resultat.png",
+  "DSC01625_resultat.png",
+  "DSC01654_resultat.png",
+  "DSC01656_resultat.png",
+  "DSC01766_resultat.png",
+  "DSC01769_resultat.png",
+  "DSC01771_resultat.png",
+  "DSC01779_resultat.png",
+  "DSC01792_resultat.png",
+  "DSC08600.JPG",
+  "DSC08612.JPG",
+  "DSC08629.JPG",
+  "DSC08638.JPG",
+  "DSC09111.JPG",
+  "DSC09813.JPG",
+  "SoundersBirka (96).JPG",
+  "SoundersBirka (97).JPG",
+  "SoundersBirka (100).JPG",
+  "SoundersBirka (112).JPG",
+  "SoundersBirka (243).JPG",
+  "SoundersBirka (507).JPG",
+  "SoundersBirka (515).JPG",
+  "SoundersBirka (525).JPG",
+  "SoundersBirka (553).JPG",
+  "SoundersBirka (567).JPG",
+  "SoundersBirka (571).JPG",
+  "SoundersBirka (589).JPG",
+];
+
 // Hämtar livefoto-items från manifest (rekommenderat)
-// Fallback: 1.jpg..100.jpg om manifest saknas
+// Robust fallback: LIVEFOTO_FILES_FALLBACK (så funkar även utan lokal server)
 async function createLiveFotoItems() {
   const basePath = "assets/portfolio/albums/livefoto/";
   const manifestUrl = `${basePath}manifest.json`;
 
-  // Cache-bust så nya uppladdningar syns direkt efter refresh
-  const bust = `?v=${Date.now()}`;
+  const isFileProtocol = typeof location !== "undefined" && location.protocol === "file:";
 
-  try {
-    const res = await fetch(manifestUrl + bust, { cache: "no-store" });
-    if (!res.ok) throw new Error("manifest not found");
+  // Cache-bust så nya uppladdningar syns direkt efter refresh.
+  // OBS: På file:// fungerar querystring ofta inte för lokala filer.
+  const bust = isFileProtocol ? "" : `?v=${Date.now()}`;
 
-    const data = await res.json();
-    const files = Array.isArray(data.files) ? data.files : [];
-    const prefix = (data.titlePrefix || "Live Foto").toString();
+  const toItems = (files, titlePrefix) => {
+    const safeFiles = (Array.isArray(files) ? files : [])
+      .map(f => (typeof f === "string" ? f.trim() : ""))
+      .filter(Boolean);
 
-    return files.map((file, idx) => ({
+    const prefix = (titlePrefix || "Live Foto").toString();
+
+    return safeFiles.map((file, idx) => ({
       kind: "image",
       src: `${basePath}${file}${bust}`,
       title: `${prefix} ${idx + 1}`
     }));
+  };
+
+  // Om man öppnar HTML-filen direkt (file://) kan fetch mot json bli blockad.
+  if (isFileProtocol) {
+    return toItems(LIVEFOTO_FILES_FALLBACK, "Live Foto");
+  }
+
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3500);
+    const res = await fetch(manifestUrl + bust, { cache: "no-store", signal: controller.signal });
+    clearTimeout(timeoutId);
+    if (!res.ok) throw new Error("manifest not found");
+
+    const data = await res.json();
+    return toItems(data.files, data.titlePrefix);
   } catch (e) {
-    // Fallback: sekventiella filer 1.jpg..100.jpg
-    const items = [];
-    const maxImages = 100;
-    for (let i = 1; i <= maxImages; i++) {
-      items.push({
-        kind: "image",
-        src: `${basePath}${i}.jpg${bust}`,
-        title: `Live Foto ${i}`
-      });
-    }
-    return items;
+    return toItems(LIVEFOTO_FILES_FALLBACK, "Live Foto");
   }
 }
 
