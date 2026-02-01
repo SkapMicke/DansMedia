@@ -144,7 +144,8 @@ const modalTitle = $("#modalTitle");
 const modalMeta = $("#modalMeta");
 const modalClose = $("#modalClose");
 
-function openModal({ title, meta, kind, src }) {
+function openModal({ title, meta, kind, src, html }) {
+  if (!modal || !modalBody || !modalTitle || !modalMeta) return;
   modalTitle.textContent = title || "Portfolio";
   modalMeta.textContent = meta || "";
   modalBody.innerHTML = "";
@@ -155,6 +156,8 @@ function openModal({ title, meta, kind, src }) {
     iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
     iframe.allowFullscreen = true;
     modalBody.appendChild(iframe);
+  } else if (kind === "html") {
+    modalBody.innerHTML = html || "";
   } else {
     const img = document.createElement("img");
     img.src = src;
@@ -216,6 +219,92 @@ modal?.addEventListener("click", (e) => {
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
 });
+
+// ===============================
+// Tjänster – "Läs mer" popup
+// ===============================
+
+(() => {
+  const btns = $$(".js-readMore");
+  if (!btns.length) return;
+
+  const serviceCopy = {
+    video: {
+      title: "Marknadsföringsvideo",
+      meta: "Tjänst",
+      html: `
+        <p class="muted">Promo/teaser som är byggd för att funka direkt på Facebook och Instagram.</p>
+        <ul class="list">
+          <li>Rätt format (t.ex. 9:16 / 1:1 / 16:9 vid behov)</li>
+          <li>Tydlig info: datum, plats, bandnamn + CTA</li>
+          <li>Snabbt upplägg: du skickar info → jag levererar färdigt</li>
+        </ul>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
+          <a class="btn btn--small" href="kontakt.html">Be om offert</a>
+          <a class="btn btn--ghost btn--small" href="portfolio.html">Se exempel</a>
+        </div>
+      `.trim(),
+    },
+    bilder: {
+      title: "Bildmaterial",
+      meta: "Tjänst",
+      html: `
+        <p class="muted">Bildpaket för inlägg, covers och affischer – med en enhetlig look som passar ert band.</p>
+        <ul class="list">
+          <li>Design som håller ihop allt (färger/typsnitt/stil)</li>
+          <li>Leverans i rätt storlekar för SoMe och event</li>
+          <li>Små justeringar när ni behöver</li>
+        </ul>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
+          <a class="btn btn--small" href="kontakt.html">Fråga om paket</a>
+          <a class="btn btn--ghost btn--small" href="portfolio.html">Se exempel</a>
+        </div>
+      `.trim(),
+    },
+    hemsida: {
+      title: "Hemsideskapande",
+      meta: "Tjänst",
+      html: `
+        <p class="muted">En snabb och proffsig hemsida som är enkel att underhålla och ser bra ut i mobilen.</p>
+        <ul class="list">
+          <li>Vanliga sidor: start, band, media/press, spelningar, kontakt</li>
+          <li>Snabb laddning + modern design</li>
+          <li>Byggd så att ni kan fylla på innehåll utan krångel</li>
+          <li>Hjälp med publicering + småändringar vid behov</li>
+        </ul>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
+          <a class="btn btn--small" href="kontakt.html">Be om upplägg</a>
+          <a class="btn btn--ghost btn--small" href="portfolio.html">Se exempel</a>
+        </div>
+      `.trim(),
+    },
+    logga: {
+      title: "Logga",
+      meta: "Tjänst",
+      html: `
+        <p class="muted">En logga som funkar överallt: sociala medier, affischer och hemsida.</p>
+        <ul class="list">
+          <li>Versioner för ljus/mörk bakgrund</li>
+          <li>Leverans i vanliga format (PNG/SVG/JPG)</li>
+          <li>Matchar ert uttryck och genre</li>
+        </ul>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
+          <a class="btn btn--small" href="kontakt.html">Fråga om logga</a>
+          <a class="btn btn--ghost btn--small" href="portfolio.html">Se exempel</a>
+        </div>
+      `.trim(),
+    },
+  };
+
+  btns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const key = btn.dataset.service;
+      const cfg = serviceCopy[key];
+      if (!cfg) return;
+      openModal({ title: cfg.title, meta: cfg.meta, kind: "html", html: cfg.html });
+    });
+  });
+})();
 
 // Kopiera mail (Kontakt-sektionen)
 const copyEmailBtn2 = document.getElementById("copyEmailBtn2");
@@ -1098,12 +1187,12 @@ const knowledgebaseSV = {
   
   bilder: "Vi fotograferar och redigerar professionellt!\n✅ Livefoto på spelningar\n✅ Band-fotoshooter\n✅ Event-fotografering\n✅ Höga upplösningar för sociala medier\n\nKontakta mig för prissättning!",
   
-  hemsida: "Vi bygger hemsidor för band!\n✅ Responsive design\n✅ Enkel att uppdatera\n✅ Tour-kalender\n✅ Musik & bilder-sektion\n✅ Kontaktformulär\n\nVill du diskutera ditt projekt?",
+  hemsida: "Hemsideskapande för band!\n✅ Responsive design\n✅ Enkel att uppdatera\n✅ Tour-kalender\n✅ Musik & bilder-sektion\n✅ Kontaktformulär\n\nVill du diskutera ditt projekt?",
   
   content: "Vi skapar löpande marknadsföringsmaterial!\n✅ Instagram-stories\n✅ TikTok-videos\n✅ Facebook-inlägg\n✅ Snabb turnaround\n✅ Anpassat efter din stil\n\nMåndlig prenumeration tillgänglig!",
   
   // PRISER & PAKET
-  pris: "Våra priser anpassas helt efter dina behov!\n\nExempel:\n💬 Mindre event: från 1-2 timmar\n🎬 Videopaket: flexibelt efter omfattning\n📸 Foto-session: variabel längd\n💻 Hemsida: prisas individuellt\n\nKontakta för personlig offert:\n070 098 45 95",
+  pris: "Våra priser anpassas helt efter dina behov!\n\nExempel:\n💬 Mindre event: från 1-2 timmar\n🎬 Videopaket: flexibelt efter omfattning\n📸 Foto-session: variabel längd\n💻 Hemsideskapande: prisas individuellt\n\nKontakta för personlig offert:\n070 098 45 95",
   
   arrangor: "För arrangörer erbjuder vi flexibel prissättning!\n✅ Sociala medier-material\n✅ Affischer & presskit\n✅ Video-sammanfattningar\n✅ Campaign-material\n✅ Allt efter era behov\n\nBesök arrangor-sidan eller ring!",
   
@@ -1117,7 +1206,7 @@ const knowledgebaseSV = {
   portfolio: "Se vår portfolio för inspiration!\n✅ Tidigare band-projekt\n✅ Event-fotografering\n✅ Videosammanfattningar\n✅ Hemsidor vi gjort\n✅ Sociala medier-kampanjer\n\nBesök portfolio-sidan för exempel!",
   
   // OM SIMON
-  simon: "Simon Rosenius driver DansMedia Studio!\n\n✅ Specialist på band-marknadsföring\n✅ Videograf & fotograf\n✅ Webbutvecklare\n✅ Erfarenhet från många band\n\nMöt Simon: Besök Om mig-sidan!",
+  simon: "Simon Rosenius driver Dansmedia!\n\n✅ Specialist på band-marknadsföring\n✅ Videograf & fotograf\n✅ Webbutvecklare\n✅ Erfarenhet från många band\n\nMöt Simon: Besök Om mig-sidan!",
   
   // ALLMÄNNA FRÅGOR
   vad: "Vi skapar marknadsföringsmaterial för band och arrangörer!\n\n✅ Videoproduktion\n✅ Fotografering\n✅ Hemsidor\n✅ Sociala medier-content\n✅ Livefoto\n\nVill du veta mer om något specifikt?",
@@ -1152,7 +1241,7 @@ const knowledgebaseSV = {
   upphovsratt: "Du äger det material vi skapar för dig!\nDu kan använda det för marketing, streaming, vad som helst.",
   
   // INSPIRERANDE FRÅGOR
-  varfor_vi: "Varför välja oss?\n✅ Snabb & professionell service\n✅ Priser efter dina behov\n✅ Längre erfarenhet\n✅ Personal support från Simon\n✅ Allt från foto till hemsida\n\nEnklare än att anställa flera personer!",
+  varfor_vi: "Varför välja oss?\n✅ Snabb & professionell service\n✅ Priser efter dina behov\n✅ Längre erfarenhet\n✅ Personal support från Simon\n✅ Allt från foto till hemsideskapande\n\nEnklare än att anställa flera personer!",
   
   // OMÖJLIGA FRÅGOR - BÄTTRE FALLBACK
   fallback_sv: "Det är en bra fråga! 🤔\n\nJag kan inte svara precis på denna, men Simon kan det!\n\nKontakta direkt:\n📞 070 098 45 95\n📧 dansmedian@gmail.com\n\nVi svarar inom 12 timmar!"
@@ -1184,7 +1273,7 @@ const knowledgebaseEN = {
   portfolio: "Check our portfolio for inspiration!\n✅ Previous band projects\n✅ Event photography\n✅ Video summaries\n✅ Websites we've built\n✅ Social media campaigns\n\nVisit portfolio page for examples!",
   
   // ABOUT SIMON
-  simon: "Simon Rosenius runs DansMedia Studio!\n\n✅ Specialist in band marketing\n✅ Videographer & photographer\n✅ Web developer\n✅ Experience from many bands\n\nMeet Simon: Visit About page!",
+  simon: "Simon Rosenius runs Dansmedia!\n\n✅ Specialist in band marketing\n✅ Videographer & photographer\n✅ Web developer\n✅ Experience from many bands\n\nMeet Simon: Visit About page!",
   
   // GENERAL QUESTIONS
   what: "We create marketing materials for bands and organizers!\n\n✅ Video production\n✅ Photography\n✅ Websites\n✅ Social media content\n✅ Live photography\n\nWant to know more about something specific?",

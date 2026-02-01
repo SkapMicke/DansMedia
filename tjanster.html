@@ -6,7 +6,7 @@
   <title>Tjänster – Simons DansMedia AB</title>
   <meta name="description" content="Se alla tjänster från DansMedia: marknadsföringsvideoer, bildmaterial, löpande content, retainerupplägg och hemsidor för band." />
   <meta name="theme-color" content="#0b0c10" />
-  <meta property="og:title" content="Tjänster – DansMedia Studio" />
+  <meta property="og:title" content="Tjänster – Dansmedia" />
   <meta property="og:description" content="Videor, bilder, löpande content och hemsidor för band." />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="sv_SE" />
@@ -32,8 +32,8 @@
   <!-- Header -->
   <header class="header" id="top">
     <div class="container header__inner">
-      <a class="brand" href="index.html" aria-label="DansMedia Studio">
-        <img class="brand__logo" src="assets/logo.png" alt="DansMedia Studio logga" />
+      <a class="brand" href="index.html" aria-label="Dansmedia">
+        <img class="brand__logo" src="assets/logo.png" alt="Dansmedia logga" />
         <span class="brand__text">
           <strong>DansMedia</strong><span>Studio</span>
         </span>
@@ -41,17 +41,7 @@
 
       <nav class="nav" aria-label="Huvudmeny">
        <a href="index.html">Hem</a>
-        <div class="navDrop">
-          <a class="navDrop__trigger" href="tjanster.html">Tjänster <span class="navDrop__chev" aria-hidden="true">▾</span></a>
-          <div class="navDrop__menu" role="menu" aria-label="Tjänster">
-            <a role="menuitem" href="tjanster.html">Översikt</a>
-            <a role="menuitem" href="tjanster-video.html">Video</a>
-            <a role="menuitem" href="tjanster-grafiskt.html">Grafiskt / bilder</a>
-            <a role="menuitem" href="tjanster-hemsida.html">Hemsida</a>
-            <a role="menuitem" href="tjanster-logga.html">Logga</a>
-          </div>
-        </div>
-        <a href="arrangor.html">Arrangörer</a>
+        <a href="tjanster.html">Tjänster</a>
         <a href="portfolio.html">Portfolio</a>
         <a href="om-mig.html">Om mig</a>
         <a href="kontakt.html" class="btn btn--small">Kontakt</a>
@@ -73,17 +63,7 @@
     <div class="mobileNav" id="mobileNav" aria-hidden="true">
       <div class="container mobileNav__inner">
        <a href="index.html">Hem</a>
-        <details class="mobileNav__drop" open>
-          <summary>Tjänster</summary>
-          <div class="mobileNav__dropLinks">
-            <a href="tjanster.html">Översikt</a>
-            <a href="tjanster-video.html">Video</a>
-            <a href="tjanster-grafiskt.html">Grafiskt / bilder</a>
-            <a href="tjanster-hemsida.html">Hemsida</a>
-            <a href="tjanster-logga.html">Logga</a>
-          </div>
-        </details>
-        <a href="arrangor.html">Arrangörer</a>
+        <a href="tjanster.html">Tjänster</a>
         <a href="portfolio.html">Portfolio</a>
         <a href="om-mig.html">Om mig</a>
         <a href="kontakt.html" class="btn">Kontakt</a>
@@ -98,7 +78,7 @@
         <div class="section__head">
           <div>
             <h1>Tjänster</h1>
-            <p class="muted">Välj enstaka leveranser — eller ett upplägg som sköter allt åt er.</p>
+            <p class="muted">För band & arrangörer – välj enstaka leveranser eller ett upplägg som sköter allt åt er.</p>
           </div>
         </div>
 
@@ -115,7 +95,7 @@
               <li>Tydlig information och CTA</li>
               <li>Flera versioner vid behov</li>
             </ul>
-            <a class="link" href="tjanster-video.html">Läs mer →</a>
+            <button class="link js-readMore" type="button" data-service="video">Läs mer →</button>
           </article>
 
           <article class="card" id="bilder">
@@ -130,10 +110,10 @@
               <li>Redo att posta</li>
               <li>Snabba ändringar</li>
             </ul>
-            <a class="link" href="tjanster-grafiskt.html">Läs mer →</a>
+            <button class="link js-readMore" type="button" data-service="bilder">Läs mer →</button>
           </article>
 
-          <article class="card">
+          <article class="card" id="content">
             <div class="card__top">
               <h3>Löpande content</h3>
             </div>
@@ -146,6 +126,70 @@
               <li>Flexibla mängder</li>
             </ul>
           </article>
+
+          <article class="card" id="hobbyfoto">
+            <div class="card__top">
+              <h3>Hobbyfotografering</h3>
+            </div>
+            <p class="muted">Livebilder som extra material – mer hobby än ”proffsfoto”, men perfekt som komplement.</p>
+            <ul class="list">
+              <li>Fungerar bra för SoMe</li>
+              <li>Snabb leverans</li>
+              <li>Extra material när ni vill ha mer</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Arrangörer (flyttat hit) -->
+    <section class="section section--alt" id="arrangorer">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2>För arrangörer</h2>
+            <p class="muted">Eventmaterial som är tydligt, snyggt och klart att publicera.</p>
+          </div>
+        </div>
+
+        <div class="cards3">
+          <article class="card">
+            <div class="card__top"><h3>Affisch / posters</h3></div>
+            <p class="muted">Tydlig info (datum/plats) + call-to-action.</p>
+            <ul class="list">
+              <li>För Facebook-event & Instagram</li>
+              <li>Enhetlig stil</li>
+              <li>Snabba ändringar vid behov</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card__top"><h3>SoMe-paket</h3></div>
+            <p class="muted">Inlägg, stories och covers som driver publik.</p>
+            <ul class="list">
+              <li>Rätt format direkt</li>
+              <li>Versioner/variationer</li>
+              <li>Byggt för räckvidd</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card__top"><h3>Video (teaser / recap)</h3></div>
+            <p class="muted">Kort, tydligt och med tempo som passar genren.</p>
+            <ul class="list">
+              <li>Teasers inför event</li>
+              <li>Sammanfattning efteråt</li>
+              <li>Leverans i SoMe-format</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="ctaBar" style="margin-top: 18px;">
+          <div>
+            <div class="ctaBar__t">Arrangör?</div>
+            <div class="muted">Skicka datum, lineup och info – så föreslår jag upplägg.</div>
+          </div>
+          <a class="btn" href="kontakt.html">Kontakta mig</a>
         </div>
       </div>
     </section>
@@ -156,22 +200,23 @@
         <div class="section__head">
           <div>
             <h2>Webb & grafiskt</h2>
-            <p class="muted">För band som vill se proffsiga ut överallt — hemsida, logga och material.</p>
+            <p class="muted">För band som vill se proffsiga ut överallt — hemsideskapande, logga och material.</p>
           </div>
         </div>
 
         <div class="cards3">
           <article class="card" id="hemsida">
             <div class="card__top">
-              <h3>Hemsida</h3>
+              <h3>Hemsideskapande</h3>
             </div>
-            <p class="muted">En snabb, snygg och lättskött hemsida för band.</p>
+            <p class="muted">En snabb, snygg och lättskött hemsida för band (mobil + desktop).</p>
             <ul class="list">
               <li>Startsida + valfria undersidor</li>
               <li>Mobilanpassad och snabb</li>
               <li>Enhetlig stil med ert material</li>
+              <li>Publicering + enklare ändringar vid behov</li>
             </ul>
-            <a class="link" href="tjanster-hemsida.html">Läs mer →</a>
+            <button class="link js-readMore" type="button" data-service="hemsida">Läs mer →</button>
           </article>
 
           <article class="card" id="logga">
@@ -184,7 +229,7 @@
               <li>Leverans i vanliga format</li>
               <li>Matchar ert uttryck</li>
             </ul>
-            <a class="link" href="tjanster-logga.html">Läs mer →</a>
+            <button class="link js-readMore" type="button" data-service="logga">Läs mer →</button>
           </article>
 
           <article class="card" id="affisch">
@@ -362,9 +407,9 @@
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <img class="brand__logo brand__logo--small" src="assets/logo.png" alt="DansMedia Studio logga" />
+        <img class="brand__logo brand__logo--small" src="assets/logo.png" alt="Dansmedia logga" />
         <div>
-          <div class="footer__t">DansMedia Studio</div>
+          <div class="footer__t">Dansmedia</div>
           <div class="muted tiny">Video • Bild • Webb</div>
         </div>
       </div>
@@ -395,7 +440,7 @@
 
     <div class="footer__bottom">
       <div class="container">
-        <div class="muted tiny">© 2026 DansMedia Studio. Alla rättigheter förbehållna.</div>
+        <div class="muted tiny">© 2026 Dansmedia. Alla rättigheter förbehållna.</div>
       </div>
     </div>
   </footer>
