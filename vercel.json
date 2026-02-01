@@ -1,4 +1,16 @@
 {
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/tjanster.html", "destination": "/tjanster", "permanent": true },
+    { "source": "/tjanster-video.html", "destination": "/tjanster/video", "permanent": true },
+    { "source": "/tjanster-grafiskt.html", "destination": "/tjanster/grafiskt", "permanent": true },
+    { "source": "/tjanster-hemsida.html", "destination": "/tjanster/hemsida", "permanent": true },
+    { "source": "/tjanster-logga.html", "destination": "/tjanster/logga", "permanent": true },
+    { "source": "/arrangor.html", "destination": "/arrangor", "permanent": true },
+    { "source": "/portfolio.html", "destination": "/portfolio", "permanent": true },
+    { "source": "/om-mig.html", "destination": "/om-mig", "permanent": true },
+    { "source": "/kontakt.html", "destination": "/kontakt", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
     { "source": "/tjanster", "destination": "/tjanster.html" },

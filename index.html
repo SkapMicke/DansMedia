@@ -33,19 +33,42 @@
   <!-- Header -->
   <header class="header" id="top">
     <div class="container header__inner">
+<<<<<<< HEAD
       <a class="brand" href="index.html" aria-label="Dansmedia">
         <img class="brand__logo" src="assets/logo.png" alt="Dansmedia logga" />
+=======
+      <a class="brand" href="/" aria-label="DansMedia Studio">
+        <img class="brand__logo" src="assets/logo.png" alt="DansMedia Studio logga" />
+>>>>>>> d2e8552f83a2a4d3c37289b4aa1c976b44904a98
         <span class="brand__text">
           <strong>DansMedia</strong><span>Studio</span>
         </span>
       </a>
 
       <nav class="nav" aria-label="Huvudmeny">
+<<<<<<< HEAD
         <a href="index.html">Hem</a>
         <a href="tjanster.html">Tjänster</a>
         <a href="portfolio.html">Portfolio</a>
         <a href="om-mig.html">Om mig</a>
         <a href="kontakt.html" class="btn btn--small">Kontakt</a>
+=======
+        <a href="/">Hem</a>
+        <div class="navDrop">
+          <a class="navDrop__trigger" href="/tjanster">Tjänster <span class="navDrop__chev" aria-hidden="true">▾</span></a>
+          <div class="navDrop__menu" role="menu" aria-label="Tjänster">
+            <a role="menuitem" href="/tjanster">Översikt</a>
+            <a role="menuitem" href="/tjanster/video">Video</a>
+            <a role="menuitem" href="/tjanster/grafiskt">Grafiskt / bilder</a>
+            <a role="menuitem" href="/tjanster/hemsida">Hemsida</a>
+            <a role="menuitem" href="/tjanster/logga">Logga</a>
+          </div>
+        </div>
+        <a href="/arrangor">Arrangörer</a>
+        <a href="/portfolio">Portfolio</a>
+        <a href="/om-mig">Om mig</a>
+        <a href="/kontakt" class="btn btn--small">Kontakt</a>
+>>>>>>> d2e8552f83a2a4d3c37289b4aa1c976b44904a98
       </nav>
 
       <div class="header__actions">
@@ -63,11 +86,29 @@
 
       <div class="mobileNav" id="mobileNav" aria-hidden="true">
       <div class="container mobileNav__inner">
+<<<<<<< HEAD
        <a href="index.html">Hem</a>
         <a href="tjanster.html">Tjänster</a>
         <a href="portfolio.html">Portfolio</a>
         <a href="om-mig.html">Om mig</a>
         <a href="kontakt.html" class="btn">Kontakt</a>
+=======
+      <a href="/">Hem</a>
+        <details class="mobileNav__drop">
+          <summary>Tjänster</summary>
+          <div class="mobileNav__dropLinks">
+            <a href="/tjanster">Översikt</a>
+            <a href="/tjanster/video">Video</a>
+            <a href="/tjanster/grafiskt">Grafiskt / bilder</a>
+            <a href="/tjanster/hemsida">Hemsida</a>
+            <a href="/tjanster/logga">Logga</a>
+          </div>
+        </details>
+        <a href="/arrangor">Arrangörer</a>
+        <a href="/portfolio">Portfolio</a>
+        <a href="/om-mig">Om mig</a>
+        <a href="/kontakt" class="btn">Kontakt</a>
+>>>>>>> d2e8552f83a2a4d3c37289b4aa1c976b44904a98
       </div>
     </div>
   </header>
@@ -99,6 +140,7 @@
             </div>
           </div>
 
+<<<<<<< HEAD
           <div class="serviceGrid" aria-label="Alla tjänster">
             <a class="svcCard" href="tjanster.html#video">
               <div class="svcCard__t">Video</div>
@@ -137,6 +179,40 @@
           <div class="hero__cta">
             <a class="btn" href="kontakt.html">Kontakt</a>
             <a class="btn btn--ghost" href="portfolio.html">Se portfolio</a>
+=======
+          <div class="heroServices">
+  <div class="heroServices__head">
+    <div class="heroServices__title">Tjänster</div>
+    <a class="link" href="/tjanster">Se alla →</a>
+  </div>
+
+  <div class="heroServices__grid">
+    <div class="svc">
+      <div class="svc__t">Videor inför spelningar</div>
+      <div class="svc__d">Promo och teasers med tydlig information.</div>
+    </div>
+
+    <div class="svc">
+      <div class="svc__t">Eventbilder & affischer</div>
+      <div class="svc__d">Material för inlägg, covers och posters.</div>
+    </div>
+
+    <div class="svc">
+      <div class="svc__t">Livefoto</div>
+      <div class="svc__d">Foton från spelningar för extra material.</div>
+    </div>
+
+    <div class="svc">
+      <div class="svc__t">Hemsidor</div>
+      <div class="svc__d">Bygger hemsidor för band med alla möjliga sidor man vill ha, byggt direkt i raw CSS/HTMLT/JS (språket).</div>
+    </div>
+  </div>
+</div>
+
+          <div class="hero__cta">
+            <a class="btn" href="/kontakt">Kontakt</a>
+            <button class="btn btn--ghost" id="openShowreel" type="button">Spela video</button>
+>>>>>>> d2e8552f83a2a4d3c37289b4aa1c976b44904a98
           </div>
         </div>
 
@@ -147,7 +223,7 @@
                 <div class="muted">Snabb översikt</div>
                 <div class="panel__title">Vad du får</div>
               </div>
-              <a class="link" href="tjanster.html">Se upplägg →</a>
+              <a class="link" href="/tjanster">Se upplägg →</a>
             </div>
 
             <div class="panel__grid">
@@ -231,11 +307,11 @@
       <div class="footer__links">
         <div class="footer__col">
           <div class="footer__heading">Navigering</div>
-          <a href="index.html">Hem</a>
-          <a href="tjanster.html">Tjänster</a>
-          <a href="portfolio.html">Portfolio</a>
-          <a href="om-mig.html">Om mig</a>
-          <a href="kontakt.html">Kontakt</a>
+          <a href="/">Hem</a>
+          <a href="/tjanster">Tjänster</a>
+          <a href="/portfolio">Portfolio</a>
+          <a href="/om-mig">Om mig</a>
+          <a href="/kontakt">Kontakt</a>
         </div>
 
         <div class="footer__col">
