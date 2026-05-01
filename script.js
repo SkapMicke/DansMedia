@@ -344,47 +344,59 @@ const PORTFOLIO_ALBUMS = [
     desc: "Bilder från Streaplers events och spelningar.",
     thumb: "assets/portfolio/Streaplers/S2.png",
     items: [
-      { kind: "image", src: "assets/portfolio/Streaplers/19aac251-22c4-4a94-9d58-0f8b4d2a90e3.png", title: "Streaplers Bild 1" },
-      { kind: "image", src: "assets/portfolio/Streaplers/dfd51446-bda0-42e5-9664-e02dc2667d61.png", title: "Streaplers Bild 2" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC07398.JPG", title: "Streaplers Bild 3" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC07403.JPG", title: "Streaplers Bild 4" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC07412.JPG", title: "Streaplers Bild 5" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC07431.JPG", title: "Streaplers Bild 6" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC07435.JPG", title: "Streaplers Bild 7" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC07443.JPG", title: "Streaplers Bild 8" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC07446.JPG", title: "Streaplers Bild 9" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC07464.JPG", title: "Streaplers Bild 10" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC07468.JPG", title: "Streaplers Bild 11" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC07505.JPG", title: "Streaplers Bild 12" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC07558.JPG", title: "Streaplers Bild 13" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC07618.JPG", title: "Streaplers Bild 14" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC07740.JPG", title: "Streaplers Bild 15" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC07747.JPG", title: "Streaplers Bild 16" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC07754.JPG", title: "Streaplers Bild 17" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC07786.JPG", title: "Streaplers Bild 18" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC07787.JPG", title: "Streaplers Bild 19" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC07899.JPG", title: "Streaplers Bild 20" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC07931.JPG", title: "Streaplers Bild 21" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC07944.JPG", title: "Streaplers Bild 22" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC08030.JPG", title: "Streaplers Bild 23" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC08066.JPG", title: "Streaplers Bild 24" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC08087.JPG", title: "Streaplers Bild 25" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC08106.JPG", title: "Streaplers Bild 26" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC08113.JPG", title: "Streaplers Bild 27" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC08241.JPG", title: "Streaplers Bild 28" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC08244.JPG", title: "Streaplers Bild 29" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC08257.JPG", title: "Streaplers Bild 30" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC08275.JPG", title: "Streaplers Bild 31" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC08313.JPG", title: "Streaplers Bild 32" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC08325.JPG", title: "Streaplers Bild 33" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC08327.JPG", title: "Streaplers Bild 34" },
-      { kind: "image", src: "assets/portfolio/Streaplers/DSC08329.JPG", title: "Streaplers Bild 35" },
-      { kind: "image", src: "assets/portfolio/Streaplers/kenn.png", title: "Streaplers Bild 36" },
-      { kind: "image", src: "assets/portfolio/Streaplers/Kenny.png", title: "Streaplers Bild 37" },
-      { kind: "image", src: "assets/portfolio/Streaplers/kenny2.png", title: "Streaplers Bild 38" },
-      { kind: "image", src: "assets/portfolio/Streaplers/Kjetilsson.png", title: "Streaplers Bild 39" },
-      { kind: "image", src: "assets/portfolio/Streaplers/S1.png", title: "Streaplers Bild 40" },
-      { kind: "image", src: "assets/portfolio/Streaplers/S2.png", title: "Streaplers Bild 41" },
+      // Kjetil
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC07505.JPG", title: "Kjetil" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC07618.JPG", title: "Kjetils Trummor" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC07740.JPG", title: "Kjetil" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC07747.JPG", title: "Kjetils Trummor" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC07931.JPG", title: "Kjetils Trummor" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC08106.JPG", title: "Kjetil" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC08244.JPG", title: "Kjetil" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC08257.JPG", title: "Kjetil" },
+      { kind: "image", src: "assets/portfolio/Streaplers/Kjetilsson.png", title: "Kjetil" },
+
+      // Kenny
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC07412.JPG", title: "Kenny" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC07464.JPG", title: "Kenny" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC07468.JPG", title: "Kenny" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC07754.JPG", title: "Kenny" },
+      { kind: "image", src: "assets/portfolio/Streaplers/kenn.png", title: "Kenny" },
+      { kind: "image", src: "assets/portfolio/Streaplers/Kenny.png", title: "Kenny" },
+      { kind: "image", src: "assets/portfolio/Streaplers/kenny2.png", title: "Kenny" },
+
+      // Per
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC07403.JPG", title: "Per" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC07558.JPG", title: "Per" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC07899.JPG", title: "Per" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC07944.JPG", title: "Per" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC08030.JPG", title: "Per" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC08113.JPG", title: "Per" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC08241.JPG", title: "Per" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC08275.JPG", title: "Per" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC08325.JPG", title: "Per" },
+
+      // Stefan
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC07443.JPG", title: "Stefan" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC07446.JPG", title: "Stefan" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC07786.JPG", title: "Stefan" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC07787.JPG", title: "Stefan" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC08087.JPG", title: "Stefan" },
+
+      // Max
+      { kind: "image", src: "assets/portfolio/Streaplers/19aac251-22c4-4a94-9d58-0f8b4d2a90e3.png", title: "Max" },
+      { kind: "image", src: "assets/portfolio/Streaplers/dfd51446-bda0-42e5-9664-e02dc2667d61.png", title: "Max" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC07431.JPG", title: "Max" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC07435.JPG", title: "Max" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC08066.JPG", title: "Max Gitarr" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC08313.JPG", title: "Max" },
+
+      // Övrigt
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC07398.JPG", title: "Scenbild innan spelning..." },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC08327.JPG", title: "Gruppbild" },
+      { kind: "image", src: "assets/portfolio/Streaplers/DSC08329.JPG", title: "Gruppbild" },
+      { kind: "image", src: "assets/portfolio/Streaplers/S1.png", title: "Redigerad Gruppbild" },
+      { kind: "image", src: "assets/portfolio/Streaplers/S2.png", title: "Redigerad Gruppbild" },
+      { kind: "video", src: "assets/portfolio/Streaplers/vid.mp4", title: "Streplers video, Nässjö" },
     ],
   },
 
@@ -416,17 +428,17 @@ const PORTFOLIO_ALBUMS = [
     ],
   },
 
-  {
-    id: "bildpaket",
-    title: "Bild bank",
-    type: "bild",
-    desc: "Redo att posta: datum, ort, CTA.",
-    thumb: "assets/portfolio/albums/promo/bildbadge.png",
-    items: [
-      { kind: "image", src: "assets/portfolio/albums/bildpaket/01.jpg", title: "Poster 1" },
-      { kind: "image", src: "assets/portfolio/albums/bildpaket/02.jpg", title: "Poster 2" },
-    ],
-  },
+  // {
+  //   id: "bildpaket",
+  //   title: "Bild bank",
+  //   type: "bild",
+  //   desc: "Redo att posta: datum, ort, CTA.",
+  //   thumb: "assets/portfolio/albums/promo/bildbadge.png",
+  //   items: [
+  //     { kind: "image", src: "assets/portfolio/albums/bildpaket/01.jpg", title: "Poster 1" },
+  //     { kind: "image", src: "assets/portfolio/albums/bildpaket/02.jpg", title: "Poster 2" },
+  //   ],
+  // },
 
   {
     id: "livefoto",
@@ -435,15 +447,15 @@ const PORTFOLIO_ALBUMS = [
     desc: "Bilder tagna direkt på scen!",
     thumb: "assets/portfolio/albums/promo/live.png",
     items: [],
-  },
+  // },
 
-  {
-    id: "ovrigt",
-    title: "Övriga bilder",
-    type: "bild",
-    desc: "Fotografi: blandade bilder från annat än dans & band jag fotograferat.",
-    thumb: "assets/portfolio/albums/sounders/images/live1.jpg",
-    items: [],
+  // {
+  //   id: "ovrigt",
+  //   title: "Övriga bilder",
+  //   type: "bild",
+  //   desc: "Fotografi: blandade bilder från annat än dans & band jag fotograferat.",
+  //   thumb: "assets/portfolio/albums/sounders/images/live1.jpg",
+  //   items: [],
   },
 ];
 
@@ -869,13 +881,17 @@ function openInModal(item, album) {
     img.src = item.src;
     img.alt = item.title || album.title;
     img.className = "modalMedia";
+<<<<<<< HEAD
+=======
+    img.style.borderRadius = "16px";
+>>>>>>> 105c6f96e24b391d3d3d434f30e2835d1e1a18d5
     modalBody.appendChild(img);
   } else {
     const video = document.createElement("video");
     video.src = item.src;
     video.controls = true;
     video.playsInline = true;
-    video.style.width = "100%";
+    video.className = "modalMedia";
     video.style.borderRadius = "16px";
     modalBody.appendChild(video);
   }
@@ -1080,6 +1096,56 @@ async function createOvrigtItems() {
   }
 }
 
+// Försök läsa in ett manifest för ett album (så du kan slänga in videor i en mapp)
+async function loadAlbumManifest(album) {
+  if (!album || !album.id) return;
+
+  const baseCandidates = [
+    `assets/portfolio/albums/${album.id}/`,
+    `assets/portfolio/${album.id}/`,
+  ];
+
+  const bust = `?v=${Date.now()}`;
+
+  for (const base of baseCandidates) {
+    const manifestUrl = `${base}manifest.json`;
+    try {
+      const res = await fetch(manifestUrl + bust, { cache: "no-store" });
+      if (!res.ok) continue;
+      const data = await res.json();
+      const files = Array.isArray(data.files) ? data.files : [];
+
+      const prefix = (data.titlePrefix || album.title || "Item").toString();
+
+      const existing = new Set((album.items || []).map(i => (i && i.src) || ""));
+      const newItems = files.map((f, idx) => {
+        if (typeof f === "string") {
+          const file = f.trim();
+          const ext = (file.split('.').pop() || '').toLowerCase();
+          const kind = ['mp4','webm','ogg'].includes(ext) ? 'video' : 'image';
+          return { kind, src: `${base}${file}${bust}`, title: `${prefix} ${idx + 1}` };
+        }
+        // om manifesten redan innehåller objekt
+        if (typeof f === 'object' && f !== null) {
+          const ext = (String(f.src || '').split('.').pop() || '').toLowerCase();
+          const kind = f.kind || (['mp4','webm','ogg'].includes(ext) ? 'video' : 'image');
+          return { kind, src: `${base}${f.src}${bust}`, title: f.title || `${prefix}` };
+        }
+        return null;
+      }).filter(Boolean).filter(it => !existing.has(it.src));
+
+      if (newItems.length) {
+        album.items = (album.items || []).concat(newItems);
+      }
+
+      // Om vi hittade en manifest och processed it, avsluta
+      return;
+    } catch (e) {
+      // fortsätt till nästa kandidat
+    }
+  }
+}
+
 /*
   ✅ VIKTIGT: I din PORTFOLIO_ALBUMS ska livefoto-albumet se ut såhär.
   Byt bara ut din livefoto-del mot denna:
@@ -1110,6 +1176,16 @@ async function initPortfolio() {
 
   if (ovrigtAlbum) {
     ovrigtAlbum.items = await createOvrigtItems();
+  }
+
+  // Försök läsa manifest för varje album så lokala videofiler/bilder i mappar tas med
+  for (const album of PORTFOLIO_ALBUMS) {
+    // hoppa över om album redan har items
+    try {
+      await loadAlbumManifest(album);
+    } catch (e) {
+      // ignorer
+    }
   }
 
   renderAlbums();

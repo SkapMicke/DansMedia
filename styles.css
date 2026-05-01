@@ -1135,7 +1135,12 @@ input:focus, select:focus, textarea:focus{
   display:none;
   z-index: 120;
 }
-.modal.is-open{ display:block; }
+.modal.is-open{
+  display:flex; /* använd flex för att enkelt centrera panelen */
+  align-items: center;
+  justify-content: center;
+  padding: 22px; /* ger andrum på små skärmar */
+}
 .modal__backdrop{
   position:absolute;
   inset:0;
@@ -1145,12 +1150,13 @@ input:focus, select:focus, textarea:focus{
 .modal__panel{
   position:relative;
   width: min(960px, 92%);
-  margin: 6vh auto;
+  margin: 0; /* centrerat av .modal flex */
   border-radius: var(--r2);
   border: 1px solid var(--line);
   background: rgba(20,17,13,.95);
   box-shadow: var(--shadow);
   overflow:hidden;
+  max-height: calc(100vh - 44px); /* håll panelen inom viewport */
 }
 :root[data-theme="light"] .modal__panel{
   background: rgba(251,248,242,.92);
@@ -1171,16 +1177,23 @@ input:focus, select:focus, textarea:focus{
 }
 .modal__title{ font-weight: 900; font-size: 18px; }
 .modal__meta{ margin-top: 6px; color: var(--muted); font-size: 13px; }
-.modal__body{ padding: 16px 18px 18px; }
-iframe, img.modalMedia{
-  width: 100%;
-  height: min(54vh, 520px);
+.modal__body{ padding: 16px 18px 18px; display:flex; align-items:center; justify-content:center; }
+
+iframe, img.modalMedia, .modal__body video{
+  width: auto;
+  max-width: 100%;
+  max-height: calc(100vh - 220px); /* lämna plats för header + paddings */
   border: 0;
   border-radius: 16px;
   display:block;
+  margin: 0 auto;
   background: rgba(0,0,0,.25);
+<<<<<<< HEAD
   object-fit: contain;
   object-position: center;
+=======
+  object-fit: contain; /* behåll hela bilden/video och centrera */
+>>>>>>> 105c6f96e24b391d3d3d434f30e2835d1e1a18d5
 }
 
 /* Toast */
