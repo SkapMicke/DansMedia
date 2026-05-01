@@ -447,7 +447,7 @@ const PORTFOLIO_ALBUMS = [
     desc: "Bilder tagna direkt på scen!",
     thumb: "assets/portfolio/albums/promo/live.png",
     items: [],
-  // },
+  },
 
   // {
   //   id: "ovrigt",
@@ -456,7 +456,7 @@ const PORTFOLIO_ALBUMS = [
   //   desc: "Fotografi: blandade bilder från annat än dans & band jag fotograferat.",
   //   thumb: "assets/portfolio/albums/sounders/images/live1.jpg",
   //   items: [],
-  },
+  // },
 ];
 
 
@@ -881,10 +881,7 @@ function openInModal(item, album) {
     img.src = item.src;
     img.alt = item.title || album.title;
     img.className = "modalMedia";
-<<<<<<< HEAD
-=======
     img.style.borderRadius = "16px";
->>>>>>> 105c6f96e24b391d3d3d434f30e2835d1e1a18d5
     modalBody.appendChild(img);
   } else {
     const video = document.createElement("video");
