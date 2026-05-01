@@ -1179,7 +1179,8 @@ iframe, img.modalMedia{
   border-radius: 16px;
   display:block;
   background: rgba(0,0,0,.25);
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
 }
 
 /* Toast */

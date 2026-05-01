@@ -868,9 +868,7 @@ function openInModal(item, album) {
     const img = document.createElement("img");
     img.src = item.src;
     img.alt = item.title || album.title;
-    img.style.width = "100%";
-    img.style.height = "auto";
-    img.style.borderRadius = "16px";
+    img.className = "modalMedia";
     modalBody.appendChild(img);
   } else {
     const video = document.createElement("video");
