@@ -1188,7 +1188,12 @@ iframe, img.modalMedia, .modal__body video{
   display:block;
   margin: 0 auto;
   background: rgba(0,0,0,.25);
+<<<<<<< HEAD
+  object-fit: contain;
+  object-position: center;
+=======
   object-fit: contain; /* behåll hela bilden/video och centrera */
+>>>>>>> 105c6f96e24b391d3d3d434f30e2835d1e1a18d5
 }
 
 /* Toast */

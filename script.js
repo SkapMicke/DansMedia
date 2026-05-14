@@ -396,7 +396,7 @@ const PORTFOLIO_ALBUMS = [
       { kind: "image", src: "assets/portfolio/Streaplers/DSC08329.JPG", title: "Gruppbild" },
       { kind: "image", src: "assets/portfolio/Streaplers/S1.png", title: "Redigerad Gruppbild" },
       { kind: "image", src: "assets/portfolio/Streaplers/S2.png", title: "Redigerad Gruppbild" },
-      { kind: "video", src: "assets/portfolio/Streaplers/vid.mp4", title: "Streplers video, Nässjö" },
+      { kind: "video", src: "assets/portfolio/Streaplers/vid.mp4", title: "Streaplers video, Nässjö" },
     ],
   },
 
@@ -516,7 +516,7 @@ const PORTFOLIO_ALBUMS = [
     desc: "Bilder tagna direkt på scen!",
     thumb: "assets/portfolio/albums/promo/live.png",
     items: [],
-  // },
+  },
 
   // {
   //   id: "ovrigt",
@@ -525,7 +525,7 @@ const PORTFOLIO_ALBUMS = [
   //   desc: "Fotografi: blandade bilder från annat än dans & band jag fotograferat.",
   //   thumb: "assets/portfolio/albums/sounders/images/live1.jpg",
   //   items: [],
-  },
+  // },
 ];
 
 
