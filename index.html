@@ -15,6 +15,21 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Enkel styling för startsidans collage */
+    .homepageCollage{
+      display:grid;
+      grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+      gap:6px;
+      margin-top:12px;
+    }
+    .homepageCollage img{
+      width:100%; height:96px; object-fit:cover; border-radius:8px; display:block;
+    }
+    @media(min-width:900px){
+      .homepageCollage img{ height:120px; }
+    }
+  </style>
 <link rel="icon" href="/assets/favicon/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
@@ -91,8 +106,10 @@
 
           <div class="heroInfo">
             <p class="heroInfo__lead">
-              Enkla videor, bilder och hemsidor. Klart att posta.
+              Jag fotograferar dansband och gör marknadsföringsmaterial för danser — både åt band & arrangörer. Kontakta mig för hjälp.
             </p>
+
+            <div id="homepageCollage" class="homepageCollage" aria-hidden="false" aria-label="Bildcollage"></div>
           </div>
 
           <div class="serviceGrid" aria-label="Alla tjänster">

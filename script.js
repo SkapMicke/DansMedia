@@ -91,55 +91,6 @@ function toast(msg) {
   document.head.appendChild(style);
 })();
 
-// Mobile menu
-const menuBtn = $("#menuBtn");
-const mobileNav = $("#mobileNav");
-
-menuBtn?.addEventListener("click", () => {
-  const open = mobileNav.classList.toggle("is-open");
-  menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
-  mobileNav.setAttribute("aria-hidden", open ? "false" : "true");
-});
-
-$$(".mobileNav a").forEach(a => a.addEventListener("click", () => {
-  mobileNav.classList.remove("is-open");
-  menuBtn.setAttribute("aria-expanded", "false");
-  mobileNav.setAttribute("aria-hidden", "true");
-}));
-
-// Copy email
-const emailText = $("#emailText");
-function copyEmail() {
-  const email = emailText?.textContent?.trim() || "";
-  if (!email) return;
-  navigator.clipboard.writeText(email)
-    .then(() => toast("E-post kopierad ✅"))
-    .catch(() => toast("Kunde inte kopiera ❌"));
-}
-$("#copyEmailBtn")?.addEventListener("click", copyEmail);
-$("#copyEmailBtn2")?.addEventListener("click", copyEmail);
-
-// Portfolio filtering
-const chips = $$(".chip");
-const works = $$(".work");
-
-chips.forEach(chip => {
-  chip.addEventListener("click", () => {
-    chips.forEach(c => c.classList.remove("is-active"));
-    chip.classList.add("is-active");
-
-    const filter = chip.dataset.filter;
-    works.forEach(w => {
-      const type = w.dataset.type;
-      const show = filter === "all" || filter === type;
-      w.style.display = show ? "block" : "none";
-    });
-  });
-});
-
-// Modal
-const modal = $("#modal");
-const modalBody = $("#modalBody");
 const modalTitle = $("#modalTitle");
 const modalMeta = $("#modalMeta");
 const modalClose = $("#modalClose");
@@ -192,7 +143,7 @@ works.forEach(w => {
 $("#openShowreel")?.addEventListener("click", () => {
   // Hämta alla video-items från alla album (som har kind === "video")
   const allVideos = PORTFOLIO_ALBUMS
-    .flatMap(a => (a.items || []).map(it => ({ ...it, albumTitle: a.title })))
+    .flatMap(a => getAlbumItems(a).map(it => ({ ...it, albumTitle: a.title })))
     .filter(it => it.kind === "video" && it.src);
 
   if (!allVideos.length) {
@@ -406,25 +357,94 @@ const PORTFOLIO_ALBUMS = [
     type: "video",
     desc: "Videor och bilder från Sounders Dansorkester spelningar och events.",
     thumb: "assets/portfolio/albums/sounders/images/banner.jpg",
-    items: [
-      // Videos
-      { kind: "video", src: "assets/portfolio/albums/sounders/videos/1.mp4", title: "Sounders Video 1" },
-      { kind: "video", src: "assets/portfolio/albums/sounders/videos/2.mp4", title: "Sounders Video 2" },
-      { kind: "video", src: "assets/portfolio/albums/sounders/videos/3.mp4", title: "Sounders Video 3" },
-      { kind: "video", src: "assets/portfolio/albums/sounders/videos/4.mp4", title: "Sounders Video 4" },
-      { kind: "video", src: "assets/portfolio/albums/sounders/videos/5.mp4", title: "Sounders Video 5" },
-      { kind: "video", src: "assets/portfolio/albums/sounders/videos/6.mp4", title: "Sounders Video 6" },
-      { kind: "video", src: "assets/portfolio/albums/sounders/videos/7.mp4", title: "Sounders Video 7" },
-      { kind: "video", src: "assets/portfolio/albums/sounders/videos/8.mp4", title: "Sounders Video 8" },
-      { kind: "video", src: "assets/portfolio/albums/sounders/videos/9.mp4", title: "Sounders Video 9" },
+    sections: [
+      {
+        id: "ljungsbro",
+        title: "Ljungsbro Dansfest 2026",
+        items: [
+          { kind: "image", src: "assets/portfolio/Sounders/DSC01825.JPG", title: "Ljungsbro" },
+          { kind: "image", src: "assets/portfolio/Sounders/DSC01829.JPG", title: "Ljungsbro" },
+          { kind: "image", src: "assets/portfolio/Sounders/DSC01836.JPG", title: "Ljungsbro" },
+          { kind: "image", src: "assets/portfolio/Sounders/DSC01854.JPG", title: "Ljungsbro" },
+          { kind: "image", src: "assets/portfolio/Sounders/DSC02018.JPG", title: "Ljungsbro" },
+        ],
+      },
+      {
+        id: "nassjo",
+        title: "Nässjö Pigalle",
+        items: [
+          // Videos
+          { kind: "video", src: "assets/portfolio/albums/sounders/videos/1.mp4", title: "Sounders Video 1" },
+          { kind: "video", src: "assets/portfolio/albums/sounders/videos/2.mp4", title: "Sounders Video 2" },
+          { kind: "video", src: "assets/portfolio/albums/sounders/videos/3.mp4", title: "Sounders Video 3" },
+          { kind: "video", src: "assets/portfolio/albums/sounders/videos/4.mp4", title: "Sounders Video 4" },
+          { kind: "video", src: "assets/portfolio/albums/sounders/videos/5.mp4", title: "Sounders Video 5" },
+          { kind: "video", src: "assets/portfolio/albums/sounders/videos/6.mp4", title: "Sounders Video 6" },
+          { kind: "video", src: "assets/portfolio/albums/sounders/videos/7.mp4", title: "Sounders Video 7" },
+          { kind: "video", src: "assets/portfolio/albums/sounders/videos/8.mp4", title: "Sounders Video 8" },
+          { kind: "video", src: "assets/portfolio/albums/sounders/videos/9.mp4", title: "Sounders Video 9" },
 
-      // Images
-      { kind: "image", src: "assets/portfolio/albums/sounders/images/banner.jpg", title: "Sounders Banner" },
-      { kind: "image", src: "assets/portfolio/albums/sounders/images/halloween.jpg", title: "Halloween Event" },
-      { kind: "image", src: "assets/portfolio/albums/sounders/images/logo.jpg", title: "Sounders Logo" },
-      { kind: "image", src: "assets/portfolio/albums/sounders/images/sounders.jpg", title: "Sounders Dansorkester" },
-      { kind: "image", src: "assets/portfolio/albums/sounders/images/tackbåt.jpg", title: "Tackbåt Event" },
-      { kind: "image", src: "assets/portfolio/albums/sounders/images/tacksundspärlan.jpg", title: "Tacksundspärlan" },
+          // Images
+          { kind: "image", src: "assets/portfolio/albums/sounders/images/banner.jpg", title: "Sounders Banner" },
+          { kind: "image", src: "assets/portfolio/albums/sounders/images/halloween.jpg", title: "Halloween Event" },
+          { kind: "image", src: "assets/portfolio/albums/sounders/images/logo.jpg", title: "Sounders Logo" },
+          { kind: "image", src: "assets/portfolio/albums/sounders/images/sounders.jpg", title: "Sounders Dansorkester" },
+          { kind: "image", src: "assets/portfolio/albums/sounders/images/tackbåt.jpg", title: "Tackbåt Event" },
+          { kind: "image", src: "assets/portfolio/albums/sounders/images/tacksundspärlan.jpg", title: "Tacksundspärlan" },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: "whalstroms",
+    title: "Whalströms",
+    type: "bild",
+    desc: "Bilder från Whalströms.",
+    thumb: "assets/portfolio/Whalströms/DSC01749.JPG",
+    items: [
+      { kind: "image", src: "assets/portfolio/Whalströms/ChatGPT Image 16 maj 2026 02_49_40.png", title: "Whalströms" },
+      { kind: "image", src: "assets/portfolio/Whalströms/ChatGPT Image 16 maj 2026 03_21_01.png", title: "Whalströms" },
+      { kind: "image", src: "assets/portfolio/Whalströms/ChatGPT Image 16 maj 2026 03_35_30.png", title: "Whalströms" },
+      { kind: "image", src: "assets/portfolio/Whalströms/DSC01749.JPG", title: "Whalströms" },
+      { kind: "image", src: "assets/portfolio/Whalströms/DSC01753.JPG", title: "Whalströms" },
+      { kind: "image", src: "assets/portfolio/Whalströms/DSC01795.JPG", title: "Whalströms" },
+      { kind: "image", src: "assets/portfolio/Whalströms/DSC01807.JPG", title: "Whalströms" },
+      { kind: "image", src: "assets/portfolio/Whalströms/DSC02067.JPG", title: "Whalströms" },
+      { kind: "image", src: "assets/portfolio/Whalströms/DSC02171.JPG", title: "Whalströms" },
+      { kind: "image", src: "assets/portfolio/Whalströms/DSC02179.JPG", title: "Whalströms" },
+      { kind: "image", src: "assets/portfolio/Whalströms/DSC02188.JPG", title: "Whalströms" },
+      { kind: "image", src: "assets/portfolio/Whalströms/DSC02195.JPG", title: "Whalströms" },
+      { kind: "image", src: "assets/portfolio/Whalströms/DSC02197.JPG", title: "Whalströms" },
+      { kind: "image", src: "assets/portfolio/Whalströms/DSC02217.JPG", title: "Whalströms" },
+    ],
+  },
+
+  {
+    id: "blender",
+    title: "Blender",
+    type: "bild",
+    desc: "Bilder från Blender.",
+    thumb: "assets/portfolio/Blender/DSC01487.JPG",
+    items: [
+      { kind: "image", src: "assets/portfolio/Blender/ChatGPT Image 16 maj 2026 03_23_50.png", title: "Blender" },
+      { kind: "image", src: "assets/portfolio/Blender/ChatGPT Image 16 maj 2026 03_29_53.png", title: "Blender" },
+      { kind: "image", src: "assets/portfolio/Blender/ChatGPT Image 16 maj 2026 04_00_30.png", title: "Blender" },
+      { kind: "image", src: "assets/portfolio/Blender/ChatGPT Image 16 maj 2026 04_05_59.png", title: "Blender" },
+      { kind: "image", src: "assets/portfolio/Blender/DSC01487.JPG", title: "Blender" },
+      { kind: "image", src: "assets/portfolio/Blender/DSC01491.JPG", title: "Blender" },
+      { kind: "image", src: "assets/portfolio/Blender/DSC02103.JPG", title: "Blender" },
+      { kind: "image", src: "assets/portfolio/Blender/DSC02122.JPG", title: "Blender" },
+      { kind: "image", src: "assets/portfolio/Blender/DSC02125.JPG", title: "Blender" },
+      { kind: "image", src: "assets/portfolio/Blender/DSC02154.JPG", title: "Blender" },
+      { kind: "image", src: "assets/portfolio/Blender/DSC02163.JPG", title: "Blender" },
+      { kind: "image", src: "assets/portfolio/Blender/DSC02164.JPG", title: "Blender" },
+      { kind: "image", src: "assets/portfolio/Blender/DSC02219.JPG", title: "Blender" },
+      { kind: "image", src: "assets/portfolio/Blender/DSC02225.JPG", title: "Blender" },
+      { kind: "image", src: "assets/portfolio/Blender/DSC02238.JPG", title: "Blender" },
+      { kind: "image", src: "assets/portfolio/Blender/DSC02245.JPG", title: "Blender" },
+      { kind: "image", src: "assets/portfolio/Blender/DSC02302.JPG", title: "Blender" },
+      { kind: "image", src: "assets/portfolio/Blender/DSC02330.JPG", title: "Blender" },
     ],
   },
 
@@ -580,9 +600,21 @@ const otherPhotosBtn = document.getElementById("otherPhotosBtn");
 const filterButtons = Array.from(document.querySelectorAll(".filters .filter"));
 let activeFilter = "all";
 
+// Håller aktuell vald sektion när ett album med sektioner öppnas
+let currentAlbumActiveSection = null;
+
 // Album filter
 let activeAlbumFilter = "all";
 const albumFilters = document.getElementById("albumFilters");
+
+// Helper: return the flattened list of items for an album
+function getAlbumItems(album) {
+  if (!album) return [];
+  if (Array.isArray(album.sections) && album.sections.length) {
+    return ([]).concat(...album.sections.map(s => s.items || [])).filter(Boolean);
+  }
+  return album.items || [];
+}
 
 // 4) Render albumkort
 function renderAlbums() {
@@ -605,7 +637,7 @@ function renderAlbums() {
       <div class="albumCard__body">
         <div class="albumCard__title">${album.title}</div>
         <div class="muted tiny">${album.desc}</div>
-        <div class="albumCard__meta">${album.items.length} objekt</div>
+  <div class="albumCard__meta">${getAlbumItems(album).length} objekt</div>
       </div>
     `;
 
@@ -624,8 +656,12 @@ async function openAlbum(albumId) {
   // Reset album filter
   activeAlbumFilter = "all";
 
-  const hasVideo = album.items.some(item => item.kind === "video");
-  const hasImage = album.items.some(item => item.kind === "image");
+  // Reset active section
+  currentAlbumActiveSection = null;
+
+  const allItemsForAlbum = getAlbumItems(album);
+  const hasVideo = allItemsForAlbum.some(item => item.kind === "video");
+  const hasImage = allItemsForAlbum.some(item => item.kind === "image");
 
   if (albumFilters) {
     albumFilters.style.display = (hasVideo && hasImage) ? "flex" : "none";
@@ -634,15 +670,81 @@ async function openAlbum(albumId) {
     });
   }
 
+  // Sektioner / kategorier (valfritt)
+  // Om albumet har en `sections`-array så bygg en enkel sektion-väljare ovanför mediaGrid
+  let albumSectionsEl = document.getElementById("albumSections");
+  if (!albumSectionsEl) {
+    albumSectionsEl = document.createElement('div');
+    albumSectionsEl.id = 'albumSections';
+    albumSectionsEl.className = 'albumSections';
+    // placera innan mediaGrid
+    albumPanel.insertBefore(albumSectionsEl, mediaGrid);
+  }
+
+  if (Array.isArray(album.sections) && album.sections.length) {
+    // By default visa först sektionen som innehåller "Ljungsbro" om den finns, annars första
+    const findLjungsbro = album.sections.find(s => /ljungsbro/i.test(s.title));
+    currentAlbumActiveSection = findLjungsbro ? findLjungsbro.id : album.sections[0].id;
+
+    albumSectionsEl.innerHTML = '';
+    const allBtn = document.createElement('button');
+    allBtn.type = 'button';
+    allBtn.className = 'filter filter--album';
+    allBtn.dataset.section = 'all';
+    allBtn.textContent = 'Alla';
+    albumSectionsEl.appendChild(allBtn);
+
+    album.sections.forEach(sec => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'filter filter--album';
+      b.dataset.section = sec.id;
+      b.textContent = sec.title;
+      albumSectionsEl.appendChild(b);
+    });
+
+    // active state
+    Array.from(albumSectionsEl.querySelectorAll('.filter--album')).forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.section === 'all' ? currentAlbumActiveSection === null : btn.dataset.section === currentAlbumActiveSection);
+    });
+
+    albumSectionsEl.addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter--album');
+      if (!btn) return;
+      const section = btn.dataset.section;
+      if (section === 'all') currentAlbumActiveSection = null;
+      else currentAlbumActiveSection = section;
+
+      // update active state
+      Array.from(albumSectionsEl.querySelectorAll('.filter--album')).forEach(b => {
+        b.classList.toggle('active', b.dataset.section === 'all' ? currentAlbumActiveSection === null : b.dataset.section === currentAlbumActiveSection);
+      });
+
+      // Rendera valda items
+      const items = currentAlbumActiveSection ? (album.sections.find(s => s.id === currentAlbumActiveSection) || {}).items || [] : ([]).concat(...album.sections.map(s => s.items || []));
+      renderMedia(album, items);
+    });
+  } else if (albumSectionsEl) {
+    // inget innehåll -> ta bort sektionselementet
+    albumSectionsEl.remove();
+    albumSectionsEl = null;
+  }
+
   // göm album grid, visa panel
   albumGrid.style.display = "none";
   albumPanel.hidden = false;
 
   // 1) Rendera direkt (så UI känns instant)
-  renderMedia(album);
+  // Om album har sektioner: rendera aktiv sektion, annars rendera album.items
+  if (Array.isArray(album.sections) && album.sections.length) {
+    const items = currentAlbumActiveSection ? (album.sections.find(s => s.id === currentAlbumActiveSection) || {}).items || [] : ([]).concat(...album.sections.map(s => s.items || []));
+    renderMedia(album, items);
+  } else {
+    renderMedia(album);
+  }
 
   // Tomt album: visa instruktion istället för blank yta
-  if (album.items.length === 0 && mediaGrid) {
+  if (getAlbumItems(album).length === 0 && mediaGrid) {
     const extra = album.id === "ovrigt"
       ? "Lägg dina bilder i assets/portfolio/ovrigt/images/ och fyll på assets/portfolio/ovrigt/manifest.json under files."
       : "Inget innehåll uppladdat ännu.";
@@ -658,7 +760,7 @@ async function openAlbum(albumId) {
 
   // 2) Preloada ALLA thumbnails i albumet i bakgrunden
   // (och även bild-src för image-items om du inte har separata thumbs)
-  const urlsToPreload = album.items
+  const urlsToPreload = getAlbumItems(album)
     .filter(item => item.kind === "image")
     .map(item => item.thumb || item.src);
 
@@ -673,6 +775,10 @@ if (albumBackBtn) {
     albumPanel.hidden = true;
     albumGrid.style.display = "";
     mediaGrid.innerHTML = "";
+    // remove sections toolbar if present
+    const albumSectionsEl = document.getElementById('albumSections');
+    if (albumSectionsEl) albumSectionsEl.remove();
+    currentAlbumActiveSection = null;
   });
 }
 
@@ -695,8 +801,22 @@ if (albumFilters) {
     });
     
     // Re-render current album
-    const currentAlbum = PORTFOLIO_ALBUMS.find(a => a.title === albumTitle.textContent);
-    if (currentAlbum) renderMedia(currentAlbum);
+      const currentAlbum = PORTFOLIO_ALBUMS.find(a => a.title === albumTitle.textContent);
+      if (!currentAlbum) return;
+
+      // Välj items beroende på aktiv sektion om sådan finns
+      let itemsToRender;
+      if (Array.isArray(currentAlbum.sections) && currentAlbum.sections.length) {
+        if (currentAlbumActiveSection) {
+          itemsToRender = (currentAlbum.sections.find(s => s.id === currentAlbumActiveSection) || {}).items || [];
+        } else {
+          itemsToRender = ([]).concat(...currentAlbum.sections.map(s => s.items || []));
+        }
+      } else {
+        itemsToRender = getAlbumItems(currentAlbum);
+      }
+
+      renderMedia(currentAlbum, itemsToRender);
   });
 }
 
@@ -809,9 +929,12 @@ function makeVideoThumbnail(videoSrc, { maxW = 900 } = {}) {
 
 
 
-function renderMedia(album) {
+function renderMedia(album, items) {
   if (!mediaGrid) return;
   mediaGrid.innerHTML = "";
+
+  // Support passing explicit items (from sections) or derive from album
+  const mediaItems = Array.isArray(items) ? items : getAlbumItems(album);
 
   // Lazy-load image thumbs nära viewport för snabbare initial rendering
   const ensureLazyObserver = (() => {
@@ -834,7 +957,7 @@ function renderMedia(album) {
     };
   })();
 
-  const filteredItems = album.items.filter(item =>
+  const filteredItems = mediaItems.filter(item =>
     activeAlbumFilter === "all" || item.kind === activeAlbumFilter
   );
 
@@ -1221,7 +1344,7 @@ async function loadAlbumManifest(album) {
 
       const prefix = (data.titlePrefix || album.title || "Item").toString();
 
-      const existing = new Set((album.items || []).map(i => (i && i.src) || ""));
+  const existing = new Set((getAlbumItems(album) || []).map(i => (i && i.src) || ""));
       const newItems = files.map((f, idx) => {
         if (typeof f === "string") {
           const file = f.trim();
@@ -1239,7 +1362,14 @@ async function loadAlbumManifest(album) {
       }).filter(Boolean).filter(it => !existing.has(it.src));
 
       if (newItems.length) {
-        album.items = (album.items || []).concat(newItems);
+        if (Array.isArray(album.items)) {
+          album.items = (album.items || []).concat(newItems);
+        } else if (Array.isArray(album.sections) && album.sections.length) {
+          // append to first section by default
+          album.sections[0].items = (album.sections[0].items || []).concat(newItems);
+        } else {
+          album.items = (album.items || []).concat(newItems);
+        }
       }
 
       // Om vi hittade en manifest och processed it, avsluta
@@ -1293,10 +1423,41 @@ async function initPortfolio() {
   }
 
   renderAlbums();
+
+  // Render homepage collage om vi är på startsidan
+  try { renderHomepageCollage(); } catch (e) { /* ignore */ }
 }
 
 // Kör init
 initPortfolio();
+
+// Samla bilder från alla album (inklusive sections) och rendera ett collage i #homepageCollage
+function renderHomepageCollage({ limit = 30 } = {}){
+  const el = document.getElementById('homepageCollage');
+  if (!el) return;
+
+  const gather = [];
+  for (const a of PORTFOLIO_ALBUMS){
+    for (const it of getAlbumItems(a)){
+      if (it.kind === 'image' && it.src) gather.push(it.src);
+    }
+  }
+
+  // Unika och ta första N
+  const unique = Array.from(new Set(gather)).slice(0, limit);
+  el.innerHTML = '';
+
+  unique.forEach((src) => {
+    const img = document.createElement('img');
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    img.src = src;
+    el.appendChild(img);
+  });
+
+  // Preload a few
+  preloadImages(unique.slice(0,6));
+}
 
 
 (() => {
