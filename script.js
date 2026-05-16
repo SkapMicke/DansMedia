@@ -91,8 +91,10 @@ function toast(msg) {
   document.head.appendChild(style);
 })();
 
+const modal = $("#modal");
 const modalTitle = $("#modalTitle");
 const modalMeta = $("#modalMeta");
+const modalBody = $("#modalBody");
 const modalClose = $("#modalClose");
 
 function openModal({ title, meta, kind, src, html }) {
@@ -129,16 +131,20 @@ function closeModal() {
   document.body.style.overflow = "";
 }
 
-works.forEach(w => {
-  w.addEventListener("click", () => {
-    openModal({
-      title: w.dataset.title,
-      meta: `${w.dataset.type.toUpperCase()} • demo`,
-      kind: w.dataset.kind,
-      src: w.dataset.src,
+// Attach demo modal handlers to any elements matching .js-work (if present)
+const workEls = $$(".js-work");
+if (workEls && workEls.length) {
+  workEls.forEach(w => {
+    w.addEventListener("click", () => {
+      openModal({
+        title: w.dataset.title,
+        meta: `${w.dataset.type?.toUpperCase() || ''} • demo`,
+        kind: w.dataset.kind,
+        src: w.dataset.src,
+      });
     });
   });
-});
+}
 
 $("#openShowreel")?.addEventListener("click", () => {
   // Hämta alla video-items från alla album (som har kind === "video")
@@ -293,7 +299,7 @@ const PORTFOLIO_ALBUMS = [
     title: "Streaplers",
     type: "bild",
     desc: "Bilder från Streaplers events och spelningar.",
-    thumb: "assets/portfolio/Streaplers/S2.png",
+    thumb: "assets/portfolio/Streaplers/DSC08327.JPG",
     items: [
       // Kjetil
       { kind: "image", src: "assets/portfolio/Streaplers/DSC07505.JPG", title: "Kjetil" },
@@ -401,12 +407,12 @@ const PORTFOLIO_ALBUMS = [
     title: "Whalströms",
     type: "bild",
     desc: "Bilder från Whalströms.",
-    thumb: "assets/portfolio/Whalströms/DSC01749.JPG",
+    thumb: "assets/portfolio/Whalströms/Wahlströms.png",
     items: [
-      { kind: "image", src: "assets/portfolio/Whalströms/ChatGPT Image 16 maj 2026 02_49_40.png", title: "Whalströms" },
-      { kind: "image", src: "assets/portfolio/Whalströms/ChatGPT Image 16 maj 2026 03_21_01.png", title: "Whalströms" },
-      { kind: "image", src: "assets/portfolio/Whalströms/ChatGPT Image 16 maj 2026 03_35_30.png", title: "Whalströms" },
-      { kind: "image", src: "assets/portfolio/Whalströms/DSC01749.JPG", title: "Whalströms" },
+  { kind: "image", src: "assets/portfolio/Whalströms/16_maj_2026_02_49_40.png", title: "Whalströms" },
+  { kind: "image", src: "assets/portfolio/Whalströms/16_maj_2026_03_21_01.png", title: "Whalströms" },
+  { kind: "image", src: "assets/portfolio/Whalströms/16_maj_2026_03_35_30.png", title: "Whalströms" },
+      { kind: "image", src: "assets/portfolio/Whalströms/Wahlströms.png", title: "Whalströms" },
       { kind: "image", src: "assets/portfolio/Whalströms/DSC01753.JPG", title: "Whalströms" },
       { kind: "image", src: "assets/portfolio/Whalströms/DSC01795.JPG", title: "Whalströms" },
       { kind: "image", src: "assets/portfolio/Whalströms/DSC01807.JPG", title: "Whalströms" },
@@ -425,12 +431,12 @@ const PORTFOLIO_ALBUMS = [
     title: "Blender",
     type: "bild",
     desc: "Bilder från Blender.",
-    thumb: "assets/portfolio/Blender/DSC01487.JPG",
+  thumb: "assets/portfolio/Blender/Blender.png",
     items: [
-      { kind: "image", src: "assets/portfolio/Blender/ChatGPT Image 16 maj 2026 03_23_50.png", title: "Blender" },
-      { kind: "image", src: "assets/portfolio/Blender/ChatGPT Image 16 maj 2026 03_29_53.png", title: "Blender" },
-      { kind: "image", src: "assets/portfolio/Blender/ChatGPT Image 16 maj 2026 04_00_30.png", title: "Blender" },
-      { kind: "image", src: "assets/portfolio/Blender/ChatGPT Image 16 maj 2026 04_05_59.png", title: "Blender" },
+  { kind: "image", src: "assets/portfolio/Blender/16_maj_2026_03_23_50.png", title: "Blender" },
+  { kind: "image", src: "assets/portfolio/Blender/16_maj_2026_03_29_53.png", title: "Blender" },
+  { kind: "image", src: "assets/portfolio/Blender/16_maj_2026_04_00_30.png", title: "Blender" },
+  { kind: "image", src: "assets/portfolio/Blender/16_maj_2026_04_05_59.png", title: "Blender" },
       { kind: "image", src: "assets/portfolio/Blender/DSC01487.JPG", title: "Blender" },
       { kind: "image", src: "assets/portfolio/Blender/DSC01491.JPG", title: "Blender" },
       { kind: "image", src: "assets/portfolio/Blender/DSC02103.JPG", title: "Blender" },
@@ -519,10 +525,10 @@ const PORTFOLIO_ALBUMS = [
 
   {
     id: "msb",
-    title: "The Mule Skinner Band",
+    title: "The Mule Skinner Band, fd Streaplers medlemmar",
     type: "bild",
     desc: "Bilder från The Mule Skinner Band.",
-    thumb: "assets/portfolio/MSB/DSC00737.JPG",
+    thumb: "assets/portfolio/MSB/msb.png",
     items: [
       { kind: "image", src: "assets/portfolio/MSB/DSC00737.JPG", title: "The Mule Skinner Band" },
       { kind: "image", src: "assets/portfolio/MSB/DSC00761.JPG", title: "The Mule Skinner Band" },
@@ -545,7 +551,7 @@ const PORTFOLIO_ALBUMS = [
       { kind: "image", src: "assets/portfolio/MSB/file_00000000058071f4bbe5b0335c641af1.png", title: "The Mule Skinner Band" },
       { kind: "image", src: "assets/portfolio/MSB/file_0000000008c871f4baca11d9b1cba80f.png", title: "The Mule Skinner Band" },
       { kind: "image", src: "assets/portfolio/MSB/file_000000003f8072439e3811f857161111.png", title: "The Mule Skinner Band" },
-      { kind: "image", src: "assets/portfolio/MSB/file_0000000053a8720a9e078cc196cc4d8c.png", title: "The Mule Skinner Band" },
+      { kind: "image", src: "assets/portfolio/MSB/msb.png", title: "The Mule Skinner Band" },
       { kind: "image", src: "assets/portfolio/MSB/file_00000000719871f489a1709dacf3cf20.png", title: "The Mule Skinner Band" },
       { kind: "image", src: "assets/portfolio/MSB/file_00000000b59871f4b8fa1f45302013f0.png", title: "The Mule Skinner Band" },
       { kind: "image", src: "assets/portfolio/MSB/file_00000000d97871f4a590295ae43aa7e9.png", title: "The Mule Skinner Band" },
@@ -622,6 +628,7 @@ function renderAlbums() {
   albumGrid.innerHTML = "";
 
   const albums = PORTFOLIO_ALBUMS.filter(a => activeFilter === "all" ? true : a.type === activeFilter);
+  console.debug("renderAlbums: found albums count=", albums.length);
 
   albums.forEach(album => {
     const btn = document.createElement("button");
@@ -643,7 +650,20 @@ function renderAlbums() {
 
     btn.addEventListener("click", () => openAlbum(album.id)); // funkar även om openAlbum är async
     albumGrid.appendChild(btn);
+    // append watermark to album thumb
+    try {
+      const th = btn.querySelector('.albumCard__thumb');
+      if (th) {
+        const w = document.createElement('span');
+        w.className = 'thumb__watermark';
+        th.appendChild(w);
+      }
+    } catch (e) {}
   });
+
+    if (!albums.length) {
+      albumGrid.innerHTML = `<div class="emptyState"><div class="emptyState__t">Inga album hittades</div><div class="muted">Kontrollera att PORTFOLIO_ALBUMS definieras i script.js och att inga fel stoppar skriptet.</div></div>`;
+    }
 }
 
 async function openAlbum(albumId) {
@@ -1002,6 +1022,15 @@ function renderMedia(album, items) {
 
       btn.addEventListener("click", () => openInModal(item, album));
       mediaGrid.appendChild(btn);
+      // watermark on media thumb
+      try {
+        const th = btn.querySelector('.mediaItem__thumb');
+        if (th) {
+          const w = document.createElement('span');
+          w.className = 'watermark';
+          th.appendChild(w);
+        }
+      } catch (e) {}
       return;
     }
 
@@ -1084,6 +1113,15 @@ function renderMedia(album, items) {
     });
 
     mediaGrid.appendChild(btn);
+    // watermark on video thumb
+    try {
+      const thv = btn.querySelector('.mediaItem__thumb');
+      if (thv) {
+        const wv = document.createElement('span');
+        wv.className = 'watermark';
+        thv.appendChild(wv);
+      }
+    } catch (e) {}
   });
 }
 
@@ -1107,24 +1145,168 @@ function openInModal(item, album) {
   modalBody.innerHTML = "";
 
   if (item.kind === "image") {
+    const wrap = document.createElement('div');
+    wrap.className = 'modalMediaWrap';
     const img = document.createElement("img");
     img.src = item.src;
     img.alt = item.title || album.title;
     img.className = "modalMedia";
     img.style.borderRadius = "16px";
-    modalBody.appendChild(img);
+    wrap.appendChild(img);
+    const w = document.createElement('span');
+    w.className = 'watermark';
+    wrap.appendChild(w);
+    modalBody.appendChild(wrap);
   } else {
+    const wrap = document.createElement('div');
+    wrap.className = 'modalMediaWrap';
     const video = document.createElement("video");
     video.src = item.src;
     video.controls = true;
     video.playsInline = true;
     video.className = "modalMedia";
     video.style.borderRadius = "16px";
-    modalBody.appendChild(video);
+    wrap.appendChild(video);
+    const wv = document.createElement('span');
+    wv.className = 'watermark';
+    wrap.appendChild(wv);
+    modalBody.appendChild(wrap);
   }
 
   modal.setAttribute("aria-hidden", "false");
   modal.classList.add("is-open");
+
+  // Add download button (remove existing first)
+  try {
+    const head = modal.querySelector('.modal__head');
+    if (head) {
+      const prev = document.getElementById('modalDownload');
+      if (prev) prev.remove();
+
+      const downloadBtn = document.createElement('button');
+      downloadBtn.id = 'modalDownload';
+      downloadBtn.type = 'button';
+      downloadBtn.className = 'btn btn--ghost';
+      downloadBtn.textContent = 'Ladda ner';
+
+      // download handler
+      downloadBtn.addEventListener('click', async () => {
+        if (item.kind === 'image') {
+          await downloadImageWithWatermark(item.src, (item.title || album.title || 'bild') + '.jpg');
+        } else {
+          // for video: try to capture current frame and download it watermarked
+          const vid = modalBody.querySelector('video');
+          if (vid) {
+            await downloadVideoFrameWithWatermark(vid, (item.title || album.title || 'video-frame') + '.jpg');
+          } else {
+            // fallback: download original src (may be video file)
+            const a = document.createElement('a');
+            a.href = item.src;
+            a.download = (item.title || album.title || 'video');
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+          }
+        }
+      });
+
+      head.appendChild(downloadBtn);
+    }
+  } catch (e) {}
+}
+
+// Helper: download an image URL with watermark drawn on a canvas
+async function downloadImageWithWatermark(src, filename) {
+  try {
+    const img = await loadImage(src);
+    const logo = await loadImage('assets/logo.png');
+
+    const canvas = document.createElement('canvas');
+    canvas.width = img.naturalWidth || img.width;
+    canvas.height = img.naturalHeight || img.height;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+    // watermark size: 12% of width
+    const wW = Math.round(canvas.width * 0.12);
+    const aspect = logo.naturalWidth ? (logo.naturalHeight / logo.naturalWidth) : (logo.height / logo.width);
+    const wH = Math.round(wW * aspect);
+    const margin = Math.round(canvas.width * 0.03);
+
+    ctx.globalAlpha = 0.7;
+    ctx.drawImage(logo, canvas.width - wW - margin, canvas.height - wH - margin, wW, wH);
+    ctx.globalAlpha = 1;
+
+    return new Promise((resolve) => {
+      canvas.toBlob((blob) => {
+        if (!blob) return resolve(false);
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+        resolve(true);
+      }, 'image/jpeg', 0.92);
+    });
+  } catch (err) {
+    console.error('downloadImageWithWatermark failed', err);
+    // fallback: direct download
+    const a = document.createElement('a');
+    a.href = src;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    return false;
+  }
+}
+
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const i = new Image();
+    i.crossOrigin = 'anonymous';
+    i.onload = () => resolve(i);
+    i.onerror = reject;
+    i.src = src;
+  });
+}
+
+// Capture current video frame and download with watermark
+async function downloadVideoFrameWithWatermark(videoEl, filename) {
+  try {
+    const canvas = document.createElement('canvas');
+    canvas.width = videoEl.videoWidth || 1280;
+    canvas.height = videoEl.videoHeight || 720;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(videoEl, 0, 0, canvas.width, canvas.height);
+    const logo = await loadImage('assets/logo.png');
+    const wW = Math.round(canvas.width * 0.12);
+    const aspect = logo.naturalWidth ? (logo.naturalHeight / logo.naturalWidth) : (logo.height / logo.width);
+    const wH = Math.round(wW * aspect);
+    const margin = Math.round(canvas.width * 0.03);
+    ctx.globalAlpha = 0.7;
+    ctx.drawImage(logo, canvas.width - wW - margin, canvas.height - wH - margin, wW, wH);
+    ctx.globalAlpha = 1;
+
+    return new Promise((resolve) => {
+      canvas.toBlob((blob) => {
+        if (!blob) return resolve(false);
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+        resolve(true);
+      }, 'image/jpeg', 0.92);
+    });
+  } catch (err) {
+    console.error('downloadVideoFrameWithWatermark failed', err);
+    return false;
+  }
 }
 
 // Service galleries: click-to-enlarge (works on any page)
@@ -1432,7 +1614,7 @@ async function initPortfolio() {
 initPortfolio();
 
 // Samla bilder från alla album (inklusive sections) och rendera ett collage i #homepageCollage
-function renderHomepageCollage({ limit = 30 } = {}){
+function renderHomepageCollage({ limit = 5 } = {}){
   const el = document.getElementById('homepageCollage');
   if (!el) return;
 
@@ -1443,10 +1625,21 @@ function renderHomepageCollage({ limit = 30 } = {}){
     }
   }
 
-  // Unika och ta första N
-  const unique = Array.from(new Set(gather)).slice(0, limit);
-  el.innerHTML = '';
+  let unique = Array.from(new Set(gather));
+  if (!unique.length) return;
 
+  // If more than limit images, pick `limit` at random
+  if (unique.length > limit) {
+    for (let i = unique.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = unique[i];
+      unique[i] = unique[j];
+      unique[j] = tmp;
+    }
+    unique = unique.slice(0, limit);
+  }
+
+  el.innerHTML = '';
   unique.forEach((src) => {
     const img = document.createElement('img');
     img.loading = 'lazy';
@@ -1455,8 +1648,8 @@ function renderHomepageCollage({ limit = 30 } = {}){
     el.appendChild(img);
   });
 
-  // Preload a few
-  preloadImages(unique.slice(0,6));
+  // Preload chosen images
+  preloadImages(unique.slice(0, Math.min(6, unique.length)));
 }
 
 
