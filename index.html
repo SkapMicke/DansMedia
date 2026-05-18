@@ -3,49 +3,177 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Simons DansMedia</title>
-  <meta name="description" content="Enkla videor, bilder och hemsidor för band och arrangörer. Snabbt och klart att posta." />
+
+  <title>Simons DansMedia – Dansbandsfotograf & Marknadsföring</title>
+
+  <meta name="description" content="Dansbandsfotograf och content creator för band, folkparker och arrangörer. Livefoto, promo-videor, sociala medier-material och hemsidor för dansbandsbranschen." />
+
   <meta name="theme-color" content="#0b0c10" />
-  <meta property="og:title" content="Dansmedia – Marknadsföringsmaterial för band" />
-  <meta property="og:description" content="Vi skapar videor, bilder och hemsidor för band. Allt klart att posta på sociala medier." />
+
+  <meta property="og:title" content="Simons DansMedia – Livefoto & marknadsföring för dansband" />
+  <meta property="og:description" content="Professionellt material direkt från danskvällarna – livefoto, reels, promo-videor och hemsidor för dansband & arrangörer." />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="sv_SE" />
+
   <meta name="twitter:card" content="summary_large_image" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css" />
+
   <style>
-    /* Enkel styling för startsidans collage */
     .homepageCollage{
       display:grid;
       grid-template-columns: repeat(5, 1fr);
-      gap:6px;
-      margin-top:12px;
+      gap:8px;
+      margin-top:18px;
     }
+
     .homepageCollage img{
-      width:100%; height:110px; object-fit:cover; border-radius:8px; display:block;
+      width:100%;
+      height:120px;
+      object-fit:cover;
+      border-radius:12px;
+      display:block;
+      transition:.25s ease;
     }
+
+    .homepageCollage img:hover{
+      transform:scale(1.03);
+      filter:brightness(1.05);
+    }
+
+    .hero__title{
+      line-height:1.05;
+    }
+
+    .heroInfo__lead{
+      font-size:1.08rem;
+      line-height:1.7;
+      max-width:760px;
+    }
+
+    .serviceGrid{
+      margin-top:28px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+    }
+
+    .svcCard{
+      padding:18px;
+      border-radius:18px;
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.08);
+      transition:.25s ease;
+      text-decoration:none;
+    }
+
+    .svcCard:hover{
+      transform:translateY(-3px);
+      background:rgba(255,255,255,0.05);
+      border-color:rgba(255,255,255,0.16);
+    }
+
+    .svcCard__t{
+      font-size:1.05rem;
+      font-weight:700;
+      margin-bottom:6px;
+      color:#fff;
+    }
+
+    .svcCard__d{
+      color:#bdbdbd;
+      line-height:1.5;
+      font-size:.95rem;
+    }
+
+    .trustedBands{
+      margin-top:30px;
+      padding:18px;
+      border-radius:18px;
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.08);
+    }
+
+    .trustedBands__title{
+      font-weight:700;
+      margin-bottom:12px;
+      font-size:1rem;
+      color:#fff;
+    }
+
+    .trustedBands__grid{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .bandPill{
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.08);
+      color:#fff;
+      font-size:.92rem;
+    }
+
+    .panel__help{
+      margin-top:22px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .tick{
+      font-size:.98rem;
+    }
+
     @media(max-width:1100px){
-      .homepageCollage{ grid-template-columns: repeat(3, 1fr); }
-      .homepageCollage img{ height:100px; }
+      .homepageCollage{
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .serviceGrid{
+        grid-template-columns:repeat(2,1fr);
+      }
     }
-    @media(max-width:600px){
-      .homepageCollage{ grid-template-columns: repeat(2, 1fr); }
-      .homepageCollage img{ height:84px; }
+
+    @media(max-width:700px){
+
+      .serviceGrid{
+        grid-template-columns:1fr;
+      }
+
+      .homepageCollage{
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .homepageCollage img{
+        height:92px;
+      }
     }
   </style>
-<link rel="icon" href="/assets/favicon/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
-<link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
+
+  <link rel="icon" href="/assets/favicon/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
+
+  <script>
+    window.va = window.va || function () {
+      (window.vaq = window.vaq || []).push(arguments);
+    };
+  </script>
+
+  <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
 <body>
+
   <!-- Ambient background -->
   <div class="bg">
     <div class="bg__blob bg__blob--a"></div>
@@ -56,161 +184,275 @@
 
   <!-- Header -->
   <header class="header" id="top">
+
     <div class="container header__inner">
-      <a class="brand" href="index.html" aria-label="Dansmedia">
-        <img class="brand__logo" src="assets/logo.png" alt="Dansmedia logga" />
+
+      <a class="brand" href="index.html" aria-label="Simons DansMedia">
+        <img class="brand__logo" src="assets/logo.png" alt="Simons DansMedia logga" />
+
         <span class="brand__text">
-          <strong>DansMedia</strong>
+          <strong>Simons DansMedia</strong>
         </span>
       </a>
 
       <nav class="nav" aria-label="Huvudmeny">
-  <a href="index.html">Hem</a>
-  <a href="tjanster.html">Tjänster</a>
-  <a href="portfolio.html">Portfolio</a>
-  <a href="om-mig.html">Om mig</a>
-  <a href="kontakt.html" class="btn btn--small">Kontakt</a>
+        <a href="index.html">Hem</a>
+        <a href="tjanster.html">Tjänster</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="om-mig.html">Om mig</a>
+        <a href="kontakt.html" class="btn btn--small">Kontakt</a>
       </nav>
 
       <div class="header__actions">
-        <button class="chatbotBtn" id="chatbotBtn" type="button" aria-label="Öppna AI-chatt" title="Chatta med Ai-Roffe">
+
+        <button class="chatbotBtn" id="chatbotBtn" type="button" aria-label="Öppna AI-chatt">
           <span>🤖</span>
         </button>
+
         <button class="iconBtn" id="themeBtn" type="button" aria-label="Växla tema">
           <span class="iconBtn__dot"></span>
         </button>
+
         <button class="menuBtn" id="menuBtn" type="button" aria-label="Öppna meny" aria-expanded="false">
-          <span></span><span></span><span></span>
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
+
       </div>
     </div>
 
-      <div class="mobileNav" id="mobileNav" aria-hidden="true">
+    <div class="mobileNav" id="mobileNav" aria-hidden="true">
       <div class="container mobileNav__inner">
-       <a href="index.html">Hem</a>
-        <a href="/tjanster">Tjänster</a>
+        <a href="index.html">Hem</a>
+        <a href="tjanster.html">Tjänster</a>
         <a href="portfolio.html">Portfolio</a>
         <a href="om-mig.html">Om mig</a>
         <a href="kontakt.html" class="btn">Kontakt</a>
       </div>
     </div>
+
   </header>
 
   <!-- Hero -->
   <main>
+
     <section class="hero">
+
       <div class="container hero__inner">
+
+        <!-- LEFT -->
         <div class="hero__left">
-        <div class="badge">
-          <span class="badge__dot"></span>
-          För band
-        </div>
+
+          <div class="badge">
+            <span class="badge__dot"></span>
+            Livefoto • Dansband • Folkparker
+          </div>
+
           <h1 class="hero__title">
-            Välkommen till Simons Dansmedia
+            Dansbandsfotograf & Content Creator för Sveriges dansgolv
           </h1>
 
           <div class="heroInfo">
+
             <p class="heroInfo__lead">
-              Jag fotograferar dansband och gör marknadsföringsmaterial för danser — både åt band & arrangörer. Kontakta mig för hjälp.
+              Jag följer dansbandslivet bakom scenen, ute på vägarna och mitt på dansgolvet —
+              och skapar livebilder, reels, promo-videor och marknadsföringsmaterial för
+              dansband, folkparker och arrangörer.
             </p>
 
-              <div id="homepageCollage" class="homepageCollage" aria-hidden="false" aria-label="Bildcollage"></div>
+            <div id="homepageCollage"
+                 class="homepageCollage"
+                 aria-hidden="false"
+                 aria-label="Bildcollage">
+            </div>
+
           </div>
 
-          <div class="serviceGrid" aria-label="Alla tjänster">
-            <a class="svcCard" href="tjanster.html#video">
-              <div class="svcCard__t">Video</div>
-              <div class="svcCard__d">Promo & teasers</div>
+          <!-- SERVICES -->
+          <div class="serviceGrid" aria-label="Tjänster">
+
+            <a class="svcCard" href="tjanster.html#livefoto">
+              <div class="svcCard__t">📸 Livefotografering</div>
+              <div class="svcCard__d">
+                Professionella livebilder från spelningar, folkparker och event.
+              </div>
             </a>
-            <a class="svcCard" href="tjanster.html#bilder">
-              <div class="svcCard__t">Bilder</div>
-              <div class="svcCard__d">Inlägg & omslag</div>
+
+            <a class="svcCard" href="tjanster.html#promo">
+              <div class="svcCard__t">🎬 Promo & Reels</div>
+              <div class="svcCard__d">
+                Korta videor och material redo för Facebook, Instagram & TikTok.
+              </div>
             </a>
-            <a class="svcCard" href="tjanster.html#hemsida">
-              <div class="svcCard__t">Hemsidor</div>
-              <div class="svcCard__d">Snabbt & mobilanpassat</div>
+
+            <a class="svcCard" href="tjanster.html#sociala">
+              <div class="svcCard__t">📱 Sociala medier</div>
+              <div class="svcCard__d">
+                Omslagsbilder, posters, annonser och content inför spelningar.
+              </div>
             </a>
+
+            <a class="svcCard" href="tjanster.html#arrangor">
+              <div class="svcCard__t">🎟 Material för arrangörer</div>
+              <div class="svcCard__d">
+                Marknadsföringsmaterial för danser, festivaler och event.
+              </div>
+            </a>
+
+            <a class="svcCard" href="tjanster.html#gruppbilder">
+              <div class="svcCard__t">👥 Gruppbilder & pressbilder</div>
+              <div class="svcCard__d">
+                Moderna bilder för affischer, hemsidor och pressmaterial.
+              </div>
+            </a>
+
+            <a class="svcCard" href="tjanster.html#hemsidor">
+              <div class="svcCard__t">🌐 Hemsidor för band</div>
+              <div class="svcCard__d">
+                Snabba, snygga och mobilanpassade hemsidor för dansband.
+              </div>
+            </a>
+
           </div>
 
+          <!-- TRUST -->
+          <div class="trustedBands">
+
+            <div class="trustedBands__title">
+              Band & arrangörer jag arbetat med
+            </div>
+
+            <div class="trustedBands__grid">
+              <div class="bandPill">Sounders</div>
+              <div class="bandPill">Streaplers</div>
+              <div class="bandPill">Sannex</div>
+              <div class="bandPill">Black Jack</div>
+              <div class="bandPill">Ljungsbro Dansfest</div>
+              <div class="bandPill">Folkparker & arrangörer</div>
+            </div>
+
+          </div>
+
+          <!-- CTA -->
           <div class="hero__cta">
             <a class="btn" href="kontakt.html">Kontakta mig</a>
-            <a class="btn btn--ghost" href="portfolio.html">Se exempel</a>
+            <a class="btn btn--ghost" href="portfolio.html">Se portfolio</a>
           </div>
+
         </div>
 
+        <!-- RIGHT -->
         <div class="hero__right">
+
           <div class="panel panel--glow">
+
             <div class="panel__head">
               <div>
-                <div class="muted">Snabb översikt</div>
-                <div class="panel__title">Kontakt & tjänster</div>
+                <div class="muted">Direkt från dansgolvet</div>
+                <div class="panel__title">Foto • Video • Webb</div>
               </div>
             </div>
 
             <div class="panel__body">
-              <p class="muted">Ring eller mejla för offert eller frågor.</p>
+
+              <p class="muted">
+                Behöver ni hjälp med marknadsföring inför spelningar,
+                sociala medier eller professionella livebilder?
+              </p>
+
               <div class="panel__contact">
-                <div><strong>Tel:</strong> <a href="tel:+46700984595">070 098 45 95</a></div>
-                <div><strong>E-post:</strong> <a href="mailto:dansmedian@gmail.com">dansmedian@gmail.com</a></div>
+                <div>
+                  <strong>Tel:</strong>
+                  <a href="tel:+46700984595">070 098 45 95</a>
+                </div>
+
+                <div>
+                  <strong>E-post:</strong>
+                  <a href="mailto:dansmedian@gmail.com">dansmedian@gmail.com</a>
+                </div>
               </div>
 
               <div class="panel__help">
-                <div class="tick">🎬 Videor för promo</div>
-                <div class="tick">📸 Bilder för sociala medier</div>
-                <div class="tick">🌐 Snabba hemsidor</div>
+                <div class="tick">📸 Livefoto från spelningar</div>
+                <div class="tick">🎬 Reels & promo-videor</div>
+                <div class="tick">🎟 Material för dansannonser</div>
+                <div class="tick">🌐 Hemsidor för band & arrangörer</div>
+                <div class="tick">👥 Gruppbilder & pressmaterial</div>
               </div>
 
               <div class="panel__bands">
-                <div class="muted tiny">Snabbknappar till band</div>
+
+                <div class="muted tiny">
+                  Exempel på portfolio
+                </div>
+
                 <div class="bandButtons">
                   <a class="btn btn--small" href="portfolio.html#sounders">Sounders</a>
                   <a class="btn btn--small" href="portfolio.html#streaplers">Streaplers</a>
                   <a class="btn btn--small" href="portfolio.html#ovrigt">Övriga</a>
                 </div>
+
+              </div>
+
+            </div>
+
+            <div class="panel__foot">
+              <button class="btn btn--ghost wide"
+                      id="copyEmailBtn"
+                      type="button">
+                Kopiera e-post
+              </button>
+
+              <div class="mono tiny" id="emailText">
+                dansmedian@gmail.com
               </div>
             </div>
-            <div class="panel__foot">
-              <button class="btn btn--ghost wide" id="copyEmailBtn" type="button">Kopiera e-post</button>
-              <div class="mono tiny" id="emailText">dansmedian@gmail.com</div>
-            </div>
+
           </div>
 
         </div>
+
       </div>
+
     </section>
 
-  <!-- Scroll to Top Button -->
-  <button class="scrollTopBtn" id="scrollTopBtn" aria-label="Gå till toppen">↑</button>
+  </main>
 
-  <!-- Modal -->
-  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="modal__backdrop" data-close="true"></div>
-    <div class="modal__panel" role="document">
-      <button class="modal__close" id="modalClose" type="button" aria-label="Stäng">✕</button>
-      <div class="modal__head">
-        <div class="modal__title" id="modalTitle">Titel</div>
-        <div class="modal__meta" id="modalMeta">—</div>
-      </div>
-      <div class="modal__body" id="modalBody"></div>
-    </div>
-  </div>
+  <!-- Scroll to top -->
+  <button class="scrollTopBtn"
+          id="scrollTopBtn"
+          aria-label="Gå till toppen">
+    ↑
+  </button>
 
   <!-- Footer -->
   <footer class="footer">
+
     <div class="container footer__inner">
+
       <div class="footer__brand">
-        <img class="brand__logo brand__logo--small" src="assets/logo.png" alt="Dansmedia logga" />
+
+        <img class="brand__logo brand__logo--small"
+             src="assets/logo.png"
+             alt="Simons DansMedia logga" />
+
         <div>
-          <div class="footer__t">Dansmedia</div>
-          <div class="muted tiny">Video • Bild • Webb</div>
+          <div class="footer__t">Simons DansMedia</div>
+          <div class="muted tiny">
+            Livefoto • Promo • Webb
+          </div>
         </div>
+
       </div>
 
       <div class="footer__links">
+
         <div class="footer__col">
           <div class="footer__heading">Navigering</div>
+
           <a href="index.html">Hem</a>
-          <a href="/tjanster">Tjänster</a>
+          <a href="tjanster.html">Tjänster</a>
           <a href="portfolio.html">Portfolio</a>
           <a href="om-mig.html">Om mig</a>
           <a href="kontakt.html">Kontakt</a>
@@ -218,45 +460,85 @@
 
         <div class="footer__col">
           <div class="footer__heading">Kontakt</div>
+
           <a href="tel:+46700984595">070 098 45 95</a>
           <a href="mailto:dansmedian@gmail.com">dansmedian@gmail.com</a>
         </div>
 
         <div class="footer__col">
           <div class="footer__heading">Följ</div>
+
           <a href="#">Instagram</a>
-          <a href="https://www.facebook.com/share/1H7SdxtUKB/">Facebook</a>
-          <a href="https://www.youtube.com/@simonsdansmedia" target="_blank" rel="noopener noreferrer">YouTube</a>
+
+          <a href="https://www.facebook.com/share/1H7SdxtUKB/">
+            Facebook
+          </a>
+
+          <a href="https://www.youtube.com/@simonsdansmedia"
+             target="_blank"
+             rel="noopener noreferrer">
+            YouTube
+          </a>
         </div>
+
       </div>
+
     </div>
 
     <div class="footer__bottom">
       <div class="container">
-        <div class="muted tiny">© 2026 Dansmedia. Alla rättigheter förbehållna.</div>
+        <div class="muted tiny">
+          © 2026 Simons DansMedia. Alla rättigheter förbehållna.
+        </div>
       </div>
     </div>
+
   </footer>
 
-  <!-- Chat Modal -->
+  <!-- Chat -->
   <div class="chatModal" id="chatModal" aria-hidden="true">
+
     <div class="chatModal__backdrop" id="chatBackdrop"></div>
+
     <div class="chatModal__panel">
+
       <div class="chatModal__header">
+
         <div>
           <div class="chatModal__title">Ai-Roffe</div>
-          <div class="chatModal__subtitle">DansMedia Assistent</div>
+          <div class="chatModal__subtitle">
+            Simons DansMedia Assistent
+          </div>
         </div>
-        <button class="chatModal__close" id="chatCloseBtn" type="button" aria-label="Stäng chatt">×</button>
+
+        <button class="chatModal__close"
+                id="chatCloseBtn"
+                type="button"
+                aria-label="Stäng chatt">
+          ×
+        </button>
+
       </div>
+
       <div class="chatModal__messages" id="chatMessages"></div>
+
       <div class="chatModal__input">
-        <input type="text" id="chatInput" placeholder="Ställ en fråga..." />
-        <button id="chatSendBtn" type="button" aria-label="Skicka">Skicka</button>
+        <input type="text"
+               id="chatInput"
+               placeholder="Ställ en fråga..." />
+
+        <button id="chatSendBtn"
+                type="button"
+                aria-label="Skicka">
+          Skicka
+        </button>
       </div>
+
     </div>
+
   </div>
 
   <script src="script.js"></script>
+
 </body>
 </html>
