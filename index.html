@@ -27,14 +27,14 @@
   <style>
     .homepageCollage{
       display:grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap:8px;
-      margin-top:18px;
+      grid-template-columns: repeat(6, 1fr);
+      gap:10px;
+      margin-top:20px;
     }
 
     .homepageCollage img{
       width:100%;
-      height:120px;
+      height:160px;
       object-fit:cover;
       border-radius:12px;
       display:block;
@@ -153,9 +153,30 @@
       }
 
       .homepageCollage img{
-        height:92px;
+        height:110px;
       }
     }
+  </style>
+  <style>
+    /* CTA tile and minor collage tweaks */
+    .homepageCollage__cta{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:12px;
+      background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.35));
+      color: #fff;
+      text-decoration:none;
+      font-weight:700;
+      padding:0 12px;
+    }
+
+    .homepageCollage__ctaInner{ padding:12px 10px; border-radius:12px; }
+    .homepageCollage__item img{ border-radius:12px; }
+    .homepageCollage__item{ display:block; overflow:hidden; }
+    .homepageCollage__item img:hover{ transform:scale(1.04); }
+    .homepageCollage__cta:hover{ filter:brightness(1.05); transform:translateY(-3px); }
+    @media(max-width:1100px){ .homepageCollage img{ height:130px; } }
   </style>
 
   <link rel="icon" href="/assets/favicon/favicon.ico" sizes="any">
@@ -250,7 +271,7 @@
           </div>
 
           <h1 class="hero__title">
-            Dansbandsfotograf & Content Creator för Sveriges dansgolv
+            Dansbandsfotograf & Content Creator för band, folkparker & arrangörer.
           </h1>
 
           <div class="heroInfo">
@@ -304,13 +325,7 @@
               <div class="svcCard__t">👥 Gruppbilder & pressbilder</div>
               <div class="svcCard__d">
                 Moderna bilder för affischer, hemsidor och pressmaterial.
-              </div>
-            </a>
 
-            <a class="svcCard" href="tjanster.html#hemsidor">
-              <div class="svcCard__t">🌐 Hemsidor för band</div>
-              <div class="svcCard__d">
-                Snabba, snygga och mobilanpassade hemsidor för dansband.
               </div>
             </a>
 
@@ -350,7 +365,7 @@
             <div class="panel__head">
               <div>
                 <div class="muted">Direkt från dansgolvet</div>
-                <div class="panel__title">Foto • Video • Webb</div>
+                <div class="panel__title">Foto • Video</div>
               </div>
             </div>
 
@@ -398,6 +413,63 @@
             </div>
 
             <div class="panel__foot">
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <script>
+    // Populate the homepage collage with up to 6 images.
+    (function () {
+      const collage = document.getElementById('homepageCollage');
+      if (!collage) return;
+
+      // Fallback list of image paths (safe local assets). These mirror thumbs from portfolio.
+      const fallback = [
+        'assets/portfolio/Streaplers/Fröjden/FB_IMG_1781301757803.jpg',
+        'assets/portfolio/MSB/msb.png',
+        'assets/portfolio/BlackJack/BlackJackgrupp.png',
+        'assets/portfolio/sounders/sounders.png',
+        'assets/portfolio/Sannex/DSC00084.JPG',
+        'assets/portfolio/Perhåkans/ph.JPG'
+      ];
+
+      // Build image elements and a CTA tile at the end
+      const imgs = fallback.slice(0, 6).map((src, i) => {
+        const a = document.createElement('a');
+        a.href = 'portfolio.html';
+        a.className = 'homepageCollage__item';
+        a.setAttribute('aria-label', 'Gå till portfolio');
+
+        const img = document.createElement('img');
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        img.src = src;
+        img.alt = `Portfolio ${i + 1}`;
+
+        a.appendChild(img);
+        return a;
+      });
+
+      // CTA tile
+      const cta = document.createElement('a');
+      cta.href = 'portfolio.html';
+      cta.className = 'homepageCollage__cta';
+      cta.innerHTML = '<div class="homepageCollage__ctaInner">Se mer i portfolio →</div>';
+
+      // Clear and append
+      collage.innerHTML = '';
+      imgs.forEach(n => collage.appendChild(n));
+      collage.appendChild(cta);
+    })();
+  </script>
               <button class="btn btn--ghost wide"
                       id="copyEmailBtn"
                       type="button">
