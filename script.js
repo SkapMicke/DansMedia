@@ -526,9 +526,9 @@ sections: [
     title: "Excess",
     type: "bild",
     desc: "Bilder från Excess.",
-    thumb: "assets/portfolio/Excess/ExcessGrupp.png",
+    thumb: "assets/portfolio/Excess/ExcessGrupp.jpg",
     items: [
-      { kind: "image", src: "assets/portfolio/Excess/ExcessGrupp.png", title: "Excess" },
+      { kind: "image", src: "assets/portfolio/Excess/ExcessGrupp.jpg", title: "Excess" },
       { kind: "image", src: "assets/portfolio/Excess/DSC02553.JPG", title: "Excess" },
       { kind: "image", src: "assets/portfolio/Excess/DSC02574.JPG", title: "Excess" },
       { kind: "image", src: "assets/portfolio/Excess/DSC02575.JPG", title: "Excess" },
@@ -598,7 +598,7 @@ sections: [
     title: "Perhåkans",
     type: "bild",
     desc: "Bilder från Perhåkans spelningar och evenemang.",
-    thumb: "assets/portfolio/Perhåkans/DSC03525.JPG",
+    thumb: "assets/portfolio/Perhåkans/ph.JPG",
     items: [
       { kind: "image", src: "assets/portfolio/Perhåkans/DSC03525.JPG", title: "Perhåkans" },
       { kind: "image", src: "assets/portfolio/Perhåkans/DSC03541.JPG", title: "Perhåkans" },
