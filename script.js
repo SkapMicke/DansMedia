@@ -1116,7 +1116,7 @@ const PORTFOLIO_ALBUMS = [
     title: "Sannex",
     type: "bild",
     desc: "Bilder från Sannex spelningar och events.",
-    thumb: "assets/portfolio/Sannex/DSC00084.JPG",
+    thumb: "assets/portfolio/Sannex/DSC00577.JPG",
     items: [
       { kind: "image", src: "assets/portfolio/Sannex/Andreas.png", title: "Andreas" },
       { kind: "image", src: "assets/portfolio/Sannex/DSC00084.JPG", title: "Sannex" },
