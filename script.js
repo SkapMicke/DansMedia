@@ -628,13 +628,53 @@ sections: [
       { kind: "image", src: "assets/portfolio/Sannex/DSC00668.JPG", title: "Sannex" },
     ],
   },
+    {
+      id: "engdahls",
+      title: "Engdahls",
+      type: "bild",
+      desc: "Bilder från Engdahls.",
+      thumb: "assets/portfolio/Engdahls/1.jpg",
+      items: [
+        { kind: "image", src: "assets/portfolio/Engdahls/1.jpg", title: "Engdahls" },
+        { kind: "image", src: "assets/portfolio/Engdahls/2.jpg", title: "Engdahls" },
+        { kind: "image", src: "assets/portfolio/Engdahls/3.jpg", title: "Engdahls" },
+        { kind: "image", src: "assets/portfolio/Engdahls/4.jpg", title: "Engdahls" },
+        { kind: "image", src: "assets/portfolio/Engdahls/5.jpg", title: "Engdahls" },
+        { kind: "image", src: "assets/portfolio/Engdahls/6.jpg", title: "Engdahls" },
+        { kind: "image", src: "assets/portfolio/Engdahls/7.jpg", title: "Engdahls" },
+        { kind: "image", src: "assets/portfolio/Engdahls/8.jpg", title: "Engdahls" },
+        { kind: "image", src: "assets/portfolio/Engdahls/9.jpg", title: "Engdahls" },
+        { kind: "image", src: "assets/portfolio/Engdahls/10.jpg", title: "Engdahls" },
+        { kind: "image", src: "assets/portfolio/Engdahls/11.jpg", title: "Engdahls" },
+      ],
+    },
+    {
+      id: "streaks",
+      title: "Streaks",
+      type: "bild",
+      desc: "Bilder från Streaks.",
+      thumb: "assets/portfolio/Streaks/13_stampad.jpg",
+      items: [
+        { kind: "image", src: "assets/portfolio/Streaks/13_stampad.jpg", title: "Streaks" },
+        { kind: "image", src: "assets/portfolio/Streaks/14_stampad.jpg", title: "Streaks" },
+        { kind: "image", src: "assets/portfolio/Streaks/26_stampad.jpg", title: "Streaks" },
+        { kind: "image", src: "assets/portfolio/Streaks/DSC04654_stampad.jpg", title: "Streaks" },
+        { kind: "image", src: "assets/portfolio/Streaks/gitarrist_stampad.jpg", title: "Streaks" },
+        { kind: "image", src: "assets/portfolio/Streaks/keyboardist_stampad.jpg", title: "Streaks" },
+        { kind: "image", src: "assets/portfolio/Streaks/keyboardizt_stampad.jpg", title: "Streaks" },
+        { kind: "image", src: "assets/portfolio/Streaks/Prapp_stampad.jpg", title: "Streaks" },
+        { kind: "image", src: "assets/portfolio/Streaks/trmis_stampad.jpg", title: "Streaks" },
+        { kind: "image", src: "assets/portfolio/Streaks/trummis_stampad.jpg", title: "Streaks" },
+        { kind: "image", src: "assets/portfolio/Streaks/trum_stampad.jpg", title: "Streaks" },
+      ],
+    },
 
   {
     id: "perhakans",
     title: "Perhåkans",
     type: "bild",
     desc: "Bilder från Perhåkans spelningar och evenemang.",
-    thumb: "assets/portfolio/Perhåkans/ph.JPG",
+    thumb: "assets/portfolio/Perhåkans/ph.jpg",
     items: [
       { kind: "image", src: "assets/portfolio/Perhåkans/DSC03525.JPG", title: "Perhåkans" },
       { kind: "image", src: "assets/portfolio/Perhåkans/DSC03541.JPG", title: "Perhåkans" },
@@ -829,6 +869,15 @@ function renderAlbums() {
         const w = document.createElement('span');
         w.className = 'thumb__watermark';
         th.appendChild(w);
+        // Add 'NY' badge for newly added albums
+        try {
+          if (['engdahls', 'streaks'].includes(album.id)) {
+            const b = document.createElement('span');
+            b.className = 'albumCard__badge albumCard__badge--new';
+            b.textContent = 'NYTT BAND';
+            th.appendChild(b);
+          }
+        } catch (e) {}
       }
     } catch (e) {}
   });

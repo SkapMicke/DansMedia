@@ -288,6 +288,18 @@
                  aria-label="Bildcollage">
             </div>
 
+            <!-- Promo: callout to book photography and link to services -->
+            <div class="heroPromo" role="region" aria-label="Boka fotograf">
+              <div class="heroPromo__text">
+                <div class="heroPromo__lead">Vill du att jag fotograferar ditt band med <span class="heroPromo__em">stämning, känsla & live</span>?
+                Hör av dig på <strong>070 098 45 95</strong> så planerar vi en session som fångar er energi.</div>
+              </div>
+              <div class="heroPromo__actions">
+                <a class="heroPromo__cta" href="kontakt.html">Kontakta mig</a>
+                <a class="heroPromo__cta heroPromo__cta--ghost" href="tjanster.html">Vill du se Simons tjänster?</a>
+              </div>
+            </div>
+
           </div>
 
           <!-- SERVICES -->
@@ -426,48 +438,67 @@
   </main>
 
   <script>
-    // Populate the homepage collage with up to 6 images.
+    // Populate the homepage collage with up to 6 images, prefer live PORTFOLIO_ALBUMS if available
     (function () {
       const collage = document.getElementById('homepageCollage');
       if (!collage) return;
 
-      // Fallback list of image paths (safe local assets). These mirror thumbs from portfolio.
+      const build = (sources) => {
+        const imgs = sources.slice(0, 6).map((src, i) => {
+          const a = document.createElement('a');
+          a.href = 'portfolio.html';
+          a.className = 'homepageCollage__item';
+          a.setAttribute('aria-label', 'Gå till portfolio');
+
+          const img = document.createElement('img');
+          img.loading = 'lazy';
+          img.decoding = 'async';
+          img.src = src;
+          img.alt = `Portfolio ${i + 1}`;
+
+          a.appendChild(img);
+          return a;
+        });
+
+        const cta = document.createElement('a');
+        cta.href = 'portfolio.html';
+        cta.className = 'homepageCollage__cta';
+        cta.innerHTML = '<div class="homepageCollage__ctaInner">Se mer i portfolio →</div>';
+
+        collage.innerHTML = '';
+        imgs.forEach(n => collage.appendChild(n));
+        collage.appendChild(cta);
+      };
+
+      // Fallback images (static)
       const fallback = [
         'assets/portfolio/Streaplers/Fröjden/FB_IMG_1781301757803.jpg',
         'assets/portfolio/MSB/msb.png',
         'assets/portfolio/BlackJack/BlackJackgrupp.png',
         'assets/portfolio/sounders/sounders.png',
         'assets/portfolio/Sannex/DSC00084.JPG',
-        'assets/portfolio/Perhåkans/ph.JPG'
+        'assets/portfolio/Perhåkans/ph.jpg'
       ];
 
-      // Build image elements and a CTA tile at the end
-      const imgs = fallback.slice(0, 6).map((src, i) => {
-        const a = document.createElement('a');
-        a.href = 'portfolio.html';
-        a.className = 'homepageCollage__item';
-        a.setAttribute('aria-label', 'Gå till portfolio');
+      // If PORTFOLIO_ALBUMS is available, use the album.thumb values (filter for existing strings)
+      const tryBuildFromData = () => {
+        try {
+          if (window.PORTFOLIO_ALBUMS && Array.isArray(window.PORTFOLIO_ALBUMS)) {
+            const thumbs = window.PORTFOLIO_ALBUMS.map(a => a.thumb).filter(Boolean);
+            if (thumbs.length) { build(thumbs); return true; }
+          }
+        } catch (e) {}
+        return false;
+      };
 
-        const img = document.createElement('img');
-        img.loading = 'lazy';
-        img.decoding = 'async';
-        img.src = src;
-        img.alt = `Portfolio ${i + 1}`;
-
-        a.appendChild(img);
-        return a;
-      });
-
-      // CTA tile
-      const cta = document.createElement('a');
-      cta.href = 'portfolio.html';
-      cta.className = 'homepageCollage__cta';
-      cta.innerHTML = '<div class="homepageCollage__ctaInner">Se mer i portfolio →</div>';
-
-      // Clear and append
-      collage.innerHTML = '';
-      imgs.forEach(n => collage.appendChild(n));
-      collage.appendChild(cta);
+      if (!tryBuildFromData()) {
+        // wait for a short time in case script.js loads later
+        window.addEventListener('load', () => {
+          if (!tryBuildFromData()) build(fallback);
+        });
+        // immediate fallback
+        build(fallback);
+      }
     })();
   </script>
               <button class="btn btn--ghost wide"

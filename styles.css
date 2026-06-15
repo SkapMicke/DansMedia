@@ -2885,3 +2885,101 @@ img[loading="lazy"]{
 picture{
   display: contents;
 }
+
+/* Small 'NY' badge for new albums */
+.albumCard__badge {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  background: linear-gradient(180deg,var(--a1), #b67d41);
+  color: #081018;
+  font-weight: 900;
+  padding: 6px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.35);
+}
+
+.albumCard__thumb {
+  position: relative;
+}
+
+/* Glowing variant for new bands */
+.albumCard__badge--new{
+  left: auto;
+  right: 12px;
+  top: 12px;
+  background: transparent;
+  color: var(--a1);
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+  text-shadow: 0 2px 8px rgba(214,161,92,0.9), 0 0 18px rgba(214,161,92,0.55);
+  box-shadow: 0 6px 30px rgba(214,161,92,0.12);
+  border: 1px solid rgba(214,161,92,0.12);
+  pointer-events: none;
+}
+
+.albumCard__badge--new::after{
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 12px;
+  filter: blur(8px);
+  opacity: .6;
+}
+
+/* Homepage promo block (under hero collage) */
+.heroPromo {
+  margin-top: 18px;
+  padding: 18px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.heroPromo__text {
+  font-size: 1.02rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+.heroPromo__em {
+  font-weight: 800;
+  color: var(--a1);
+}
+.heroPromo__actions {
+  margin-left: auto;
+  display: flex;
+  gap: 12px;
+}
+.heroPromo__cta {
+  text-decoration: none;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: linear-gradient(180deg,#e2b26d,#c79245);
+  color: #071018;
+  font-weight: 800;
+}
+.heroPromo__cta--ghost {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text);
+}
+
+@media(max-width:800px) {
+  .heroPromo {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .heroPromo__actions {
+    margin-left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+}
