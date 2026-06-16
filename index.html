@@ -6,12 +6,11 @@
 
   <title>Simons DansMedia – Dansbandsfotograf & Marknadsföring</title>
 
-  <meta name="description" content="Dansbandsfotograf och content creator för band, folkparker och arrangörer. Livefoto, promo-videor, sociala medier-material och hemsidor för dansbandsbranschen." />
-
+  <meta name="description" content="Dansbandsfotograf och content creator som reser genom Sverige för att fotografera och filma dansband, folkparker och arrangörer. Livefoto, behind the scenes, reels och marknadsföringsmaterial." />
   <meta name="theme-color" content="#0b0c10" />
 
-  <meta property="og:title" content="Simons DansMedia – Livefoto & marknadsföring för dansband" />
-  <meta property="og:description" content="Professionellt material direkt från danskvällarna – livefoto, reels, promo-videor och hemsidor för dansband & arrangörer." />
+  <meta property="og:title" content="Simons DansMedia – Dansbandsfotograf för hela Sverige" />
+  <meta property="og:description" content="Jag följer dansbandslivet från vägen till scenen – livefoto, video, reels och material för band, folkparker och arrangörer." />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="sv_SE" />
 
@@ -19,41 +18,207 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css" />
 
   <style>
-    .homepageCollage{
-      display:grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap:10px;
-      margin-top:20px;
-    }
-
-    .homepageCollage img{
-      width:100%;
-      height:160px;
-      object-fit:cover;
-      border-radius:12px;
-      display:block;
-      transition:.25s ease;
-    }
-
-    .homepageCollage img:hover{
-      transform:scale(1.03);
-      filter:brightness(1.05);
-    }
-
     .hero__title{
       line-height:1.05;
+      max-width:900px;
     }
 
     .heroInfo__lead{
       font-size:1.08rem;
       line-height:1.7;
-      max-width:760px;
+      max-width:820px;
+    }
+
+    .heroInfo__lead strong{
+      color:#fff;
+      font-weight:800;
+    }
+
+    .heroProof{
+      margin-top:18px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .heroProof__item{
+      padding:10px 14px;
+      border-radius:999px;
+      color:#fff;
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.1);
+      font-size:.94rem;
+      backdrop-filter:blur(10px);
+    }
+
+    .homepageCollage{
+      display:grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap:10px;
+      margin-top:22px;
+    }
+
+    .homepageCollage__item{
+      display:block;
+      position:relative;
+      overflow:hidden;
+      border-radius:14px;
+      min-height:150px;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.08);
+      text-decoration:none;
+    }
+
+    .homepageCollage__item:nth-child(1),
+    .homepageCollage__item:nth-child(4){
+      grid-column:span 2;
+    }
+
+    .homepageCollage__item img{
+      width:100%;
+      height:100%;
+      min-height:150px;
+      object-fit:cover;
+      display:block;
+      transition:.35s ease;
+      filter:saturate(1.05) contrast(1.02);
+    }
+
+    .homepageCollage__item::after{
+      content:attr(data-band);
+      position:absolute;
+      left:10px;
+      bottom:10px;
+      padding:7px 10px;
+      border-radius:999px;
+      color:#fff;
+      font-size:.78rem;
+      font-weight:800;
+      letter-spacing:.02em;
+      background:rgba(0,0,0,.55);
+      border:1px solid rgba(255,255,255,.12);
+      backdrop-filter:blur(10px);
+    }
+
+    .homepageCollage__item:hover img{
+      transform:scale(1.06);
+      filter:brightness(1.08) saturate(1.12);
+    }
+
+    .homepageCollage__cta{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:150px;
+      border-radius:14px;
+      background:linear-gradient(145deg, rgba(255,255,255,.12), rgba(255,255,255,.035));
+      border:1px solid rgba(255,255,255,.12);
+      color:#fff;
+      text-decoration:none;
+      font-weight:800;
+      padding:0 14px;
+      text-align:center;
+      transition:.25s ease;
+    }
+
+    .homepageCollage__cta:hover{
+      transform:translateY(-3px);
+      background:linear-gradient(145deg, rgba(255,255,255,.16), rgba(255,255,255,.055));
+    }
+
+    .homepageCollage__ctaInner{
+      line-height:1.35;
+    }
+
+    .followMeCard{
+      position:relative;
+      overflow:hidden;
+      border-radius:30px;
+      min-height:720px;
+      height:100%;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.12);
+      box-shadow:0 30px 90px rgba(0,0,0,.35);
+    }
+
+    .followMeCard::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      z-index:2;
+      pointer-events:none;
+      border-radius:30px;
+      background:linear-gradient(135deg, rgba(255,255,255,.18), transparent 30%, rgba(255,255,255,.08));
+      opacity:.75;
+    }
+
+    .followMeCard__img{
+      width:100%;
+      height:100%;
+      min-height:720px;
+      object-fit:cover;
+      object-position:center;
+      display:block;
+      filter:saturate(1.08) contrast(1.03);
+    }
+
+    .followMeCard__overlay{
+      position:absolute;
+      inset:0;
+      z-index:3;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      padding:26px;
+      background:
+        radial-gradient(circle at 70% 20%, rgba(255,255,255,.08), transparent 28%),
+        linear-gradient(to top, rgba(0,0,0,.88), rgba(0,0,0,.28) 48%, rgba(0,0,0,.08));
+    }
+
+    .followMeCard__top{
+      display:flex;
+      justify-content:flex-end;
+    }
+
+    .followMeCard__tag{
+      padding:9px 13px;
+      border-radius:999px;
+      color:#fff;
+      font-size:.82rem;
+      font-weight:800;
+      background:rgba(0,0,0,.48);
+      border:1px solid rgba(255,255,255,.14);
+      backdrop-filter:blur(12px);
+    }
+
+    .followMeCard__content{
+      max-width:520px;
+    }
+
+    .followMeCard__content h2{
+      margin:0 0 12px;
+      color:#fff;
+      font-size:clamp(2rem, 4vw, 3.4rem);
+      line-height:.98;
+      letter-spacing:-.04em;
+    }
+
+    .followMeCard__content p{
+      margin:0 0 20px;
+      color:rgba(255,255,255,.84);
+      line-height:1.65;
+      font-size:1.02rem;
+    }
+
+    .followMeCard__actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
     }
 
     .serviceGrid{
@@ -121,62 +286,50 @@
       font-size:.92rem;
     }
 
-    .panel__help{
-      margin-top:22px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
-
-    .tick{
-      font-size:.98rem;
-    }
-
     @media(max-width:1100px){
       .homepageCollage{
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns:repeat(3, 1fr);
+      }
+
+      .homepageCollage__item:nth-child(1),
+      .homepageCollage__item:nth-child(4){
+        grid-column:span 1;
       }
 
       .serviceGrid{
         grid-template-columns:repeat(2,1fr);
       }
+
+      .followMeCard,
+      .followMeCard__img{
+        min-height:560px;
+      }
     }
 
     @media(max-width:700px){
-
       .serviceGrid{
         grid-template-columns:1fr;
       }
 
       .homepageCollage{
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns:repeat(2, 1fr);
       }
 
-      .homepageCollage img{
-        height:110px;
+      .homepageCollage__item,
+      .homepageCollage__item img,
+      .homepageCollage__cta{
+        min-height:120px;
+      }
+
+      .followMeCard,
+      .followMeCard__img{
+        min-height:520px;
+      }
+
+      .followMeCard__overlay{
+        padding:20px;
       }
     }
-  </style>
-  <style>
-    /* CTA tile and minor collage tweaks */
-    .homepageCollage__cta{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      border-radius:12px;
-      background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.35));
-      color: #fff;
-      text-decoration:none;
-      font-weight:700;
-      padding:0 12px;
-    }
-
-    .homepageCollage__ctaInner{ padding:12px 10px; border-radius:12px; }
-    .homepageCollage__item img{ border-radius:12px; }
-    .homepageCollage__item{ display:block; overflow:hidden; }
-    .homepageCollage__item img:hover{ transform:scale(1.04); }
-    .homepageCollage__cta:hover{ filter:brightness(1.05); transform:translateY(-3px); }
-    @media(max-width:1100px){ .homepageCollage img{ height:130px; } }
   </style>
 
   <link rel="icon" href="/assets/favicon/favicon.ico" sizes="any">
@@ -205,12 +358,9 @@
 
   <!-- Header -->
   <header class="header" id="top">
-
     <div class="container header__inner">
-
       <a class="brand" href="index.html" aria-label="Simons DansMedia">
         <img class="brand__logo" src="assets/logo.png" alt="Simons DansMedia logga" />
-
         <span class="brand__text">
           <strong>Simons DansMedia</strong>
         </span>
@@ -225,7 +375,6 @@
       </nav>
 
       <div class="header__actions">
-
         <button class="chatbotBtn" id="chatbotBtn" type="button" aria-label="Öppna AI-chatt">
           <span>🤖</span>
         </button>
@@ -239,7 +388,6 @@
           <span></span>
           <span></span>
         </button>
-
       </div>
     </div>
 
@@ -252,102 +400,88 @@
         <a href="kontakt.html" class="btn">Kontakt</a>
       </div>
     </div>
-
   </header>
 
-  <!-- Hero -->
   <main>
-
     <section class="hero">
-
       <div class="container hero__inner">
 
         <!-- LEFT -->
         <div class="hero__left">
-
           <div class="badge">
             <span class="badge__dot"></span>
-            Livefoto • Dansband • Folkparker
+            Dansbandsfotograf • Sverige runt • Foto & film
           </div>
 
           <h1 class="hero__title">
-            Dansbandsfotograf & Content Creator för band, folkparker & arrangörer.
+            Jag följer dansbandslivet – från första milen till sista applåden.
           </h1>
 
           <div class="heroInfo">
-
             <p class="heroInfo__lead">
-              Jag följer dansbandslivet bakom scenen, ute på vägarna och mitt på dansgolvet —
-              och skapar livebilder, reels, promo-videor och marknadsföringsmaterial för
-              dansband, folkparker och arrangörer.
+              Jag heter Simon Rosenius och driver <strong>Simons DansMedia</strong>. Jag reser land och rike runt för att fotografera och filma dansband, folkparker och arrangörer. Jag fångar känslan framför scenen, energin på dansgolvet och ögonblicken bakom kulisserna.
             </p>
+
+            <div class="heroProof" aria-label="Vad Simons DansMedia gör">
+              <div class="heroProof__item">📸 Livefoto från spelningar</div>
+              <div class="heroProof__item">🎬 Reels & korta videos</div>
+              <div class="heroProof__item">🚌 Följer gärna med band</div>
+              <div class="heroProof__item">🎤 Alla dansband är välkomna</div>
+            </div>
 
             <div id="homepageCollage"
                  class="homepageCollage"
-                 aria-hidden="false"
-                 aria-label="Bildcollage">
+                 aria-label="Olika band från portfolion">
             </div>
 
-            <!-- Promo: callout to book photography and link to services -->
-            <div class="heroPromo" role="region" aria-label="Boka fotograf">
+            <div class="heroPromo" role="region" aria-label="Boka dansbandsfotograf">
               <div class="heroPromo__text">
-                <div class="heroPromo__lead">Vill du att jag fotograferar ditt band med <span class="heroPromo__em">stämning, känsla & live</span>?
-                Hör av dig på <strong>070 098 45 95</strong> så planerar vi en session som fångar er energi.</div>
+                <div class="heroPromo__lead">
+                  Vill ni ha material som faktiskt visar hur er kväll känns? Jag fotograferar gärna ert band – oavsett om det är en folkpark, festival, danskväll eller en hel kväll bakom scenen.
+                </div>
               </div>
               <div class="heroPromo__actions">
                 <a class="heroPromo__cta" href="kontakt.html">Kontakta mig</a>
-                <a class="heroPromo__cta heroPromo__cta--ghost" href="tjanster.html">Vill du se Simons tjänster?</a>
+                <a class="heroPromo__cta heroPromo__cta--ghost" href="portfolio.html">Se portfolio</a>
               </div>
             </div>
-
           </div>
 
-          <!-- SERVICES -->
           <div class="serviceGrid" aria-label="Tjänster">
-
             <a class="svcCard" href="tjanster.html#livefoto">
               <div class="svcCard__t">📸 Livefotografering</div>
-              <div class="svcCard__d">
-                Professionella livebilder från spelningar, folkparker och event.
-              </div>
+              <div class="svcCard__d">Professionella livebilder från spelningar, folkparker och event.</div>
             </a>
 
             <a class="svcCard" href="tjanster.html#promo">
               <div class="svcCard__t">🎬 Promo & Reels</div>
-              <div class="svcCard__d">
-                Korta videor och material redo för Facebook, Instagram & TikTok.
-              </div>
+              <div class="svcCard__d">Korta videor och material redo för Facebook, Instagram & TikTok.</div>
             </a>
 
             <a class="svcCard" href="tjanster.html#sociala">
               <div class="svcCard__t">📱 Sociala medier</div>
-              <div class="svcCard__d">
-                Omslagsbilder, posters, annonser och content inför spelningar.
-              </div>
+              <div class="svcCard__d">Omslagsbilder, posters, annonser och content inför spelningar.</div>
             </a>
 
             <a class="svcCard" href="tjanster.html#arrangor">
               <div class="svcCard__t">🎟 Material för arrangörer</div>
-              <div class="svcCard__d">
-                Marknadsföringsmaterial för danser, festivaler och event.
-              </div>
+              <div class="svcCard__d">Marknadsföringsmaterial för danser, festivaler och event.</div>
             </a>
 
             <a class="svcCard" href="tjanster.html#gruppbilder">
               <div class="svcCard__t">👥 Gruppbilder & pressbilder</div>
-              <div class="svcCard__d">
-                Moderna bilder för affischer, hemsidor och pressmaterial.
-
-              </div>
+              <div class="svcCard__d">Moderna bilder för affischer, hemsidor och pressmaterial.</div>
             </a>
 
+            <a class="svcCard" href="tjanster.html#behind-the-scenes">
+              <div class="svcCard__t">🚌 Behind the scenes</div>
+              <div class="svcCard__d">Dokumentation från resa, uppackning, soundcheck, spelning och hemresa.</div>
+            </a>
           </div>
 
-          <!-- TRUST -->
           <div class="trustedBands">
-
             <div class="trustedBands__title">
-              Band & arrangörer jag arbetat med eller fotografterat
+              Band & arrangörer jag arbetat med eller fotograferat
             </div>
 
             <div class="trustedBands__grid">
@@ -355,205 +489,69 @@
               <div class="bandPill">Streaplers</div>
               <div class="bandPill">Sannex</div>
               <div class="bandPill">Black Jack</div>
-              <div class="bandPill">Ljungsbro Dansfest</div>
+              <div class="bandPill">Per-Håkans</div>
+              <div class="bandPill">Engdahls</div>
+              <div class="bandPill">Streaks</div>
               <div class="bandPill">Folkparker & arrangörer</div>
             </div>
-
           </div>
 
-          <!-- CTA -->
           <div class="hero__cta">
-            <a class="btn" href="kontakt.html">Kontakta mig</a>
+            <a class="btn" href="kontakt.html">Boka fotografering</a>
             <a class="btn btn--ghost" href="portfolio.html">Se portfolio</a>
           </div>
-
         </div>
 
         <!-- RIGHT -->
         <div class="hero__right">
+          <div class="followMeCard">
+            <img class="followMeCard__img"
+                 src="assets/foljamed.jpg"
+                 alt="Simons DansMedia följer med dansband bakom scenen och på spelningar" />
 
-          <div class="panel panel--glow">
+            <div class="followMeCard__overlay">
+              <div class="followMeCard__top">
+                <div class="followMeCard__tag">Följer gärna med band</div>
+              </div>
 
-            <div class="panel__head">
-              <div>
-                <div class="muted">Direkt från dansgolvet</div>
-                <div class="panel__title">Foto • Video</div>
+              <div class="followMeCard__content">
+                <h2>På vägen. Bakom scenen. Mitt i dansen.</h2>
+                <p>
+                  Jag dokumenterar hela dansbandskvällen – från resan, uppackningen och soundchecken till spelningen, publiken och känslan efter sista låten.
+                </p>
+                <div class="followMeCard__actions">
+                  <a class="btn" href="kontakt.html">Ta kontakt</a>
+                  <a class="btn btn--ghost" href="tjanster.html">Se tjänster</a>
+                </div>
               </div>
             </div>
-
-            <div class="panel__body">
-
-              <p class="muted">
-                Behöver ni hjälp med marknadsföring inför spelningar,
-                sociala medier eller professionella livebilder?
-              </p>
-
-              <div class="panel__contact">
-                <div>
-                  <strong>Tel:</strong>
-                  <a href="tel:+46700984595">070 098 45 95</a>
-                </div>
-
-                <div>
-                  <strong>E-post:</strong>
-                  <a href="mailto:dansmedian@gmail.com">dansmedian@gmail.com</a>
-                </div>
-              </div>
-
-              <div class="panel__help">
-                <div class="tick">📸 Livefoto från spelningar</div>
-                <div class="tick">🎬 Reels & promo-videor</div>
-                <div class="tick">🎟 Material för dansannonser</div>
-                <div class="tick">🌐 Hemsidor för band & arrangörer</div>
-                <div class="tick">👥 Gruppbilder & pressmaterial</div>
-              </div>
-
-              <div class="panel__bands">
-
-                <div class="muted tiny">
-                  Exempel på portfolio
-                </div>
-
-                <div class="bandButtons">
-                  <a class="btn btn--small" href="portfolio.html#sounders">Sounders</a>
-                  <a class="btn btn--small" href="portfolio.html#streaplers">Streaplers</a>
-                  <a class="btn btn--small" href="portfolio.html#ovrigt">Övriga</a>
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="panel__foot">
-            </div>
-
           </div>
-
         </div>
 
       </div>
-
     </section>
-
-  </main>
-
-  <script>
-    // Populate the homepage collage with up to 6 images, prefer live PORTFOLIO_ALBUMS if available
-    (function () {
-      const collage = document.getElementById('homepageCollage');
-      if (!collage) return;
-
-      const build = (sources) => {
-        const imgs = sources.slice(0, 6).map((src, i) => {
-          const a = document.createElement('a');
-          a.href = 'portfolio.html';
-          a.className = 'homepageCollage__item';
-          a.setAttribute('aria-label', 'Gå till portfolio');
-
-          const img = document.createElement('img');
-          img.loading = 'lazy';
-          img.decoding = 'async';
-          img.src = src;
-          img.alt = `Portfolio ${i + 1}`;
-
-          a.appendChild(img);
-          return a;
-        });
-
-        const cta = document.createElement('a');
-        cta.href = 'portfolio.html';
-        cta.className = 'homepageCollage__cta';
-        cta.innerHTML = '<div class="homepageCollage__ctaInner">Se mer i portfolio →</div>';
-
-        collage.innerHTML = '';
-        imgs.forEach(n => collage.appendChild(n));
-        collage.appendChild(cta);
-      };
-
-      // Fallback images (static)
-      const fallback = [
-        'assets/portfolio/Streaplers/Fröjden/FB_IMG_1781301757803.jpg',
-        'assets/portfolio/MSB/msb.png',
-        'assets/portfolio/BlackJack/BlackJackgrupp.png',
-        'assets/portfolio/sounders/sounders.png',
-        'assets/portfolio/Sannex/DSC00084.JPG',
-        'assets/portfolio/Perhåkans/ph.jpg'
-      ];
-
-      // If PORTFOLIO_ALBUMS is available, use the album.thumb values (filter for existing strings)
-      const tryBuildFromData = () => {
-        try {
-          if (window.PORTFOLIO_ALBUMS && Array.isArray(window.PORTFOLIO_ALBUMS)) {
-            const thumbs = window.PORTFOLIO_ALBUMS.map(a => a.thumb).filter(Boolean);
-            if (thumbs.length) { build(thumbs); return true; }
-          }
-        } catch (e) {}
-        return false;
-      };
-
-      if (!tryBuildFromData()) {
-        // wait for a short time in case script.js loads later
-        window.addEventListener('load', () => {
-          if (!tryBuildFromData()) build(fallback);
-        });
-        // immediate fallback
-        build(fallback);
-      }
-    })();
-  </script>
-              <button class="btn btn--ghost wide"
-                      id="copyEmailBtn"
-                      type="button">
-                Kopiera e-post
-              </button>
-
-              <div class="mono tiny" id="emailText">
-                dansmedian@gmail.com
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
   </main>
 
   <!-- Scroll to top -->
-  <button class="scrollTopBtn"
-          id="scrollTopBtn"
-          aria-label="Gå till toppen">
-    ↑
-  </button>
+  <button class="scrollTopBtn" id="scrollTopBtn" aria-label="Gå till toppen">↑</button>
 
   <!-- Footer -->
   <footer class="footer">
-
     <div class="container footer__inner">
-
       <div class="footer__brand">
-
         <img class="brand__logo brand__logo--small"
              src="assets/logo.png"
              alt="Simons DansMedia logga" />
 
         <div>
           <div class="footer__t">Simons DansMedia</div>
-          <div class="muted tiny">
-            Livefoto • Promo • Webb
-          </div>
+          <div class="muted tiny">Livefoto • Promo • Webb</div>
         </div>
-
       </div>
 
       <div class="footer__links">
-
         <div class="footer__col">
           <div class="footer__heading">Navigering</div>
-
           <a href="index.html">Hem</a>
           <a href="tjanster.html">Tjänster</a>
           <a href="portfolio.html">Portfolio</a>
@@ -563,85 +561,127 @@
 
         <div class="footer__col">
           <div class="footer__heading">Kontakt</div>
-
           <a href="tel:+46700984595">070 098 45 95</a>
           <a href="mailto:dansmedian@gmail.com">dansmedian@gmail.com</a>
         </div>
 
         <div class="footer__col">
           <div class="footer__heading">Följ</div>
-
           <a href="#">Instagram</a>
-
-          <a href="https://www.facebook.com/share/1H7SdxtUKB/">
-            Facebook
-          </a>
-
-          <a href="https://www.youtube.com/@simonsdansmedia"
-             target="_blank"
-             rel="noopener noreferrer">
-            YouTube
-          </a>
+          <a href="https://www.facebook.com/share/1H7SdxtUKB/">Facebook</a>
+          <a href="https://www.youtube.com/@simonsdansmedia" target="_blank" rel="noopener noreferrer">YouTube</a>
         </div>
-
       </div>
-
     </div>
 
     <div class="footer__bottom">
       <div class="container">
-        <div class="muted tiny">
-          © 2026 Simons DansMedia. Alla rättigheter förbehållna.
-        </div>
+        <div class="muted tiny">© 2026 Simons DansMedia. Alla rättigheter förbehållna.</div>
       </div>
     </div>
-
   </footer>
 
   <!-- Chat -->
   <div class="chatModal" id="chatModal" aria-hidden="true">
-
     <div class="chatModal__backdrop" id="chatBackdrop"></div>
 
     <div class="chatModal__panel">
-
       <div class="chatModal__header">
-
         <div>
           <div class="chatModal__title">Ai-Roffe</div>
-          <div class="chatModal__subtitle">
-            Simons DansMedia Assistent
-          </div>
+          <div class="chatModal__subtitle">Simons DansMedia Assistent</div>
         </div>
 
         <button class="chatModal__close"
                 id="chatCloseBtn"
                 type="button"
-                aria-label="Stäng chatt">
-          ×
-        </button>
-
+                aria-label="Stäng chatt">×</button>
       </div>
 
       <div class="chatModal__messages" id="chatMessages"></div>
 
       <div class="chatModal__input">
-        <input type="text"
-               id="chatInput"
-               placeholder="Ställ en fråga..." />
-
-        <button id="chatSendBtn"
-                type="button"
-                aria-label="Skicka">
-          Skicka
-        </button>
+        <input type="text" id="chatInput" placeholder="Ställ en fråga..." />
+        <button id="chatSendBtn" type="button" aria-label="Skicka">Skicka</button>
       </div>
-
     </div>
-
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    // Startsidan: visar olika band från portfolion. Om PORTFOLIO_ALBUMS finns används den automatiskt.
+    (function () {
+      const collage = document.getElementById('homepageCollage');
+      if (!collage) return;
 
+      const fallback = [
+        { band: 'Streaplers', src: 'assets/portfolio/Streaplers/Fröjden/FB_IMG_1781301757803.jpg' },
+        { band: 'Sounders', src: 'assets/portfolio/sounders/sounders.png' },
+        { band: 'Black Jack', src: 'assets/portfolio/BlackJack/BlackJackgrupp.png' },
+        { band: 'Sannex', src: 'assets/portfolio/Sannex/DSC00084.JPG' },
+        { band: 'Per-Håkans', src: 'assets/portfolio/Perhåkans/ph.jpg' },
+        { band: 'MSB', src: 'assets/portfolio/MSB/msb.png' }
+      ];
+
+      const getBandName = (album, index) => {
+        return album.title || album.name || album.band || album.slug || `Portfolio ${index + 1}`;
+      };
+
+      const build = (items) => {
+        const selected = items.filter(item => item && item.src).slice(0, 6);
+        collage.innerHTML = '';
+
+        selected.forEach((item, i) => {
+          const a = document.createElement('a');
+          a.href = 'portfolio.html';
+          a.className = 'homepageCollage__item';
+          a.setAttribute('aria-label', `Se ${item.band} i portfolio`);
+          a.setAttribute('data-band', item.band || `Band ${i + 1}`);
+
+          const img = document.createElement('img');
+          img.loading = 'lazy';
+          img.decoding = 'async';
+          img.src = item.src;
+          img.alt = `${item.band || 'Dansband'} från Simons DansMedia portfolio`;
+
+          a.appendChild(img);
+          collage.appendChild(a);
+        });
+
+        const cta = document.createElement('a');
+        cta.href = 'portfolio.html';
+        cta.className = 'homepageCollage__cta';
+        cta.innerHTML = '<div class="homepageCollage__ctaInner">Se fler band<br>i portfolio →</div>';
+        collage.appendChild(cta);
+      };
+
+      const tryBuildFromData = () => {
+        try {
+          if (window.PORTFOLIO_ALBUMS && Array.isArray(window.PORTFOLIO_ALBUMS)) {
+            const items = window.PORTFOLIO_ALBUMS
+              .map((album, index) => ({
+                band: getBandName(album, index),
+                src: album.thumb || album.cover || album.image
+              }))
+              .filter(item => item.src);
+
+            if (items.length) {
+              build(items);
+              return true;
+            }
+          }
+        } catch (e) {}
+        return false;
+      };
+
+      if (!tryBuildFromData()) {
+        build(fallback);
+        window.addEventListener('load', () => {
+          if (!tryBuildFromData()) build(fallback);
+        });
+      }
+    })();
+  </script>
+
+  <script src="script.js"></script>
 </body>
 </html>
