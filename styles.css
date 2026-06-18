@@ -1281,16 +1281,16 @@ iframe, img.modalMedia, .modal__body video{
 
 .albumGrid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
   margin-top: 20px;
 }
 
 @media (max-width: 980px) {
-  .albumGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .albumGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 640px) {
-  .albumGrid { grid-template-columns: 1fr; }
+  .albumGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 .albumCard {
@@ -1311,7 +1311,7 @@ iframe, img.modalMedia, .modal__body video{
 /* Make album thumbnails larger and more prominent */
 .albumCard__thumb{
   width:100%;
-  height:260px;
+  height:120px;
   object-fit:cover;
   display:block;
 }
@@ -1328,12 +1328,12 @@ iframe, img.modalMedia, .modal__body video{
 .albumCard__desc{ color: var(--muted); font-size:0.95rem; }
 
 @media (max-width: 980px) {
-  .albumGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .albumCard__thumb{ height:200px; }
+  .albumGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .albumCard__thumb{ height:110px; }
 }
 @media (max-width: 640px) {
-  .albumGrid { grid-template-columns: 1fr; }
-  .albumCard__thumb{ height:150px; }
+  .albumGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .albumCard__thumb{ height:100px; }
 }
 
 .albumCard__thumb {
@@ -2981,5 +2981,112 @@ picture{
     width: 100%;
     display: flex;
     justify-content: space-between;
+  }
+}
+/* =====================================================
+   FIX: startsidan - stoppa gigantiska bilder längre ner
+   ===================================================== */
+.hero{
+  overflow:hidden;
+}
+
+.hero__inner{
+  align-items:start;
+}
+
+#homepageCollage,
+.homepageCollage{
+  display:grid !important;
+  grid-template-columns:repeat(3, minmax(0, 1fr)) !important;
+  gap:10px !important;
+  width:100% !important;
+  max-width:520px !important;
+  margin-top:18px !important;
+  overflow:hidden !important;
+}
+
+.homepageCollage__item,
+.homepageCollage__cta{
+  width:100% !important;
+  height:82px !important;
+  max-height:82px !important;
+  min-height:82px !important;
+  overflow:hidden !important;
+  border-radius:14px !important;
+}
+
+.homepageCollage__item img,
+#homepageCollage img{
+  width:100% !important;
+  height:100% !important;
+  max-width:100% !important;
+  max-height:82px !important;
+  object-fit:cover !important;
+  display:block !important;
+  border-radius:14px !important;
+}
+
+.homepageCollage__cta{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  padding:10px !important;
+  text-align:center !important;
+}
+
+/* Gör resten av kort/bildgrids rimliga på dator */
+.albumGrid,
+.mediaGrid,
+.portfolio{
+  align-items:start;
+}
+
+.albumCard__thumb,
+.mediaItem__thumb{
+  height:auto !important;
+  max-height:190px !important;
+  overflow:hidden !important;
+}
+
+.albumCard__thumb img,
+.mediaItem__thumb img,
+.mediaItem__thumb video.mediaThumbVideo{
+  width:100% !important;
+  height:100% !important;
+  max-height:190px !important;
+  object-fit:cover !important;
+  display:block !important;
+}
+
+/* Mobil: ännu mindre så sidan inte blir en jävla fotovägg */
+@media (max-width:700px){
+  #homepageCollage,
+  .homepageCollage{
+    grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+    max-width:100% !important;
+    gap:8px !important;
+  }
+
+  .homepageCollage__item,
+  .homepageCollage__cta{
+    height:68px !important;
+    max-height:68px !important;
+    min-height:68px !important;
+  }
+
+  .homepageCollage__item img,
+  #homepageCollage img{
+    max-height:68px !important;
+  }
+
+  .albumCard__thumb,
+  .mediaItem__thumb{
+    max-height:145px !important;
+  }
+
+  .albumCard__thumb img,
+  .mediaItem__thumb img,
+  .mediaItem__thumb video.mediaThumbVideo{
+    max-height:145px !important;
   }
 }
