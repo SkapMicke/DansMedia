@@ -3,29 +3,219 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Tjänster – Simons DansMedia AB</title>
-  <meta name="description" content="Se alla tjänster från DansMedia: marknadsföringsvideoer, bildmaterial, löpande content, retainerupplägg och hemsidor för band." />
-  <meta name="theme-color" content="#0b0c10" />
-  <meta property="og:title" content="Tjänster – Dansmedia" />
-  <meta property="og:description" content="Videor, bilder, löpande content och hemsidor för band." />
+
+  <title>Tjänster – Simons DansMedia</title>
+  <meta name="description" content="Simons DansMedia dokumenterar dansband, arrangörer och folkparker genom livefoto, video, behind the scenes och äkta material från hela kvällen." />
+  <meta name="theme-color" content="#14110d" />
+
+  <meta property="og:title" content="Tjänster – Simons DansMedia" />
+  <meta property="og:description" content="Jag följer med dansband och arrangörer för att dokumentera packning, resa, soundcheck, spelning, publik och allt det där publiken vanligtvis inte ser." />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="sv_SE" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
-<link rel="icon" href="/assets/favicon/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
-<link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
+
+  <link rel="icon" href="/assets/favicon/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
+
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
+  <style>
+    .serviceHero{
+      padding:82px 0 54px;
+      position:relative;
+      overflow:hidden;
+    }
+    .serviceHero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at 14% 18%, rgba(211,161,92,.22), transparent 34%),
+        radial-gradient(circle at 84% 22%, rgba(111,143,107,.13), transparent 30%),
+        linear-gradient(180deg, rgba(255,255,255,.035), transparent 74%);
+    }
+    .serviceHero .container{position:relative;}
+    .serviceHero__grid{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:24px;
+      align-items:stretch;
+    }
+    .serviceHero__title{
+      margin:16px 0 14px;
+      max-width:900px;
+      font-size:clamp(42px,5.4vw,78px);
+      line-height:.98;
+      letter-spacing:-1.6px;
+    }
+    .serviceHero__lead{
+      margin:0;
+      max-width:790px;
+      color:var(--muted);
+      font-size:1.12rem;
+      line-height:1.76;
+    }
+    .serviceHero__lead strong{color:var(--text);font-weight:900;}
+    .serviceHero__actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;}
+    .followImageCard{
+      position:relative;
+      min-height:440px;
+      border-radius:30px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      background:var(--card);
+      box-shadow:var(--shadow2);
+    }
+    .followImageCard img{
+      width:100%;
+      height:100%;
+      min-height:440px;
+      display:block;
+      object-fit:cover;
+      filter:saturate(1.08) contrast(1.03);
+    }
+    .followImageCard__overlay{
+      position:absolute;
+      inset:0;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      padding:22px;
+      background:
+        linear-gradient(to top, rgba(0,0,0,.84), rgba(0,0,0,.24) 54%, rgba(0,0,0,.04)),
+        radial-gradient(circle at 72% 20%, rgba(211,161,92,.18), transparent 34%);
+    }
+    .followImageCard__tag{
+      align-self:flex-start;
+      padding:9px 13px;
+      border-radius:999px;
+      color:#fff;
+      background:rgba(0,0,0,.46);
+      border:1px solid rgba(255,255,255,.16);
+      backdrop-filter:blur(12px);
+      font-weight:900;
+      font-size:.82rem;
+    }
+    .followImageCard__text h2{
+      margin:0 0 10px;
+      color:#fff;
+      font-size:clamp(1.8rem,3vw,2.8rem);
+      line-height:1;
+      letter-spacing:-.05em;
+    }
+    .followImageCard__text p{
+      margin:0;
+      color:rgba(255,255,255,.84);
+      line-height:1.55;
+      max-width:460px;
+    }
+    .storyPanel{
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:linear-gradient(145deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      box-shadow:var(--shadow2);
+      padding:26px;
+    }
+    .storyPanel__kicker{
+      color:var(--a1);
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.15em;
+      font-size:.8rem;
+      margin-bottom:12px;
+    }
+    .storyPanel p{
+      color:var(--muted);
+      line-height:1.75;
+      font-size:1.02rem;
+      margin:0 0 14px;
+    }
+    .storyPanel p:last-child{margin-bottom:0;}
+    .storyPanel strong{color:var(--text);}
+    .offerGrid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
+    }
+    .offerCard{
+      border:1px solid var(--line);
+      border-radius:24px;
+      background:var(--card);
+      padding:20px;
+      transition:.18s ease;
+    }
+    .offerCard:hover{transform:translateY(-3px);background:var(--card2);border-color:var(--line2);}
+    .offerCard__icon{font-size:1.75rem;margin-bottom:10px;}
+    .offerCard h3{margin:0 0 8px;font-size:1.18rem;}
+    .offerCard p{margin:0;color:var(--muted);line-height:1.6;}
+    .ghostLine{
+      margin-top:18px;
+      padding:18px;
+      border-radius:22px;
+      border:1px solid var(--line);
+      background:linear-gradient(90deg, rgba(211,161,92,.10), rgba(255,255,255,.035));
+      color:var(--muted);
+      line-height:1.7;
+    }
+    .ghostLine strong{color:var(--text);}
+    .twoCol{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+      align-items:start;
+    }
+    .checkList{display:grid;gap:10px;margin-top:14px;}
+    .checkItem{
+      border:1px solid var(--line);
+      background:var(--card);
+      border-radius:16px;
+      padding:12px 14px;
+      color:var(--muted);
+      font-weight:800;
+    }
+    .checkItem::before{content:"✓";color:var(--a1);font-weight:900;margin-right:9px;}
+    .bigCta{
+      border:1px solid var(--line);
+      border-radius:30px;
+      padding:28px;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(211,161,92,.18), transparent 30%),
+        linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.035));
+      box-shadow:var(--shadow2);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+    }
+    .bigCta h2{margin:0 0 8px;font-size:clamp(1.7rem,3vw,2.5rem);}
+    .bigCta p{margin:0;color:var(--muted);line-height:1.65;max-width:760px;}
+    @media(max-width:960px){
+      .serviceHero__grid,.twoCol{grid-template-columns:1fr;}
+      .offerGrid{grid-template-columns:repeat(2,minmax(0,1fr));}
+      .followImageCard,.followImageCard img{min-height:360px;}
+      .bigCta{display:block;}
+      .bigCta .btn{margin-top:18px;}
+    }
+    @media(max-width:640px){
+      .serviceHero{padding-top:56px;}
+      .offerGrid{grid-template-columns:1fr;}
+      .storyPanel,.bigCta{padding:20px;border-radius:24px;}
+      .followImageCard,.followImageCard img{min-height:330px;}
+    }
+  </style>
 </head>
 
 <body>
-  <!-- Ambient background -->
   <div class="bg">
     <div class="bg__blob bg__blob--a"></div>
     <div class="bg__blob bg__blob--b"></div>
@@ -33,41 +223,34 @@
     <div class="bg__noise"></div>
   </div>
 
-  <!-- Header -->
   <header class="header" id="top">
     <div class="container header__inner">
-      <a class="brand" href="index.html" aria-label="Dansmedia">
-        <img class="brand__logo" src="assets/logo.png" alt="Dansmedia logga" />
+      <a class="brand" href="index.html" aria-label="Simons DansMedia">
+        <img class="brand__logo" src="assets/logo.png" alt="Simons DansMedia logga" />
         <span class="brand__text">
-          <strong>DansMedia</strong><span>Studio</span>
+          <strong>Simons DansMedia</strong>
         </span>
       </a>
 
       <nav class="nav" aria-label="Huvudmeny">
-       <a href="index.html">Hem</a>
-        <a href="/tjanster">Tjänster</a>
+        <a href="index.html">Hem</a>
+        <a href="tjanster.html">Dokumentation & Media</a>
         <a href="portfolio.html">Portfolio</a>
         <a href="om-mig.html">Om mig</a>
         <a href="kontakt.html" class="btn btn--small">Kontakt</a>
       </nav>
 
       <div class="header__actions">
-        <button class="chatbotBtn" id="chatbotBtn" type="button" aria-label="Öppna AI-chatt" title="Chatta med Ai-Roffe">
-          <span>🤖</span>
-        </button>
-        <button class="iconBtn" id="themeBtn" type="button" aria-label="Växla tema">
-          <span class="iconBtn__dot"></span>
-        </button>
-        <button class="menuBtn" id="menuBtn" type="button" aria-label="Öppna meny" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
+        <button class="chatbotBtn" id="chatbotBtn" type="button" aria-label="Öppna AI-chatt" title="Chatta med Ai-Roffe"><span>🤖</span></button>
+        <button class="iconBtn" id="themeBtn" type="button" aria-label="Växla tema"><span class="iconBtn__dot"></span></button>
+        <button class="menuBtn" id="menuBtn" type="button" aria-label="Öppna meny" aria-expanded="false"><span></span><span></span><span></span></button>
       </div>
     </div>
 
     <div class="mobileNav" id="mobileNav" aria-hidden="true">
       <div class="container mobileNav__inner">
-       <a href="index.html">Hem</a>
-        <a href="/tjanster">Tjänster</a>
+        <a href="index.html">Hem</a>
+        <a href="tjanster.html">Dokumentation & Media</a>
         <a href="portfolio.html">Portfolio</a>
         <a href="om-mig.html">Om mig</a>
         <a href="kontakt.html" class="btn">Kontakt</a>
@@ -76,395 +259,241 @@
   </header>
 
   <main>
-    <!-- Services -->
+    <section class="serviceHero">
+      <div class="container serviceHero__grid">
+        <div>
+          <div class="badge"><span class="badge__dot"></span> Foto • Video • Dokumentation • Dansband</div>
+          <h1 class="serviceHero__title">Jag dokumenterar dansbandslivet från insidan.</h1>
+          <p class="serviceHero__lead">
+            Jag följer med dansband, arrangörer och folkparker för att fånga hela kvällen. Inte bara scenen – utan allt runt omkring: <strong>packningen, kaffet, väntan, soundchecken, backstage, publiken och energin när det väl smäller.</strong>
+          </p>
+          <div class="serviceHero__actions">
+            <a class="btn" href="kontakt.html">Kontakta mig</a>
+            <a class="btn btn--ghost" href="portfolio.html">Se portfolio</a>
+          </div>
+        </div>
+
+        <div class="followImageCard">
+          <img src="assets/foljamed.png" alt="Simons DansMedia följer med och dokumenterar dansband" />
+          <div class="followImageCard__overlay">
+            <div class="followImageCard__tag">Följer gärna med band</div>
+            <div class="followImageCard__text">
+              <h2>Jag är inte där. Fast jag är där.</h2>
+              <p>Lite som ett kameraspöke med bra tajming. Jag håller mig i bakgrunden och fångar det som gör kvällen äkta.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt">
+      <div class="container">
+        <div class="storyPanel">
+          <div class="storyPanel__kicker">Budskapet</div>
+          <p><strong>Ni vet den där delen av dansbandslivet som publiken inte ser?</strong> Packningen, kaffet, väntan, soundchecken, ”vart är den kabeln?”, femte koppen kaffe och sen full fart på scen.</p>
+          <p>Det är precis det jag dokumenterar. Jag följer med dansband runt om i Sverige för att fånga en hel spelning, turné eller danskväll från insidan.</p>
+          <p>Inte med massa intervjuer och mikrofon i ansiktet, utan mer som en fluga på väggen. Intervjuer går självklart också att göra om vi kommer överens om det.</p>
+          <p>Resultatet blir äkta material som band och arrangörer kan använda i sociala medier, marknadsföring och för att visa publiken mer av det som händer bakom scenen.</p>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
       <div class="container">
         <div class="section__head">
           <div>
-            <h1>Tjänster</h1>
-            <p class="muted">För band & arrangörer – välj enstaka leveranser eller ett upplägg som sköter allt åt er.</p>
+            <h2>Vad jag erbjuder</h2>
+            <p class="muted">Upplägg för band, arrangörer, folkparker och danskvällar.</p>
+          </div>
+        </div>
+
+        <div class="offerGrid">
+          <article class="offerCard" id="folja-med-band">
+            <div class="offerCard__icon">🚌</div>
+            <h3>Följa med band</h3>
+            <p>Jag följer med under en kväll, helg eller turnédag och dokumenterar resan, förberedelserna, soundchecken, spelningen och allt däremellan.</p>
+          </article>
+
+          <article class="offerCard" id="behind-the-scenes">
+            <div class="offerCard__icon">🎥</div>
+            <h3>Behind the scenes</h3>
+            <p>Äkta material bakom kulisserna. Inget stelt, inget påklistrat – bara känslan av hur en vanlig arbetsdag faktiskt ser ut.</p>
+          </article>
+
+          <article class="offerCard" id="livefoto">
+            <div class="offerCard__icon">📸</div>
+            <h3>Livefotografering</h3>
+            <p>Bilder från scen, publik, dansgolv, ögonblick, detaljer och känslan i lokalen. Perfekt till sociala medier, hemsida och press.</p>
+          </article>
+
+          <article class="offerCard" id="videografering">
+            <div class="offerCard__icon">🎬</div>
+            <h3>Videografering</h3>
+            <p>Reels, korta klipp, highlights och sammanfattningar från kvällen. Anpassat för Facebook, Instagram, TikTok och webben.</p>
+          </article>
+
+          <article class="offerCard" id="arrangorer">
+            <div class="offerCard__icon">🎪</div>
+            <h3>För arrangörer</h3>
+            <p>Jag dokumenterar danskvällar, folkparker, festivaler och event – både förberedelser, publik, stämning och själva kvällen.</p>
+          </article>
+
+          <article class="offerCard" id="marknadsforing">
+            <div class="offerCard__icon">📱</div>
+            <h3>Material för marknadsföring</h3>
+            <p>Foto och video som kan användas för inlägg, stories, event, affischer, hemsidor och för att bygga starkare närvaro online.</p>
+          </article>
+        </div>
+
+        <div class="ghostLine">
+          <strong>Allt anpassas efter er.</strong> Vissa vill ha mycket film. Andra vill ha mest bilder. Vissa vill ha en lugn dokumentation bakom scenen, andra vill ha mer energi, publik och show. Vi lägger upp kvällen efter era önskemål och funderingar.
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt">
+      <div class="container twoCol">
+        <div>
+          <div class="section__head">
+            <div>
+              <h2>En vanlig kväll kan innehålla</h2>
+              <p class="muted">Jag fångar helheten, inte bara när bandet står på scen.</p>
+            </div>
+          </div>
+        </div>
+        <div class="checkList">
+          <div class="checkItem">Packning och förberedelser</div>
+          <div class="checkItem">Resa, väntan och vardagskaoset</div>
+          <div class="checkItem">Soundcheck och scenförberedelser</div>
+          <div class="checkItem">Backstage och ögonblicken mellan låtarna</div>
+          <div class="checkItem">Livebilder från scen och dansgolv</div>
+          <div class="checkItem">Reels, klipp och material för sociala medier</div>
+          <div class="checkItem">Publik, stämning och känslan i lokalen</div>
+          <div class="checkItem">Material arrangörer kan använda efteråt</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2>För band och arrangörer</h2>
+            <p class="muted">Samma grundidé – men olika fokus beroende på vad ni vill visa.</p>
           </div>
         </div>
 
         <div class="cards3">
-          <article class="card" id="video">
-            <div class="card__top">
-              <h3>Marknadsföringsvideo</h3>
-            </div>
-            <p class="muted">
-              Promo, teasers och kampanjmaterial för spelningar.
-            </p>
+          <article class="card">
+            <div class="card__top"><h3>Dansband</h3></div>
+            <p class="muted">Visa publiken mer av människorna bakom musiken. Resan, jobbet, glädjen, skratten och allt som händer innan första låten.</p>
             <ul class="list">
-              <li>Optimerat för sociala medier</li>
-              <li>Tydlig information och CTA</li>
-              <li>Flera versioner vid behov</li>
-            </ul>
-            <button class="link js-readMore" type="button" data-service="video">Läs mer →</button>
-          </article>
-
-          <article class="card" id="bilder">
-            <div class="card__top">
-              <h3>Bildmaterial</h3>
-            </div>
-            <p class="muted">
-              Bilder för inlägg, affischer, covers och enhetlig stil.
-            </p>
-            <ul class="list">
-              <li>Enhetlig look</li>
-              <li>Redo att posta</li>
-              <li>Snabba ändringar</li>
-            </ul>
-            <button class="link js-readMore" type="button" data-service="bilder">Läs mer →</button>
-          </article>
-
-          <article class="card" id="content">
-            <div class="card__top">
-              <h3>Löpande content</h3>
-            </div>
-            <p class="muted">
-              Återkommande material inför spelningar och events.
-            </p>
-            <ul class="list">
-              <li>Ni slipper stress</li>
-              <li>Färdiga mallar</li>
-              <li>Flexibla mängder</li>
+              <li>Dokumentation av bandets dag</li>
+              <li>Livefoto och korta videos</li>
+              <li>Material till sociala medier</li>
             </ul>
           </article>
 
-          <article class="card" id="hobbyfoto">
-            <div class="card__top">
-              <h3>Hobbyfotografering</h3>
-            </div>
-            <p class="muted">Livebilder som extra material – mer hobby än ”proffsfoto”, men perfekt som komplement.</p>
+          <article class="card">
+            <div class="card__top"><h3>Arrangörer & folkparker</h3></div>
+            <p class="muted">Få material som visar hela kvällen – inte bara bandet. Publik, dansgolv, stämning, entré, miljö och arbetet bakom eventet.</p>
             <ul class="list">
-              <li>Fungerar bra för SoMe</li>
-              <li>Snabb leverans</li>
-              <li>Extra material när ni vill ha mer</li>
+              <li>Dokumentation av förberedelser</li>
+              <li>Bilder från danskväll/event</li>
+              <li>Material inför nästa arrangemang</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card__top"><h3>Anpassade upplägg</h3></div>
+            <p class="muted">En kväll, en hel helg, flera spelningar eller löpande material under året. Vi bygger upplägget efter vad ni faktiskt behöver.</p>
+            <ul class="list">
+              <li>Foto, video eller båda delar</li>
+              <li>Med eller utan intervjuer</li>
+              <li>Leverans anpassad för era kanaler</li>
             </ul>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- Arrangörer (flyttat hit) -->
-    <section class="section section--alt" id="arrangorer">
+    <section class="section section--alt">
       <div class="container">
-        <div class="section__head">
+        <div class="bigCta">
           <div>
-            <h2>För arrangörer</h2>
-            <p class="muted">Eventmaterial som är tydligt, snyggt och klart att publicera.</p>
-          </div>
-        </div>
-
-        <div class="cards3">
-          <article class="card">
-            <div class="card__top"><h3>Affisch / posters</h3></div>
-            <p class="muted">Tydlig info (datum/plats) + call-to-action.</p>
-            <ul class="list">
-              <li>För Facebook-event & Instagram</li>
-              <li>Enhetlig stil</li>
-              <li>Snabba ändringar vid behov</li>
-            </ul>
-          </article>
-
-          <article class="card">
-            <div class="card__top"><h3>SoMe-paket</h3></div>
-            <p class="muted">Inlägg, stories och covers som driver publik.</p>
-            <ul class="list">
-              <li>Rätt format direkt</li>
-              <li>Versioner/variationer</li>
-              <li>Byggt för räckvidd</li>
-            </ul>
-          </article>
-
-          <article class="card">
-            <div class="card__top"><h3>Video (teaser / recap)</h3></div>
-            <p class="muted">Kort, tydligt och med tempo som passar genren.</p>
-            <ul class="list">
-              <li>Teasers inför event</li>
-              <li>Sammanfattning efteråt</li>
-              <li>Leverans i SoMe-format</li>
-            </ul>
-          </article>
-        </div>
-
-        <div class="ctaBar" style="margin-top: 18px;">
-          <div>
-            <div class="ctaBar__t">Arrangör?</div>
-            <div class="muted">Skicka datum, lineup och info – så föreslår jag upplägg.</div>
+            <h2>Vill ni ha med mig på en kväll?</h2>
+            <p>Hör gärna av er. Berätta lite kort om bandet, arrangemanget, datumet och vad ni vill få ut av materialet – så lägger vi upp den bästa planen tillsammans.</p>
           </div>
           <a class="btn" href="kontakt.html">Kontakta mig</a>
         </div>
       </div>
     </section>
 
-    <!-- Web & Graphic -->
-    <section class="section">
-      <div class="container">
-        <div class="section__head">
-          <div>
-            <h2>Webb & grafiskt</h2>
-            <p class="muted">För band som vill se proffsiga ut överallt — hemsideskapande, logga och material.</p>
-          </div>
-        </div>
-
-        <div class="cards3">
-          <article class="card" id="hemsida">
-            <div class="card__top">
-              <h3>Hemsideskapande</h3>
-            </div>
-            <p class="muted">En snabb, snygg och lättskött hemsida för band (mobil + desktop).</p>
-            <ul class="list">
-              <li>Startsida + valfria undersidor</li>
-              <li>Mobilanpassad och snabb</li>
-              <li>Enhetlig stil med ert material</li>
-              <li>Publicering + enklare ändringar vid behov</li>
-            </ul>
-            <button class="link js-readMore" type="button" data-service="hemsida">Läs mer →</button>
-          </article>
-
-          <article class="card" id="logga">
-            <div class="card__top">
-              <h3>Logga</h3>
-            </div>
-            <p class="muted">En ren och igenkännbar logga som funkar överallt.</p>
-            <ul class="list">
-              <li>Versioner för ljus/mörk bakgrund</li>
-              <li>Leverans i vanliga format</li>
-              <li>Matchar ert uttryck</li>
-            </ul>
-            <button class="link js-readMore" type="button" data-service="logga">Läs mer →</button>
-          </article>
-
-          <article class="card" id="affisch">
-            <div class="card__top">
-              <h3>Affisch / eventgrafik</h3>
-            </div>
-            <p class="muted">Material för gig: affisch, cover och inlägg.</p>
-            <ul class="list">
-              <li>Tydlig info (datum/plats/CTA)</li>
-              <li>Redo för sociala medier</li>
-              <li>Snabba ändringar vid behov</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Retainer -->
-    <section class="section section--alt">
-      <div class="container">
-        <div class="section__head">
-          <div>
-            <h2>Upplägg</h2>
-            <p class="muted">
-              Enkelt samarbete för regelbundet innehåll.
-            </p>
-          </div>
-        </div>
-
-        <div class="steps">
-          <div class="step">
-            <div class="step__n">1</div>
-            <div>
-              <div class="step__t">Ni delar information</div>
-              <div class="muted">Skicka plats, datum och låtar.</div>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step__n">2</div>
-            <div>
-              <div class="step__t">Jag skapar materialet</div>
-              <div class="muted">Video och bilder i er stil.</div>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step__n">3</div>
-            <div>
-              <div class="step__t">Ni delar och når ut</div>
-              <div class="muted">Allt klart att publicera.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="valueGrid">
-          <div class="value">
-            <div class="value__t">Kontinuerligt innehåll</div>
-            <div class="muted">Regelbundet material inför spelningar.</div>
-          </div>
-          <div class="value">
-            <div class="value__t">Enhetlig stil</div>
-            <div class="muted">Sammanhållen look för ert band.</div>
-          </div>
-          <div class="value">
-            <div class="value__t">Flexibla kostnader</div>
-            <div class="muted">Betala för det ni behöver.</div>
-          </div>
-          <div class="value">
-            <div class="value__t">Snabb leverans</div>
-            <div class="muted">Färdiga mallar gör det snabbt.</div>
-          </div>
-          <div class="value">
-            <div class="value__t">Gratis justeringar</div>
-            <div class="muted">Små ändringar fixas kostnadsfritt.</div>
-          </div>
-          <div class="value">
-            <div class="value__t">Långsiktig värde</div>
-            <div class="muted">Designat för maximal nytta över tid.</div>
-          </div>
-        </div>
-
-        <div class="ctaBar">
-          <div>
-            <div class="ctaBar__t">Intresserad av ett upplägg?</div>
-            <div class="muted">Berätta om era spelningar per månad så föreslår jag rätt mängd innehåll.</div>
-          </div>
-          <a class="btn" href="kontakt.html">Fråga om upplägg</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
     <section class="section section--alt">
       <div class="container">
         <div class="section__head">
           <div>
             <h2>FAQ</h2>
-            <p class="muted">Snabba svar innan ni bokar.</p>
+            <p class="muted">Snabba svar innan ni hör av er.</p>
           </div>
         </div>
 
         <div class="faq">
-          <button class="faq__q" type="button" aria-expanded="false">
-            <span>Kan vi få content inför varje spelning?</span>
-            <span class="faq__i">+</span>
-          </button>
-          <div class="faq__a">
-            <p class="muted">
-              Ja. Skicka info, jag levererar material löpande.
-            </p>
-          </div>
+          <button class="faq__q" type="button" aria-expanded="false"><span>Måste vi göra intervjuer?</span><span class="faq__i">+</span></button>
+          <div class="faq__a"><p class="muted">Nej. Grundtanken är att jag dokumenterar som en fluga på väggen. Men intervjuer går absolut att lägga till om vi kommer överens om det.</p></div>
 
-          <button class="faq__q" type="button" aria-expanded="false">
-            <span>Är videor alltid samma längd?</span>
-            <span class="faq__i">+</span>
-          </button>
-          <div class="faq__a">
-            <p class="muted">
-              Nej, de anpassas efter behov. Oftast 25-35 sekunder.
-            </p>
-          </div>
+          <button class="faq__q" type="button" aria-expanded="false"><span>Kan arrangörer också boka dokumentation?</span><span class="faq__i">+</span></button>
+          <div class="faq__a"><p class="muted">Ja. Detta gäller även arrangörer, folkparker och event som vill få sin kväll, sina förberedelser och sin publik dokumenterad.</p></div>
 
-          <button class="faq__q" type="button" aria-expanded="false">
-            <span>Gör du hemsidor också?</span>
-            <span class="faq__i">+</span>
-          </button>
-          <div class="faq__a">
-            <p class="muted">
-              Ja, hårdkodade sidor för band med spelplan och pressmaterial och vad man nu vill ha. Hårdkodat menas att det är byggt direkt i kod (HTML/CSS/JS) utan CMS som WordPress, vilket gör det snabbare och enklare att underhålla.
-            </p>
-          </div>
+          <button class="faq__q" type="button" aria-expanded="false"><span>Vad får vi materialet till?</span><span class="faq__i">+</span></button>
+          <div class="faq__a"><p class="muted">Materialet kan användas i sociala medier, marknadsföring, hemsida, event, affischer, press och för att visa publiken mer av det som händer bakom scenen.</p></div>
         </div>
       </div>
     </section>
 
-    <!-- Sidnavigation -->
     <section class="section">
       <div class="container">
         <div class="pageNav">
-          <a href="index.html" class="pageNav__prev">
-            <span class="pageNav__arrow">←</span>
-            <div>
-              <div class="muted tiny">Föregående</div>
-              <div class="pageNav__title">Hem</div>
-            </div>
-          </a>
-          <a href="portfolio.html" class="pageNav__next">
-            <div>
-              <div class="muted tiny">Nästa</div>
-              <div class="pageNav__title">Portfolio</div>
-            </div>
-            <span class="pageNav__arrow">→</span>
-          </a>
+          <a href="index.html" class="pageNav__prev"><span class="pageNav__arrow">←</span><div><div class="muted tiny">Föregående</div><div class="pageNav__title">Hem</div></div></a>
+          <a href="portfolio.html" class="pageNav__next"><div><div class="muted tiny">Nästa</div><div class="pageNav__title">Portfolio</div></div><span class="pageNav__arrow">→</span></a>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Scroll to Top Button -->
   <button class="scrollTopBtn" id="scrollTopBtn" aria-label="Gå till toppen">↑</button>
 
-  <!-- Modal -->
   <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="modal__backdrop" data-close="true"></div>
     <div class="modal__panel" role="document">
       <button class="modal__close" id="modalClose" type="button" aria-label="Stäng">✕</button>
-      <div class="modal__head">
-        <div class="modal__title" id="modalTitle">Titel</div>
-        <div class="modal__meta" id="modalMeta">—</div>
-      </div>
+      <div class="modal__head"><div class="modal__title" id="modalTitle">Titel</div><div class="modal__meta" id="modalMeta">—</div></div>
       <div class="modal__body" id="modalBody"></div>
     </div>
   </div>
 
-  <!-- Footer -->
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <img class="brand__logo brand__logo--small" src="assets/logo.png" alt="Dansmedia logga" />
-        <div>
-          <div class="footer__t">Dansmedia</div>
-          <div class="muted tiny">Video • Bild • Webb</div>
-        </div>
+        <img class="brand__logo brand__logo--small" src="assets/logo.png" alt="Simons DansMedia logga" />
+        <div><div class="footer__t">Simons DansMedia</div><div class="muted tiny">Livefoto • Video • Dokumentation</div></div>
       </div>
 
       <div class="footer__links">
-        <div class="footer__col">
-          <div class="footer__heading">Navigering</div>
-          <a href="index.html">Hem</a>
-          <a href="/tjanster">Tjänster</a>
-          <a href="portfolio.html">Portfolio</a>
-          <a href="om-mig.html">Om mig</a>
-          <a href="kontakt.html">Kontakt</a>
-        </div>
-
-        <div class="footer__col">
-          <div class="footer__heading">Kontakt</div>
-          <a href="tel:+46700984595">070 098 45 95</a>
-          <a href="mailto:dansmedian@gmail.com">dansmedian@gmail.com</a>
-        </div>
-
-        <div class="footer__col">
-          <div class="footer__heading">Följ</div>
-          <a href="#">Instagram</a>
-          <a href="https://www.facebook.com/share/1H7SdxtUKB/">Facebook</a>
-        </div>
+        <div class="footer__col"><div class="footer__heading">Navigering</div><a href="index.html">Hem</a><a href="tjanster.html">Dokumentation & Media</a><a href="portfolio.html">Portfolio</a><a href="om-mig.html">Om mig</a><a href="kontakt.html">Kontakt</a></div>
+        <div class="footer__col"><div class="footer__heading">Kontakt</div><a href="tel:+46700984595">070 098 45 95</a><a href="mailto:dansmedian@gmail.com">dansmedian@gmail.com</a></div>
+        <div class="footer__col"><div class="footer__heading">Följ</div><a href="#">Instagram</a><a href="https://www.facebook.com/share/1H7SdxtUKB/" target="_blank" rel="noopener noreferrer">Facebook</a><a href="https://www.youtube.com/@simonsdansmedia" target="_blank" rel="noopener noreferrer">YouTube</a></div>
       </div>
     </div>
-
-    <div class="footer__bottom">
-      <div class="container">
-        <div class="muted tiny">© 2026 Dansmedia. Alla rättigheter förbehållna.</div>
-      </div>
-    </div>
+    <div class="footer__bottom"><div class="container"><div class="muted tiny">© 2026 Simons DansMedia. Alla rättigheter förbehållna.</div></div></div>
   </footer>
 
-  <!-- Chat Modal -->
   <div class="chatModal" id="chatModal" aria-hidden="true">
     <div class="chatModal__backdrop" id="chatBackdrop"></div>
     <div class="chatModal__panel">
-      <div class="chatModal__header">
-        <div>
-          <div class="chatModal__title">Ai-Roffe</div>
-          <div class="chatModal__subtitle">DansMedia Assistent</div>
-        </div>
-        <button class="chatModal__close" id="chatCloseBtn" type="button" aria-label="Stäng chatt">×</button>
-      </div>
+      <div class="chatModal__header"><div><div class="chatModal__title">Ai-Roffe</div><div class="chatModal__subtitle">Simons DansMedia Assistent</div></div><button class="chatModal__close" id="chatCloseBtn" type="button" aria-label="Stäng chatt">×</button></div>
       <div class="chatModal__messages" id="chatMessages"></div>
-      <div class="chatModal__input">
-        <input type="text" id="chatInput" placeholder="Ställ en fråga..." />
-        <button id="chatSendBtn" type="button" aria-label="Skicka">Skicka</button>
-      </div>
+      <div class="chatModal__input"><input type="text" id="chatInput" placeholder="Ställ en fråga..." /><button id="chatSendBtn" type="button" aria-label="Skicka">Skicka</button></div>
     </div>
   </div>
 

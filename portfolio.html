@@ -3,29 +3,427 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Portfolio – Simons DansMedia AB</title>
-  <meta name="description" content="Se vår portfolio: exempel på videor, livefoto, bildmaterial och hemsidor vi gjort för band och arrangörer." />
-  <meta name="theme-color" content="#0b0c10" />
-  <meta property="og:title" content="Portfolio – Dansmedia" />
-  <meta property="og:description" content="Se våra tidigare projekt: videor, bilder, livefoto och webbprojekt för band." />
+  <title>Band & Uppdrag – Simons DansMedia AB</title>
+  <meta name="description" content="Band, arrangörer och uppdrag som Simons DansMedia dokumenterat. Se bilder, videor och dokumentation från dansband, folkparker och evenemang." />
+  <meta name="theme-color" content="#14110d" />
+  <meta property="og:title" content="Band & Uppdrag – Simons DansMedia" />
+  <meta property="og:description" content="Ett urval av dansband, arrangörer och kvällar jag haft förtroendet att dokumentera." />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="sv_SE" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
-<link rel="icon" href="/assets/favicon/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
-<link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
+
+  <link rel="icon" href="/assets/favicon/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
+
+  <style>
+    .premiumHero{
+      position:relative;
+      min-height:72vh;
+      display:flex;
+      align-items:flex-end;
+      overflow:hidden;
+      border-bottom:1px solid var(--line);
+      isolation:isolate;
+    }
+
+    .premiumHero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-3;
+      background:
+        linear-gradient(90deg, rgba(8,7,5,.96), rgba(8,7,5,.62) 42%, rgba(8,7,5,.18)),
+        linear-gradient(180deg, rgba(8,7,5,.15), rgba(8,7,5,.93)),
+        url("assets/portfolio/Sannex/Sannexojag.jpg");
+      background-size:cover;
+      background-position:center;
+      transform:scale(1.02);
+      filter:saturate(1.05) contrast(1.08);
+    }
+
+    .premiumHero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-2;
+      background:
+        radial-gradient(circle at 18% 30%, rgba(211,161,92,.22), transparent 32%),
+        radial-gradient(circle at 80% 18%, rgba(255,255,255,.09), transparent 24%),
+        linear-gradient(180deg, transparent 0%, var(--bg) 100%);
+      pointer-events:none;
+    }
+
+    .premiumHero__inner{
+      padding:120px 0 80px;
+      width:100%;
+    }
+
+    .premiumKicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(0,0,0,.28);
+      color:rgba(255,255,255,.82);
+      font-weight:900;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-size:12px;
+      backdrop-filter:blur(18px);
+    }
+
+    .premiumKicker::before{
+      content:"";
+      width:9px;
+      height:9px;
+      border-radius:999px;
+      background:var(--a1);
+      box-shadow:0 0 0 7px rgba(211,161,92,.13);
+    }
+
+    .premiumHero h1{
+      max-width:900px;
+      margin:18px 0 18px;
+      color:#fff;
+      font-size:clamp(48px, 8vw, 104px);
+      line-height:.9;
+      letter-spacing:-.07em;
+    }
+
+    .premiumHero__lead{
+      max-width:760px;
+      margin:0;
+      color:rgba(255,255,255,.78);
+      font-size:clamp(18px, 2vw, 24px);
+      line-height:1.55;
+    }
+
+    .premiumHero__actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:28px;
+    }
+
+    .trustStrip{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:1px;
+      border:1px solid var(--line);
+      border-radius:28px;
+      overflow:hidden;
+      background:var(--line);
+      box-shadow:var(--shadow2);
+      margin-top:-34px;
+      position:relative;
+      z-index:3;
+    }
+
+    .trustStrip__item{
+      padding:24px;
+      background:rgba(20,17,13,.82);
+      backdrop-filter:blur(18px);
+    }
+
+    .trustStrip__n{
+      color:#fff;
+      font-weight:900;
+      font-size:clamp(28px, 4vw, 46px);
+      letter-spacing:-.05em;
+      line-height:1;
+    }
+
+    .trustStrip__l{
+      margin-top:8px;
+      color:var(--muted);
+      font-weight:800;
+    }
+
+    .premiumIntro{
+      display:grid;
+      grid-template-columns:.9fr 1.1fr;
+      gap:28px;
+      align-items:end;
+    }
+
+    .premiumIntro h2{
+      margin:0;
+      font-size:clamp(34px, 5vw, 64px);
+      line-height:.95;
+      letter-spacing:-.055em;
+    }
+
+    .premiumIntro p{
+      margin:0;
+      color:var(--muted);
+      font-size:18px;
+      line-height:1.75;
+      max-width:720px;
+    }
+
+    .featuredAssignments{
+      margin-top:28px;
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:14px;
+    }
+
+    .assignmentCard{
+      position:relative;
+      min-height:420px;
+      overflow:hidden;
+      border-radius:30px;
+      border:1px solid var(--line);
+      background:#000;
+      box-shadow:var(--shadow2);
+      display:flex;
+      align-items:flex-end;
+      isolation:isolate;
+      transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+
+    .assignmentCard:hover{
+      transform:translateY(-5px);
+      border-color:rgba(211,161,92,.45);
+      box-shadow:0 28px 90px rgba(0,0,0,.48);
+    }
+
+    .assignmentCard::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-2;
+      background:var(--assignment-img) center/cover no-repeat;
+      filter:saturate(1.05) contrast(1.08);
+      transform:scale(1.02);
+      transition:transform .45s ease, filter .45s ease;
+    }
+
+    .assignmentCard:hover::before{
+      transform:scale(1.07);
+      filter:saturate(1.12) contrast(1.12) brightness(1.04);
+    }
+
+    .assignmentCard::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.82)),
+        radial-gradient(circle at 20% 10%, rgba(211,161,92,.18), transparent 34%);
+    }
+
+    .assignmentCard__body{
+      width:100%;
+      padding:24px;
+      color:#fff;
+    }
+
+    .assignmentCard__tag{
+      display:inline-flex;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(0,0,0,.36);
+      color:rgba(255,255,255,.78);
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      backdrop-filter:blur(14px);
+    }
+
+    .assignmentCard h3{
+      margin:14px 0 8px;
+      font-size:clamp(26px, 3vw, 40px);
+      letter-spacing:-.05em;
+      line-height:.95;
+    }
+
+    .assignmentCard p{
+      margin:0;
+      color:rgba(255,255,255,.78);
+      line-height:1.55;
+    }
+
+    .assignmentCard__meta{
+      margin-top:18px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .assignmentCard__meta span{
+      padding:8px 10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.09);
+      border:1px solid rgba(255,255,255,.12);
+      color:rgba(255,255,255,.82);
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .storyBlock{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+      align-items:stretch;
+    }
+
+    .storyBlock__media{
+      min-height:520px;
+      border-radius:34px;
+      border:1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.62)),
+        url("assets/foljamed.png") center/cover no-repeat;
+      box-shadow:var(--shadow2);
+      overflow:hidden;
+    }
+
+    .storyBlock__text{
+      border-radius:34px;
+      border:1px solid var(--line);
+      background:linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.035));
+      padding:34px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .storyBlock__text h2{
+      margin:0 0 16px;
+      font-size:clamp(34px, 5vw, 62px);
+      line-height:.95;
+      letter-spacing:-.055em;
+    }
+
+    .storyBlock__text p{
+      margin:0;
+      color:var(--muted);
+      font-size:18px;
+      line-height:1.75;
+    }
+
+    .storyList{
+      margin-top:22px;
+      display:grid;
+      gap:10px;
+    }
+
+    .storyList__item{
+      padding:14px 16px;
+      border-radius:18px;
+      background:rgba(255,255,255,.045);
+      border:1px solid var(--line);
+      color:var(--text);
+      font-weight:800;
+    }
+
+    .premiumAlbumHeader{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:18px;
+    }
+
+    .premiumAlbumHeader h2{
+      margin:0;
+      font-size:clamp(34px, 5vw, 62px);
+      line-height:.95;
+      letter-spacing:-.055em;
+    }
+
+    .premiumAlbumHeader p{
+      margin:10px 0 0;
+      color:var(--muted);
+      max-width:680px;
+      line-height:1.7;
+    }
+
+    .premiumCta{
+      position:relative;
+      overflow:hidden;
+      border-radius:36px;
+      border:1px solid rgba(211,161,92,.22);
+      background:
+        linear-gradient(120deg, rgba(0,0,0,.78), rgba(20,17,13,.72)),
+        url("assets/portfolio/Streaplers/vm.jpg") center/cover no-repeat;
+      padding:54px;
+      box-shadow:var(--shadow);
+    }
+
+    .premiumCta::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at 12% 20%, rgba(211,161,92,.28), transparent 34%);
+      pointer-events:none;
+    }
+
+    .premiumCta > *{ position:relative; }
+
+    .premiumCta h2{
+      margin:0 0 14px;
+      color:#fff;
+      font-size:clamp(38px, 6vw, 76px);
+      line-height:.9;
+      letter-spacing:-.06em;
+      max-width:760px;
+    }
+
+    .premiumCta p{
+      margin:0;
+      color:rgba(255,255,255,.78);
+      font-size:19px;
+      line-height:1.65;
+      max-width:700px;
+    }
+
+    .premiumCta__actions{
+      margin-top:28px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    @media(max-width:1020px){
+      .trustStrip{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+      .premiumIntro, .storyBlock{ grid-template-columns:1fr; }
+      .featuredAssignments{ grid-template-columns:1fr; }
+      .assignmentCard{ min-height:360px; }
+      .premiumAlbumHeader{ align-items:flex-start; flex-direction:column; }
+    }
+
+    @media(max-width:640px){
+      .premiumHero{ min-height:78vh; }
+      .premiumHero__inner{ padding:96px 0 54px; }
+      .trustStrip{ grid-template-columns:1fr; margin-top:18px; }
+      .storyBlock__media{ min-height:360px; }
+      .storyBlock__text, .premiumCta{ padding:24px; border-radius:26px; }
+      .assignmentCard{ min-height:330px; border-radius:24px; }
+      .assignmentCard__body{ padding:20px; }
+      .filters{ justify-content:flex-start; }
+    }
+  </style>
+
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
 <body>
-  <!-- Ambient background -->
   <div class="bg">
     <div class="bg__blob bg__blob--a"></div>
     <div class="bg__blob bg__blob--b"></div>
@@ -33,19 +431,18 @@
     <div class="bg__noise"></div>
   </div>
 
-  <!-- Header -->
   <header class="header" id="top">
     <div class="container header__inner">
-      <a class="brand" href="index.html" aria-label="Dansmedia">
-        <img class="brand__logo" src="assets/logo.png" alt="Dansmedia logga" />
+      <a class="brand" href="index.html" aria-label="Simons DansMedia">
+        <img class="brand__logo" src="assets/logo.png" alt="Simons DansMedia logga" />
         <span class="brand__text">
-          <strong>DansMedia</strong><span>Studio</span>
+          <strong>Simons DansMedia</strong><span>Foto • Film • Dokumentation</span>
         </span>
       </a>
 
       <nav class="nav" aria-label="Huvudmeny">
-       <a href="index.html">Hem</a>
-        <a href="/tjanster">Tjänster</a>
+        <a href="index.html">Hem</a>
+        <a href="tjanster.html">Dokumentation & Media</a>
         <a href="portfolio.html">Portfolio</a>
         <a href="om-mig.html">Om mig</a>
         <a href="kontakt.html" class="btn btn--small">Kontakt</a>
@@ -66,9 +463,9 @@
 
     <div class="mobileNav" id="mobileNav" aria-hidden="true">
       <div class="container mobileNav__inner">
-       <a href="index.html">Hem</a>
-        <a href="/tjanster">Tjänster</a>
-        <a href="portfolio.html">Portfolio</a>
+        <a href="index.html">Hem</a>
+        <a href="tjanster.html">Dokumentation & Media</a>
+        <a href="portfolio.html">Band & Uppdrag</a>
         <a href="om-mig.html">Om mig</a>
         <a href="kontakt.html" class="btn">Kontakt</a>
       </div>
@@ -76,13 +473,48 @@
   </header>
 
   <main>
-    <!-- Portfolio -->
-    <section class="section">
+    <section class="premiumHero">
+      <div class="container premiumHero__inner">
+        <div class="premiumKicker">Band & uppdrag</div>
+        <h1>Dokumenterat precis som det hände.</h1>
+        <p class="premiumHero__lead">
+          Här hittar ni ett urval av de dansband, arrangörer och evenemang jag haft förtroendet att dokumentera – från scenljus och publik till soundcheck, väntan och allt det där bakom kulisserna.
+        </p>
+        <div class="premiumHero__actions">
+          <a class="btn" href="#album">Se alla album</a>
+          <a class="btn btn--ghost" href="kontakt.html">Kontakta mig</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" aria-label="Förtroende och innehåll">
+      <div class="trustStrip">
+        <div class="trustStrip__item">
+          <div class="trustStrip__n">Band</div>
+          <div class="trustStrip__l">som gett mig förtroendet</div>
+        </div>
+        <div class="trustStrip__item">
+          <div class="trustStrip__n">Foto</div>
+          <div class="trustStrip__l">live, backstage och publik</div>
+        </div>
+        <div class="trustStrip__item">
+          <div class="trustStrip__n">Video</div>
+          <div class="trustStrip__l">reels, klipp och dokumentation</div>
+        </div>
+        <div class="trustStrip__item">
+          <div class="trustStrip__n">Äkta</div>
+          <div class="trustStrip__l">material från riktiga kvällar</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="album">
       <div class="container">
-        <div class="section__head section__head--row">
+        <div class="premiumAlbumHeader">
           <div>
-            <h1>Portfolio</h1>
-            <p class="muted">Välj ett album och klicka på det du vill se.</p>
+            <div class="premiumKicker">Album</div>
+            <h2>Alla album</h2>
+            <p>Välj ett album och öppna bilder eller videor. Här finns dokumentationer, uppdrag och bildserier samlade på ett ställe.</p>
           </div>
 
           <div class="filters" role="tablist" aria-label="Portfolio-filter">
@@ -93,18 +525,16 @@
           </div>
         </div>
 
-        <!-- Album grid -->
         <div class="albumGrid" id="albumGrid"></div>
 
         <div class="ctaBar" aria-label="Övriga bilder">
           <div>
-            <div class="ctaBar__t">Fotografi</div>
-            <div class="muted">Vill du se fler bilder? Här finns övriga foton jag tagit.</div>
+            <div class="ctaBar__t">Övriga bilder</div>
+            <div class="muted">Vill du se fler bilder? Här finns övriga foton och material jag tagit.</div>
           </div>
           <button class="btn" id="otherPhotosBtn" type="button">Visa övriga bilder</button>
         </div>
 
-        <!-- Album view (öppnas när man klickar på ett album) -->
         <div class="albumPanel" id="albumPanel" hidden>
           <div class="albumPanel__top">
             <div>
@@ -115,7 +545,6 @@
             <button class="btn btn--ghost" id="albumBackBtn" type="button">← Tillbaka</button>
           </div>
 
-          <!-- Album filters (visa bara om album har både video och bild) -->
           <div class="albumFilters" id="albumFilters" style="display: none;">
             <button class="filter filter--album active" data-filter="all">Alla</button>
             <button class="filter filter--album" data-filter="video">Video</button>
@@ -127,15 +556,104 @@
       </div>
     </section>
 
-    <!-- Websites -->
+
+    <section class="section" id="uppdrag">
+      <div class="container">
+        <div class="premiumIntro">
+          <h2>Det här är mer än ett galleri.</h2>
+          <p>
+            Varje album är ett uppdrag, en kväll eller ett samarbete. Här syns inte bara slutresultatet – utan känslan, arbetet och förtroendet bakom. Bilderna och videorna används av band och arrangörer för sociala medier, marknadsföring, hemsidor och för att visa publiken mer av dansbandslivet.
+          </p>
+        </div>
+
+        <div class="featuredAssignments" aria-label="Utvalda uppdrag">
+          <a class="assignmentCard" href="#albumGrid" style="--assignment-img:url('assets/portfolio/Sannex/Sannexojag.jpg')">
+            <div class="assignmentCard__body">
+              <span class="assignmentCard__tag">Dokumentation</span>
+              <h3>Sannex</h3>
+              <p>Foto och video under En kväll i juni – en hel kväll dokumenterad från insidan.</p>
+              <div class="assignmentCard__meta"><span>Foto</span><span>Video</span><span>Bakom kulisserna</span></div>
+            </div>
+          </a>
+
+          <a class="assignmentCard" href="#albumGrid" style="--assignment-img:url('assets/portfolio/Sounders/sounders.png')">
+            <div class="assignmentCard__body">
+              <span class="assignmentCard__tag">Samarbete</span>
+              <h3>Sounders</h3>
+              <p>Foto, video och PR-material från spelningar, kryssningar och danskvällar.</p>
+              <div class="assignmentCard__meta"><span>PR</span><span>Foto</span><span>Video</span></div>
+            </div>
+          </a>
+
+          <a class="assignmentCard" href="#albumGrid" style="--assignment-img:url('assets/portfolio/Streaplers/vm.jpg')">
+            <div class="assignmentCard__body">
+              <span class="assignmentCard__tag">Livefoto</span>
+              <h3>Streaplers</h3>
+              <p>Livebilder från flera spelningar med fokus på energi, scen och publik.</p>
+              <div class="assignmentCard__meta"><span>Livefoto</span><span>Scen</span><span>Publik</span></div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt">
+      <div class="container">
+        <div class="storyBlock">
+          <div class="storyBlock__media" aria-label="Följer med band bakom kulisserna"></div>
+          <div class="storyBlock__text">
+            <div class="premiumKicker">Bakom scenen</div>
+            <h2>Publiken ser scenen. Jag dokumenterar hela vägen dit.</h2>
+            <p>
+              Packningen, kaffet, väntan, soundchecken, kabelkaoset, förberedelserna och sedan full fart på scen. Jag jobbar diskret i bakgrunden – lite som en fluga på väggen – och fångar det som gör kvällen levande på riktigt.
+            </p>
+            <div class="storyList">
+              <div class="storyList__item">Packning, resa och förberedelser</div>
+              <div class="storyList__item">Soundcheck, backstage och detaljer</div>
+              <div class="storyList__item">Spelning, publik och känslan i lokalen</div>
+              <div class="storyList__item">Material för sociala medier, hemsida och marknadsföring</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="premiumIntro">
+          <h2>Tidigare samarbeten.</h2>
+          <p>
+            Här är några av de band och arrangörer som gett mig förtroendet att dokumentera deras kvällar, skapa material eller hjälpa till med media runt spelningar och evenemang.
+          </p>
+        </div>
+
+        <div class="portfolioInfo" aria-label="Arbeten och uppdrag">
+          <div class="portfolioInfo__section">
+            <h2>Dansband</h2>
+            <ul>
+              <li><strong>Sannex</strong> — Fotograf & videograf för dokumentation av deras kväll under En kväll i juni.</li>
+              <li><strong>Sounders</strong> — Videograf, fotograf och PR-ansvarig.</li>
+              <li><strong>Engdahls</strong> — Dokumentation av deras kväll i Herrljunga Folkets Park.</li>
+            </ul>
+          </div>
+          <div class="portfolioInfo__section">
+            <h2>Arrangörer & folkparker</h2>
+            <ul>
+              <li><strong>Rangelstorps Loge</strong> — Media-ansvarig inför spelningar.</li>
+              <li><strong>Folkparker & arrangörer</strong> — Material inför, under och efter danskvällar.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <section class="section section--alt">
       <div class="container">
         <div class="section__head">
           <div>
-            <h2>Hemsidor</h2>
-            <p class="muted">
-              Hemsidor för band och EPK. Snabb laddning och enkla uppdateringar.
-            </p>
+            <h2>Webb & digital närvaro</h2>
+            <p class="muted">Hemsidor för band, EPK, pressmaterial och tydliga länkar till spelplan och bokning.</p>
           </div>
         </div>
 
@@ -143,21 +661,20 @@
           <div class="webCard">
             <div class="webCard__t">Innehåll som ofta ingår</div>
             <ul class="list">
-              <li>Spelplan (datum/ort/lokal)</li>
-              <li>Pressbilder & loggor</li>
-              <li>Presskit/EPK-länkar</li>
-              <li>Kontakt / bokning</li>
-              <li>Länkar (Spotify, YouTube, sociala)</li>
+              <li>Spelplan med datum, ort och lokal</li>
+              <li>Pressbilder, loggor och EPK</li>
+              <li>Kontakt och bokningsinformation</li>
+              <li>Länkar till Spotify, YouTube och sociala medier</li>
             </ul>
           </div>
 
           <div class="webCard">
             <div class="webCard__t">Drift & uppdateringar</div>
             <ul class="list">
-              <li>Hjälp med domän och att sidan blir live</li>
-              <li>Domänen betalas 1 gång per år.</li>
-              <li>Gratis Uppdateringar när ni vill (nya datum, bilder, osv)</li>
-              <li>Clean och snabb laddning</li>
+              <li>Hjälp med domän och publicering</li>
+              <li>Snabb och clean sida i HTML/CSS/JS</li>
+              <li>Uppdateringar vid nya datum, bilder och nyheter</li>
+              <li>Mobilanpassad design</li>
             </ul>
           </div>
 
@@ -170,15 +687,30 @@
       </div>
     </section>
 
-    <!-- Sidnavigation -->
+    <section class="section">
+      <div class="container">
+        <div class="premiumCta">
+          <div class="premiumKicker">Nästa uppdrag?</div>
+          <h2>Vill ni också ha er kväll dokumenterad?</h2>
+          <p>
+            Jag följer gärna med ert band eller ert arrangemang. Vi planerar kvällen tillsammans och anpassar innehållet efter vad ni vill visa upp – från bakom kulisserna till scenen.
+          </p>
+          <div class="premiumCta__actions">
+            <a class="btn" href="kontakt.html">Kontakta mig</a>
+            <a class="btn btn--ghost" href="tjanster.html">Läs hur jag jobbar</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
       <div class="container">
         <div class="pageNav">
-          <a href="/tjanster" class="pageNav__prev">
+          <a href="tjanster.html" class="pageNav__prev">
             <span class="pageNav__arrow">←</span>
             <div>
               <div class="muted tiny">Föregående</div>
-              <div class="pageNav__title">Tjänster</div>
+              <div class="pageNav__title">Dokumentation & Media</div>
             </div>
           </a>
           <a href="om-mig.html" class="pageNav__next">
@@ -193,10 +725,8 @@
     </section>
   </main>
 
-  <!-- Scroll to Top Button -->
   <button class="scrollTopBtn" id="scrollTopBtn" aria-label="Gå till toppen">↑</button>
 
-  <!-- Modal -->
   <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="modal__backdrop" data-close="true"></div>
     <div class="modal__panel" role="document">
@@ -209,14 +739,13 @@
     </div>
   </div>
 
-  <!-- Footer -->
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <img class="brand__logo brand__logo--small" src="assets/logo.png" alt="Dansmedia logga" />
+        <img class="brand__logo brand__logo--small" src="assets/logo.png" alt="Simons DansMedia logga" />
         <div>
-          <div class="footer__t">Dansmedia</div>
-          <div class="muted tiny">Video • Bild • Webb</div>
+          <div class="footer__t">Simons DansMedia</div>
+          <div class="muted tiny">Foto • Film • Dokumentation</div>
         </div>
       </div>
 
@@ -224,8 +753,8 @@
         <div class="footer__col">
           <div class="footer__heading">Navigering</div>
           <a href="index.html">Hem</a>
-          <a href="/tjanster">Tjänster</a>
-          <a href="portfolio.html">Portfolio</a>
+          <a href="tjanster.html">Dokumentation & Media</a>
+          <a href="portfolio.html">Band & Uppdrag</a>
           <a href="om-mig.html">Om mig</a>
           <a href="kontakt.html">Kontakt</a>
         </div>
@@ -246,19 +775,18 @@
 
     <div class="footer__bottom">
       <div class="container">
-        <div class="muted tiny">© 2026 Dansmedia. Alla rättigheter förbehållna.</div>
+        <div class="muted tiny">© 2026 Simons DansMedia. Alla rättigheter förbehållna.</div>
       </div>
     </div>
   </footer>
 
-  <!-- Chat Modal -->
   <div class="chatModal" id="chatModal" aria-hidden="true">
     <div class="chatModal__backdrop" id="chatBackdrop"></div>
     <div class="chatModal__panel">
       <div class="chatModal__header">
         <div>
           <div class="chatModal__title">Ai-Roffe</div>
-          <div class="chatModal__subtitle">DansMedia Assistent</div>
+          <div class="chatModal__subtitle">Simons DansMedia Assistent</div>
         </div>
         <button class="chatModal__close" id="chatCloseBtn" type="button" aria-label="Stäng chatt">×</button>
       </div>

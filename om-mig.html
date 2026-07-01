@@ -3,29 +3,410 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Om mig – Simons DansMedia AB</title>
-  <meta name="description" content="Läs om Simon Rosenius: fotografer, videograf och webbutvecklare som hjälper band att nå ut med professionellt material." />
+  <title>Om mig – Simons DansMedia</title>
+  <meta name="description" content="Simon Rosenius bakom Simons DansMedia – dansbandsfotograf och videograf som dokumenterar band, arrangörer och danskvällar från insidan." />
   <meta name="theme-color" content="#0b0c10" />
-  <meta property="og:title" content="Om mig – Dansmedia" />
-  <meta property="og:description" content="Simon Rosenius: foto, video & webbutveckling för band." />
+  <meta property="og:title" content="Om mig – Simons DansMedia" />
+  <meta property="og:description" content="Jag dokumenterar dansbandslivet – från packning och soundcheck till publik, scen och sista låten." />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="sv_SE" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
-<link rel="icon" href="/assets/favicon/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
-<link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
+
+  <link rel="icon" href="/assets/favicon/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
+
+  <style>
+    .aboutSonyHero{
+      position:relative;
+      min-height:calc(100vh - 78px);
+      display:flex;
+      align-items:center;
+      overflow:hidden;
+      border-bottom:1px solid var(--line);
+      isolation:isolate;
+    }
+
+    .aboutSonyHero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg, rgba(8,7,5,.94) 0%, rgba(14,11,8,.78) 42%, rgba(14,11,8,.34) 72%, rgba(14,11,8,.72) 100%),
+        radial-gradient(circle at 24% 42%, rgba(211,161,92,.18), transparent 34%),
+        url("assets/foljamed.jpg");
+      background-size:cover;
+      background-position:center;
+      z-index:-2;
+    }
+
+    .aboutSonyHero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(to bottom, transparent 0%, rgba(20,17,13,.72) 100%),
+        radial-gradient(circle at 75% 25%, rgba(211,161,92,.10), transparent 32%);
+      z-index:-1;
+    }
+
+    .aboutSonyHero__inner{
+      width:min(var(--container), 92%);
+      margin:0 auto;
+      padding:92px 0 72px;
+    }
+
+    .aboutSonyHero__eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      color:rgba(255,255,255,.82);
+      font-weight:900;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-size:12px;
+      margin-bottom:18px;
+    }
+
+    .aboutSonyHero__eyebrow::before{
+      content:"";
+      width:34px;
+      height:1px;
+      background:var(--a1);
+      box-shadow:0 0 22px rgba(211,161,92,.65);
+    }
+
+    .aboutSonyHero h1{
+      margin:0;
+      max-width:900px;
+      font-size:clamp(46px, 7vw, 104px);
+      line-height:.92;
+      letter-spacing:-.065em;
+      color:#fff;
+    }
+
+    .aboutSonyHero__lead{
+      margin:24px 0 0;
+      max-width:720px;
+      color:rgba(255,255,255,.78);
+      font-size:clamp(17px, 1.55vw, 22px);
+      line-height:1.7;
+    }
+
+    .aboutSonyHero__actions{
+      margin-top:30px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .aboutSonyStats{
+      margin-top:48px;
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:12px;
+      max-width:980px;
+    }
+
+    .aboutSonyStat{
+      padding:16px;
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.055);
+      backdrop-filter:blur(16px);
+    }
+
+    .aboutSonyStat strong{
+      display:block;
+      color:#fff;
+      font-size:clamp(22px, 2.2vw, 34px);
+      letter-spacing:-.04em;
+      line-height:1;
+    }
+
+    .aboutSonyStat span{
+      display:block;
+      margin-top:8px;
+      color:rgba(255,255,255,.64);
+      font-size:13px;
+      font-weight:800;
+    }
+
+    .aboutIntroGrid{
+      display:grid;
+      grid-template-columns:.95fr 1.05fr;
+      gap:28px;
+      align-items:start;
+    }
+
+    .aboutPortraitCard{
+      position:sticky;
+      top:96px;
+      overflow:hidden;
+      border-radius:30px;
+      border:1px solid var(--line);
+      background:linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.025));
+      box-shadow:var(--shadow2);
+    }
+
+.aboutPortraitCard__media{
+    position:relative;
+    min-height:520px;
+    background:
+        linear-gradient(to top, rgba(0,0,0,.88), transparent 54%),
+        url("assets/Simon.png");
+    background-size:cover;
+    background-position:center;
+}
+    .aboutPortraitCard__content{
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:0;
+      padding:26px;
+    }
+
+    .aboutPortraitCard__name{
+      color:#fff;
+      font-size:30px;
+      line-height:1;
+      font-weight:900;
+      letter-spacing:-.04em;
+    }
+
+    .aboutPortraitCard__role{
+      margin-top:10px;
+      color:rgba(255,255,255,.74);
+      font-weight:800;
+      line-height:1.5;
+    }
+
+    .aboutStory{
+      display:grid;
+      gap:14px;
+    }
+
+    .aboutStory__kicker{
+      color:var(--a1);
+      font-weight:900;
+      letter-spacing:.13em;
+      text-transform:uppercase;
+      font-size:12px;
+    }
+
+    .aboutStory h2{
+      margin:0;
+      font-size:clamp(34px, 4.1vw, 62px);
+      line-height:.98;
+      letter-spacing:-.055em;
+    }
+
+    .aboutStory__lead{
+      font-size:20px;
+      line-height:1.75;
+      color:var(--muted);
+      margin:0;
+    }
+
+    .aboutStory__text{
+      margin:0;
+      color:var(--muted);
+      line-height:1.75;
+      font-size:16px;
+    }
+
+    .aboutQuote{
+      margin-top:6px;
+      padding:24px;
+      border-radius:24px;
+      border:1px solid rgba(211,161,92,.28);
+      background:linear-gradient(135deg, rgba(211,161,92,.13), rgba(255,255,255,.035));
+      box-shadow:var(--shadow2);
+    }
+
+    .aboutQuote p{
+      margin:0;
+      color:var(--text);
+      font-size:clamp(21px, 2.2vw, 34px);
+      line-height:1.25;
+      letter-spacing:-.035em;
+      font-weight:900;
+    }
+
+    .aboutQuote span{
+      display:block;
+      margin-top:12px;
+      color:var(--muted);
+      line-height:1.6;
+    }
+
+    .sonyServiceGrid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:14px;
+    }
+
+    .sonyServiceCard{
+      min-height:310px;
+      position:relative;
+      overflow:hidden;
+      border-radius:28px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      padding:24px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      transition:transform .25s ease, border-color .25s ease, background .25s ease;
+      box-shadow:var(--shadow2);
+    }
+
+    .sonyServiceCard:hover{
+      transform:translateY(-5px);
+      border-color:rgba(211,161,92,.32);
+      background:rgba(255,255,255,.065);
+    }
+
+    .sonyServiceCard::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at 30% 12%, rgba(211,161,92,.18), transparent 34%);
+      opacity:.88;
+    }
+
+    .sonyServiceCard > *{ position:relative; }
+
+    .sonyServiceCard__num{
+      position:absolute;
+      top:18px;
+      right:22px;
+      color:rgba(255,255,255,.14);
+      font-size:72px;
+      line-height:1;
+      font-weight:900;
+      letter-spacing:-.08em;
+    }
+
+    .sonyServiceCard h3{
+      margin:0 0 10px;
+      font-size:25px;
+      line-height:1.05;
+      letter-spacing:-.035em;
+      color:#fff;
+    }
+
+    .sonyServiceCard p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.65;
+    }
+
+    .aboutTimeline{
+      display:grid;
+      gap:12px;
+      counter-reset:step;
+    }
+
+    .aboutTimeline__item{
+      counter-increment:step;
+      display:grid;
+      grid-template-columns:80px 1fr;
+      gap:16px;
+      align-items:start;
+      padding:18px;
+      border-radius:24px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+    }
+
+    .aboutTimeline__item::before{
+      content:"0" counter(step);
+      width:58px;
+      height:58px;
+      display:grid;
+      place-items:center;
+      border-radius:18px;
+      border:1px solid rgba(211,161,92,.24);
+      background:rgba(211,161,92,.10);
+      color:var(--a1);
+      font-weight:900;
+    }
+
+    .aboutTimeline__title{
+      color:var(--text);
+      font-size:19px;
+      font-weight:900;
+      letter-spacing:-.02em;
+      margin-bottom:6px;
+    }
+
+    .aboutFinalCta{
+      position:relative;
+      overflow:hidden;
+      border-radius:34px;
+      border:1px solid rgba(211,161,92,.22);
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.80), rgba(0,0,0,.38)),
+        url("assets/foljamed.jpg");
+      background-size:cover;
+      background-position:center;
+      min-height:420px;
+      display:flex;
+      align-items:flex-end;
+      padding:34px;
+      box-shadow:var(--shadow);
+    }
+
+    .aboutFinalCta__content{
+      max-width:760px;
+    }
+
+    .aboutFinalCta h2{
+      margin:0;
+      color:#fff;
+      font-size:clamp(34px, 5vw, 74px);
+      line-height:.96;
+      letter-spacing:-.06em;
+    }
+
+    .aboutFinalCta p{
+      margin:18px 0 0;
+      color:rgba(255,255,255,.78);
+      font-size:18px;
+      line-height:1.7;
+      max-width:660px;
+    }
+
+    @media(max-width:980px){
+      .aboutIntroGrid{ grid-template-columns:1fr; }
+      .aboutPortraitCard{ position:relative; top:auto; }
+      .aboutSonyStats{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+      .sonyServiceGrid{ grid-template-columns:1fr; }
+    }
+
+    @media(max-width:620px){
+      .aboutSonyHero{ min-height:auto; }
+      .aboutSonyHero__inner{ padding:72px 0 54px; }
+      .aboutSonyStats{ grid-template-columns:1fr; margin-top:30px; }
+      .aboutPortraitCard__media{ min-height:410px; }
+      .aboutTimeline__item{ grid-template-columns:1fr; }
+      .aboutFinalCta{ padding:24px; min-height:380px; border-radius:26px; }
+    }
+  </style>
+
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
 <body>
-  <!-- Ambient background -->
   <div class="bg">
     <div class="bg__blob bg__blob--a"></div>
     <div class="bg__blob bg__blob--b"></div>
@@ -33,149 +414,202 @@
     <div class="bg__noise"></div>
   </div>
 
-  <!-- Header -->
   <header class="header" id="top">
     <div class="container header__inner">
-      <a class="brand" href="index.html" aria-label="Dansmedia">
-        <img class="brand__logo" src="assets/logo.png" alt="Dansmedia logga" />
+      <a class="brand" href="index.html" aria-label="Simons DansMedia">
+        <img class="brand__logo" src="assets/logo.png" alt="Simons DansMedia logga" />
         <span class="brand__text">
-          <strong>DansMedia</strong><span>Studio</span>
+          <strong>Simons DansMedia</strong><span>Foto • Film • Dokumentation</span>
         </span>
       </a>
 
       <nav class="nav" aria-label="Huvudmeny">
-       <a href="index.html">Hem</a>
-        <a href="/tjanster">Tjänster</a>
-        <a href="portfolio.html">Portfolio</a>
+        <a href="index.html">Hem</a>
+        <a href="/tjanster">Dokumentation & Media</a>
+        <a href="portfolio.html">Band & Uppdrag</a>
         <a href="om-mig.html">Om mig</a>
         <a href="kontakt.html" class="btn btn--small">Kontakt</a>
       </nav>
 
       <div class="header__actions">
-        <button class="chatbotBtn" id="chatbotBtn" type="button" aria-label="Öppna AI-chatt" title="Chatta med Ai-Roffe">
-          <span>🤖</span>
-        </button>
-        <button class="iconBtn" id="themeBtn" type="button" aria-label="Växla tema">
-          <span class="iconBtn__dot"></span>
-        </button>
-        <button class="menuBtn" id="menuBtn" type="button" aria-label="Öppna meny" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
+        <button class="chatbotBtn" id="chatbotBtn" type="button" aria-label="Öppna AI-chatt" title="Chatta med Ai-Roffe"><span>🤖</span></button>
+        <button class="iconBtn" id="themeBtn" type="button" aria-label="Växla tema"><span class="iconBtn__dot"></span></button>
+        <button class="menuBtn" id="menuBtn" type="button" aria-label="Öppna meny" aria-expanded="false"><span></span><span></span><span></span></button>
       </div>
     </div>
 
     <div class="mobileNav" id="mobileNav" aria-hidden="true">
       <div class="container mobileNav__inner">
-       <a href="index.html">Hem</a>
-        <a href="/tjanster">Tjänster</a>
-        <a href="portfolio.html">Portfolio</a>
+        <a href="index.html">Hem</a>
+        <a href="/tjanster">Dokumentation & Media</a>
+        <a href="portfolio.html">Band & Uppdrag</a>
         <a href="om-mig.html">Om mig</a>
         <a href="kontakt.html" class="btn">Kontakt</a>
       </div>
     </div>
   </header>
 
-<main>
-  <section class="section">
-    <div class="container">
-      <div class="section__head">
-        <div>
-          <h1>Om mig</h1>
-          <p class="muted">Dansbandsfotograf, content creator och skapare bakom Simons DansMedia.</p>
+  <main>
+    <section class="aboutSonyHero">
+      <div class="aboutSonyHero__inner">
+        <div class="aboutSonyHero__eyebrow">Om Simon Rosenius</div>
+        <h1>Jag dokumenterar dansbandslivet från insidan.</h1>
+        <p class="aboutSonyHero__lead">
+          Jag driver Simons DansMedia och följer med dansband, arrangörer och danskvällar för att fånga det publiken inte alltid ser – packningen, väntan, soundchecken, kaoset, glädjen och känslan när allt går igång.
+        </p>
+        <div class="aboutSonyHero__actions">
+          <a class="btn" href="kontakt.html">Kontakta mig</a>
+          <a class="btn btn--ghost" href="portfolio.html">Se Band & Uppdrag</a>
+        </div>
+
+        <div class="aboutSonyStats" aria-label="Kort om Simons DansMedia">
+          <div class="aboutSonyStat"><strong>Foto</strong><span>Live, backstage och publik</span></div>
+          <div class="aboutSonyStat"><strong>Film</strong><span>Reels, recap och dokumentation</span></div>
+          <div class="aboutSonyStat"><strong>Band</strong><span>Dansband runt om i Sverige</span></div>
+          <div class="aboutSonyStat"><strong>Äkta</strong><span>Fluga på väggen-känsla</span></div>
         </div>
       </div>
+    </section>
 
-      <div class="aboutCard">
-        <div class="aboutHeader">
-          <div class="aboutAvatar">SR</div>
+    <section class="section">
+      <div class="container aboutIntroGrid">
+        <aside class="aboutPortraitCard" aria-label="Simon Rosenius">
+          <div class="aboutPortraitCard__media">
+            <div class="aboutPortraitCard__content">
+              <div class="aboutPortraitCard__name">Simon Rosenius</div>
+              <div class="aboutPortraitCard__role">Dansbandsfotograf • Videograf</div>
+            </div>
+          </div>
+        </aside>
+
+        <div class="aboutStory">
+          <div class="aboutStory__kicker">Bakom kameran</div>
+          <h2>Jag är där för att fånga känslan – inte för att störa den.</h2>
+          <p class="aboutStory__lead">
+            För mig handlar Simons DansMedia inte bara om fina bilder. Det handlar om att dokumentera en hel kväll så som den faktiskt känns.
+          </p>
+          <p class="aboutStory__text">
+            Jag håller mig gärna i bakgrunden under packning, resa, soundcheck, förberedelser och spelning. Jag jagar de små stunderna som ofta säger mest: kaffet innan avfärd, kabeln som saknas, skrattet bakom scenen, publiken som väntar och energin när bandet går upp.
+          </p>
+          <p class="aboutStory__text">
+            Materialet ska kunna användas på riktigt – i sociala medier, marknadsföring, hemsidor, affischer och som ett minne från kvällen. Det ska kännas levande, varmt och äkta.
+          </p>
+          <p class="aboutStory__text">
+            Jag gör även intervjuer om vi kommer överens om det, men mitt grundupplägg är mer diskret: en fluga på väggen med kamera, bra tajming och respekt för bandets arbetsdag.
+          </p>
+
+          <div class="aboutQuote">
+            <p>Jag är inte där. Fast jag är där.</p>
+            <span>Lite som ett kameraspöke med bra tajming – fast med fokus på att ge band och arrangörer material de faktiskt vill använda.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt">
+      <div class="container">
+        <div class="section__head">
           <div>
-            <div class="aboutName">Simon Rosenius</div>
-            <div class="muted aboutRole">Livefoto • Video • Sociala medier</div>
+            <h2>Vad jag gör</h2>
+            <p class="muted">Foto, film och dokumentation med dansbandsvärlden i fokus.</p>
           </div>
         </div>
 
-        <p class="aboutText">
-          Jag heter Simon Rosenius och driver Simons DansMedia. Jag fotograferar dansband,
-          skapar marknadsföringsmaterial och hjälper band och arrangörer att synas bättre
-          inför och efter spelningar.
-        </p>
+        <div class="sonyServiceGrid">
+          <article class="sonyServiceCard">
+            <div class="sonyServiceCard__num">01</div>
+            <h3>Följer med band</h3>
+            <p>Jag dokumenterar hela dagen: resa, packning, soundcheck, väntan, backstage, spelning och känslan efter sista låten.</p>
+          </article>
 
-        <p class="aboutText">
-          För mig handlar det inte bara om att ta bilder. Det handlar om att fånga känslan
-          från scenen, publiken, ljuset och hela danskvällen — så att materialet känns äkta
-          och går att använda direkt på sociala medier.
-        </p>
+          <article class="sonyServiceCard">
+            <div class="sonyServiceCard__num">02</div>
+            <h3>Livefoto & publik</h3>
+            <p>Bilder från scenen, dansgolvet, publiken och detaljerna som gör varje spelning unik.</p>
+          </article>
 
-        <p class="aboutText">
-          Jag hjälper bland annat med livebilder, reels, promo-videor, affischer,
-          eventgrafik, gruppbilder och enklare hemsidor för band och arrangörer.
-        </p>
-
-        <div class="hero__cta">
-          <a class="btn" href="portfolio.html">Se portfolio</a>
-          <a class="btn btn--ghost" href="kontakt.html">Kontakta mig</a>
+          <article class="sonyServiceCard">
+            <div class="sonyServiceCard__num">03</div>
+            <h3>Video & reels</h3>
+            <p>Korta klipp, recap, teaser och material anpassat för Facebook, Instagram och TikTok.</p>
+          </article>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section section--alt">
-    <div class="container">
-      <div class="section__head">
-        <div>
-          <h2>Vad jag gör</h2>
-          <p class="muted">Enkelt, tydligt och anpassat för dansbandsvärlden.</p>
+    <section class="section">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2>Så jobbar jag</h2>
+            <p class="muted">Enkelt, personligt och anpassat efter bandet eller arrangören.</p>
+          </div>
+        </div>
+
+        <div class="aboutTimeline">
+          <div class="aboutTimeline__item">
+            <div>
+              <div class="aboutTimeline__title">Vi pratar ihop oss</div>
+              <div class="muted">Ni berättar vad ni vill visa, vilken känsla ni vill få fram och hur kvällen ser ut.</div>
+            </div>
+          </div>
+          <div class="aboutTimeline__item">
+            <div>
+              <div class="aboutTimeline__title">Jag följer kvällen</div>
+              <div class="muted">Jag dokumenterar diskret från början till slut – utan att störa arbetet, publiken eller spelningen.</div>
+            </div>
+          </div>
+          <div class="aboutTimeline__item">
+            <div>
+              <div class="aboutTimeline__title">Ni får material att använda</div>
+              <div class="muted">Bilder och video som fungerar för sociala medier, marknadsföring, hemsida och framtida bokningar.</div>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="cards3">
-        <article class="card">
-          <div class="card__top">
-            <h3>📸 Livefoto</h3>
+    <section class="section section--alt">
+      <div class="container">
+        <div class="aboutFinalCta">
+          <div class="aboutFinalCta__content">
+            <h2>Vill ni visa mer än bara scenen?</h2>
+            <p>
+              Hör av er så lägger vi upp en kväll som passar er. Det kan vara ett band, en folkpark, ett arrangemang eller en hel dag bakom kulisserna.
+            </p>
+            <div class="hero__cta">
+              <a class="btn" href="kontakt.html">Kontakta mig</a>
+              <a class="btn btn--ghost" href="portfolio.html">Se tidigare uppdrag</a>
+            </div>
           </div>
-          <p class="muted">
-            Bilder från scen, dansgolv och publik som fångar känslan från kvällen.
-          </p>
-        </article>
-
-        <article class="card">
-          <div class="card__top">
-            <h3>🎬 Video & reels</h3>
-          </div>
-          <p class="muted">
-            Korta klipp och promo-material som passar Facebook, Instagram och TikTok.
-          </p>
-        </article>
-
-        <article class="card">
-          <div class="card__top">
-            <h3>🎟 Marknadsföring</h3>
-          </div>
-          <p class="muted">
-            Affischer, eventbilder, omslag och material inför kommande spelningar.
-          </p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="ctaBar">
-        <div>
-          <div class="ctaBar__t">Vill du ha hjälp med bilder eller material?</div>
-          <div class="muted">Hör av dig så pratar vi om vad som passar ert band eller event.</div>
         </div>
-        <a class="btn" href="kontakt.html">Kontakta mig</a>
       </div>
-    </div>
-  </section>
-</main>
+    </section>
 
-  <!-- Scroll to Top Button -->
+    <section class="section">
+      <div class="container">
+        <div class="pageNav">
+          <a href="portfolio.html" class="pageNav__prev">
+            <span class="pageNav__arrow">←</span>
+            <div>
+              <div class="muted tiny">Föregående</div>
+              <div class="pageNav__title">Band & Uppdrag</div>
+            </div>
+          </a>
+          <a href="kontakt.html" class="pageNav__next">
+            <div>
+              <div class="muted tiny">Nästa</div>
+              <div class="pageNav__title">Kontakt</div>
+            </div>
+            <span class="pageNav__arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
   <button class="scrollTopBtn" id="scrollTopBtn" aria-label="Gå till toppen">↑</button>
 
-  <!-- Modal -->
   <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="modal__backdrop" data-close="true"></div>
     <div class="modal__panel" role="document">
@@ -188,14 +622,13 @@
     </div>
   </div>
 
-  <!-- Footer -->
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <img class="brand__logo brand__logo--small" src="assets/logo.png" alt="Dansmedia logga" />
+        <img class="brand__logo brand__logo--small" src="assets/logo.png" alt="Simons DansMedia logga" />
         <div>
-          <div class="footer__t">Dansmedia</div>
-          <div class="muted tiny">Video • Bild • Webb</div>
+          <div class="footer__t">Simons DansMedia</div>
+          <div class="muted tiny">Foto • Film • Dokumentation</div>
         </div>
       </div>
 
@@ -203,8 +636,8 @@
         <div class="footer__col">
           <div class="footer__heading">Navigering</div>
           <a href="index.html">Hem</a>
-          <a href="/tjanster">Tjänster</a>
-          <a href="portfolio.html">Portfolio</a>
+          <a href="/tjanster">Dokumentation & Media</a>
+          <a href="portfolio.html">Band & Uppdrag</a>
           <a href="om-mig.html">Om mig</a>
           <a href="kontakt.html">Kontakt</a>
         </div>
@@ -219,25 +652,25 @@
           <div class="footer__heading">Följ</div>
           <a href="#">Instagram</a>
           <a href="https://www.facebook.com/share/1H7SdxtUKB/">Facebook</a>
+          <a href="https://www.youtube.com/@simonsdansmedia" target="_blank" rel="noopener noreferrer">YouTube</a>
         </div>
       </div>
     </div>
 
     <div class="footer__bottom">
       <div class="container">
-        <div class="muted tiny">© 2026 Dansmedia. Alla rättigheter förbehållna.</div>
+        <div class="muted tiny">© 2026 Simons DansMedia. Alla rättigheter förbehållna.</div>
       </div>
     </div>
   </footer>
 
-  <!-- Chat Modal -->
   <div class="chatModal" id="chatModal" aria-hidden="true">
     <div class="chatModal__backdrop" id="chatBackdrop"></div>
     <div class="chatModal__panel">
       <div class="chatModal__header">
         <div>
           <div class="chatModal__title">Ai-Roffe</div>
-          <div class="chatModal__subtitle">DansMedia Assistent</div>
+          <div class="chatModal__subtitle">Simons DansMedia Assistent</div>
         </div>
         <button class="chatModal__close" id="chatCloseBtn" type="button" aria-label="Stäng chatt">×</button>
       </div>

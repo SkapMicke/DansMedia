@@ -96,13 +96,31 @@ const modal = $("#modal");
 const modalTitle = $("#modalTitle");
 const modalMeta = $("#modalMeta");
 const modalBody = $("#modalBody");
+const modalHead = $(".modal__head");
 const modalClose = $("#modalClose");
+
+function openInModal(item, album) {
+  if (!item) return;
+
+  const title = item.title || album?.title || "Portfolio";
+  const meta = album?.title ? album.title : "";
+
+  openModal({
+    title,
+    meta,
+    kind: item.kind === "video" ? "video" : "image",
+    src: item.src,
+  });
+}
 
 function openModal({ title, meta, kind, src, html }) {
   if (!modal || !modalBody || !modalTitle || !modalMeta) return;
   modalTitle.textContent = title || "Portfolio";
   modalMeta.textContent = meta || "";
   modalBody.innerHTML = "";
+
+  const existingDownload = modalHead?.querySelector(".modal__download");
+  if (existingDownload) existingDownload.remove();
 
   if (kind === "video") {
     const iframe = document.createElement("iframe");
@@ -113,11 +131,52 @@ function openModal({ title, meta, kind, src, html }) {
   } else if (kind === "html") {
     modalBody.innerHTML = html || "";
   } else {
+    const wrap = document.createElement("div");
+    wrap.className = "modalMediaWrap";
+
     const img = document.createElement("img");
     img.src = src;
     img.alt = title || "Bild";
     img.className = "modalMedia";
-    modalBody.appendChild(img);
+
+    const watermark = document.createElement("span");
+    watermark.className = "watermark";
+
+    wrap.appendChild(img);
+    wrap.appendChild(watermark);
+    modalBody.appendChild(wrap);
+
+    if (modalHead) {
+      const downloadBtn = document.createElement("button");
+      downloadBtn.type = "button";
+      downloadBtn.className = "modal__download btn btn--small btn--ghost";
+      downloadBtn.textContent = "Ladda ner";
+      downloadBtn.addEventListener("click", async (event) => {
+        event.stopPropagation();
+        try {
+          const response = await fetch(src, { cache: "no-store" });
+          if (!response.ok) throw new Error("Could not download image");
+          const blob = await response.blob();
+          const objectUrl = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = objectUrl;
+          const ext = (src.split(".").pop() || "jpg").split("?")[0] || "jpg";
+          const cleanName = (title || "bild").replace(/[^\w.-]+/g, "_");
+          link.download = `${cleanName}.${ext}`;
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          setTimeout(() => URL.revokeObjectURL(objectUrl), 5000);
+        } catch (err) {
+          console.error("Download failed", err);
+          const fallback = document.createElement("a");
+          fallback.href = src;
+          fallback.download = (title || "bild") + ".jpg";
+          fallback.click();
+        }
+      });
+      modalHead.appendChild(downloadBtn);
+    }
   }
 
   modal.classList.add("is-open");
@@ -699,7 +758,13 @@ function renderMedia(album, items) {
     activeAlbumFilter === "all" || item.kind === activeAlbumFilter
   );
 
-  filteredItems.forEach((item, index) => {
+  const orderedItems = [...filteredItems].sort((a, b) => {
+    const aNew = Number(Boolean(a.isNew));
+    const bNew = Number(Boolean(b.isNew));
+    return bNew - aNew;
+  });
+
+  orderedItems.forEach((item, index) => {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "mediaItem";
@@ -710,10 +775,12 @@ function renderMedia(album, items) {
     if (item.kind === "image") {
       const thumbSrc = item.thumb || item.src;
 
+      const badgeLabel = item.isNew ? "✦ Ny bild" : "BILD";
+
       btn.innerHTML = `
         <div class="mediaItem__thumb">
           <img alt="${item.title || album.title}" />
-          <span class="mediaItem__badge">BILD</span>
+          <span class="mediaItem__badge${item.isNew ? " mediaItem__badge--new" : ""}">${badgeLabel}</span>
         </div>
         <div class="mediaItem__title">${item.title || ""}</div>
       `;
@@ -1116,31 +1183,76 @@ const PORTFOLIO_ALBUMS = [
     title: "Sannex",
     type: "bild",
     desc: "Bilder från Sannex spelningar och events.",
-    thumb: "assets/portfolio/Sannex/DSC00577.JPG",
+    thumb: "assets/portfolio/Sannex/Sannexojag.jpg",
     items: [
+      { kind: "image", src: "assets/portfolio/Sannex/Sannexojag.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/Sannex.jpg", title: "Sannex", isNew: true },
       { kind: "image", src: "assets/portfolio/Sannex/Andreas.png", title: "Andreas" },
+      { kind: "image", src: "assets/portfolio/Sannex/1acb736d-e746-44d4-a435-489c306da9ed.png", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/5d1d4087-7096-49b4-9ee9-879bb3df11c1.png", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/6a09fdb6-9299-4f72-ad8b-727aa9139ffa.png", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/731843475_122129418897227372_1225905665868743453_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/732103130_122129418357227372_6703926488923713268_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/732286062_122129417751227372_6307714585477134568_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/732442124_122129417211227372_9034061811834644667_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/732452408_122129417385227372_1047219213079661859_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/732464111_122129417937227372_4608379570716605379_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/732477386_122129417205227372_7994004694823980162_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/732533431_122129417811227372_3990348838315766650_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/732560703_122129417199227372_6874797588526948255_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/732561064_122129417445227372_1985395663545216131_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/732610555_122129418099227372_1091482678150357908_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/732619664_122129418351227372_8694093922907302763_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/732629009_122129417889227372_2050604716104589485_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/732644586_122129418981227372_1497515922724417858_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/732654845_122129418405227372_7327420086702596540_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/732680756_122129417271227372_5693237556909207356_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/732706636_122129418345227372_7832388222401013339_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/732747591_122129418573227372_1056679391394889524_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/732764153_122129418687227372_2614830075219569615_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/732908808_122129417829227372_5709791272020168791_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/733171633_122129417583227372_8534284351496037014_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/733209451_122129418819227372_8047307680404138976_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/733271348_122129417871227372_7711717175275269788_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/733575096_122129418795227372_1246428385544563036_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/734022910_122129417739227372_6124531238763822869_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/734472329_122129418861227372_7182921052494789222_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/734942323_122129418429227372_242439924506721747_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/735222751_122129417541227372_4007126960149045414_n.jpg", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/a64f137e-35c4-484c-aed0-79459b7d43de.png", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/b631124d-d8a3-41a2-b6f4-5c8733324e8b.png", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/c97986b2-e97c-4161-b39e-80523c6458d3.png", title: "Sannex", isNew: true },
+      { kind: "image", src: "assets/portfolio/Sannex/cc1c8875-6477-4ad4-91c0-9148f3a47bed.png", title: "Sannex", isNew: true },
       { kind: "image", src: "assets/portfolio/Sannex/DSC00084.JPG", title: "Sannex" },
-      { kind: "image", src: "assets/portfolio/Sannex/DSC00091.JPG", title: "Sannex" },
       { kind: "image", src: "assets/portfolio/Sannex/DSC00122.JPG", title: "Sannex" },
       { kind: "image", src: "assets/portfolio/Sannex/DSC00146.JPG", title: "Sannex" },
       { kind: "image", src: "assets/portfolio/Sannex/DSC00412.JPG", title: "Sannex" },
       { kind: "image", src: "assets/portfolio/Sannex/DSC00429.JPG", title: "Sannex" },
       { kind: "image", src: "assets/portfolio/Sannex/DSC00442.JPG", title: "Sannex" },
-      { kind: "image", src: "assets/portfolio/Sannex/DSC00509.JPG", title: "Sannex" },
       { kind: "image", src: "assets/portfolio/Sannex/DSC00517.JPG", title: "Sannex" },
-      { kind: "image", src: "assets/portfolio/Sannex/DSC00550.JPG", title: "Sannex" },
       { kind: "image", src: "assets/portfolio/Sannex/DSC00552.JPG", title: "Sannex" },
-      { kind: "image", src: "assets/portfolio/Sannex/DSC00569.JPG", title: "Sannex" },
       { kind: "image", src: "assets/portfolio/Sannex/DSC00575.JPG", title: "Sannex" },
       { kind: "image", src: "assets/portfolio/Sannex/DSC00577.JPG", title: "Sannex" },
-      { kind: "image", src: "assets/portfolio/Sannex/DSC00579.JPG", title: "Sannex" },
-      { kind: "image", src: "assets/portfolio/Sannex/DSC00590.JPG", title: "Sannex" },
-      { kind: "image", src: "assets/portfolio/Sannex/DSC00615.JPG", title: "Sannex" },
       { kind: "image", src: "assets/portfolio/Sannex/DSC00620.JPG", title: "Sannex" },
       { kind: "image", src: "assets/portfolio/Sannex/DSC00627.JPG", title: "Sannex" },
       { kind: "image", src: "assets/portfolio/Sannex/DSC00628.JPG", title: "Sannex" },
       { kind: "image", src: "assets/portfolio/Sannex/DSC00655.JPG", title: "Sannex" },
       { kind: "image", src: "assets/portfolio/Sannex/DSC00668.JPG", title: "Sannex" },
+      { kind: "image", src: "assets/portfolio/Sannex/DSC06907.JPG", title: "Sannex" },
+      { kind: "image", src: "assets/portfolio/Sannex/DSC07033.JPG", title: "Sannex" },
+      { kind: "image", src: "assets/portfolio/Sannex/DSC07039.JPG", title: "Sannex" },
+      { kind: "image", src: "assets/portfolio/Sannex/DSC07042.JPG", title: "Sannex" },
+      { kind: "image", src: "assets/portfolio/Sannex/DSC07043.JPG", title: "Sannex" },
+      { kind: "image", src: "assets/portfolio/Sannex/DSC07055.JPG", title: "Sannex" },
+      { kind: "image", src: "assets/portfolio/Sannex/DSC07139.JPG", title: "Sannex" },
+      { kind: "image", src: "assets/portfolio/Sannex/DSC07228.JPG", title: "Sannex" },
+      { kind: "image", src: "assets/portfolio/Sannex/DSC07262.JPG", title: "Sannex" },
+      { kind: "image", src: "assets/portfolio/Sannex/DSC07270.JPG", title: "Sannex" },
+      { kind: "image", src: "assets/portfolio/Sannex/DSC07274.JPG", title: "Sannex" },
+      { kind: "image", src: "assets/portfolio/Sannex/DSC07309.JPG", title: "Sannex" },
+      { kind: "image", src: "assets/portfolio/Sannex/DSC07344.JPG", title: "Sannex" },
+      { kind: "image", src: "assets/portfolio/Sannex/DSC07396.JPG", title: "Sannex" },
+      { kind: "image", src: "assets/portfolio/Sannex/DSC07416.JPG", title: "Sannex" },
     ],
   },
 
@@ -1228,9 +1340,22 @@ const PORTFOLIO_ALBUMS = [
     title: "Casanovas",
     type: "bild",
     desc: "Bilder från Casanovas.",
-    thumb: "assets/portfolio/Casanovas/CasanovasGrupp.png",
+    thumb: "assets/portfolio/Casanovas/NyGrupp.jpg",
     items: [
+      { kind: "image", src: "assets/portfolio/Casanovas/NyGrupp.jpg", title: "Casanovas", isNew: true },
       { kind: "image", src: "assets/portfolio/Casanovas/CasanovasGrupp.png", title: "Casanovas" },
+      { kind: "image", src: "assets/portfolio/Casanovas/2dbb31e4-31fc-455a-bdb2-a9dd8ddc30d5.png", title: "Casanovas", isNew: true },
+      { kind: "image", src: "assets/portfolio/Casanovas/728969348_122129049465227372_2071987718501002469_n.jpg", title: "Casanovas", isNew: true },
+      { kind: "image", src: "assets/portfolio/Casanovas/729329421_122129049195227372_4571613816886766715_n.jpg", title: "Casanovas", isNew: true },
+      { kind: "image", src: "assets/portfolio/Casanovas/729777833_122129046927227372_2723067207784511501_n.jpg", title: "Casanovas", isNew: true },
+      { kind: "image", src: "assets/portfolio/Casanovas/729778189_122129048913227372_5542235041074079186_n.jpg", title: "Casanovas", isNew: true },
+      { kind: "image", src: "assets/portfolio/Casanovas/729974940_122129049099227372_2838561406431301577_n.jpg", title: "Casanovas", isNew: true },
+      { kind: "image", src: "assets/portfolio/Casanovas/730083533_122129049747227372_3153687197072728920_n.jpg", title: "Casanovas", isNew: true },
+      { kind: "image", src: "assets/portfolio/Casanovas/730382375_122129046993227372_66242398305774619_n.jpg", title: "Casanovas", isNew: true },
+      { kind: "image", src: "assets/portfolio/Casanovas/730474822_122129049249227372_8312164208450328062_n.jpg", title: "Casanovas", isNew: true },
+      { kind: "image", src: "assets/portfolio/Casanovas/a907b9b0-cb65-4f77-bee8-ec0a6fdf09c3.png", title: "Casanovas", isNew: true },
+      { kind: "image", src: "assets/portfolio/Casanovas/acd1e075-ea67-45be-b592-53a7adeaa51e.png", title: "Casanovas", isNew: true },
+      { kind: "image", src: "assets/portfolio/Casanovas/d2711186-cd3f-4d05-9af5-1c50044fb7e4.png", title: "Casanovas", isNew: true },
       { kind: "image", src: "assets/portfolio/Casanovas/DSC02630.JPG", title: "Casanovas" },
       { kind: "image", src: "assets/portfolio/Casanovas/DSC02643.JPG", title: "Casanovas" },
       { kind: "image", src: "assets/portfolio/Casanovas/DSC02648.JPG", title: "Casanovas" },
@@ -1240,6 +1365,8 @@ const PORTFOLIO_ALBUMS = [
       { kind: "image", src: "assets/portfolio/Casanovas/DSC02671.JPG", title: "Casanovas" },
       { kind: "image", src: "assets/portfolio/Casanovas/DSC02685.JPG", title: "Casanovas" },
       { kind: "image", src: "assets/portfolio/Casanovas/DSC02892.JPG", title: "Casanovas" },
+      { kind: "image", src: "assets/portfolio/Casanovas/e996001a-d1f3-453b-986d-8886bbc78429.png", title: "Casanovas" },
+      { kind: "image", src: "assets/portfolio/Casanovas/feb48065-69f2-4ecd-90ec-fbc4aa2be2b0.png", title: "Casanovas" },
     ],
   },
 
@@ -1292,12 +1419,26 @@ const PORTFOLIO_ALBUMS = [
     title: "Blender",
     type: "bild",
     desc: "Bilder från Blender.",
-    thumb: "assets/portfolio/Blender/Blender.png",
+    thumb: "assets/portfolio/Blender/Blenders.png",
     items: [
-      { kind: "image", src: "assets/portfolio/Blender/16_maj_2026_03_23_50.png", title: "Blender" },
-      { kind: "image", src: "assets/portfolio/Blender/16_maj_2026_03_29_53.png", title: "Blender" },
-      { kind: "image", src: "assets/portfolio/Blender/16_maj_2026_04_00_30.png", title: "Blender" },
-      { kind: "image", src: "assets/portfolio/Blender/16_maj_2026_04_05_59.png", title: "Blender" },
+      { kind: "image", src: "assets/portfolio/Blender/Blenders.png", title: "Blender", isNew: true },
+      { kind: "image", src: "assets/portfolio/Blender/Blender.png", title: "Blender", isNew: true },
+      { kind: "image", src: "assets/portfolio/Blender/1174dcfd-2d4c-4448-88aa-e9d2756e0b77.png", title: "Blender", isNew: true },
+      { kind: "image", src: "assets/portfolio/Blender/16_maj_2026_03_29_53.png", title: "Blender", isNew: true },
+      { kind: "image", src: "assets/portfolio/Blender/16_maj_2026_04_00_30.png", title: "Blender", isNew: true },
+      { kind: "image", src: "assets/portfolio/Blender/16_maj_2026_04_05_59.png", title: "Blender", isNew: true },
+      { kind: "image", src: "assets/portfolio/Blender/728491025_122129137851227372_5220071880135183089_n.jpg", title: "Blender", isNew: true },
+      { kind: "image", src: "assets/portfolio/Blender/728580582_122129137725227372_8568378921601433670_n.jpg", title: "Blender", isNew: true },
+      { kind: "image", src: "assets/portfolio/Blender/728951315_122129137875227372_5402796847635074997_n.jpg", title: "Blender", isNew: true },
+      { kind: "image", src: "assets/portfolio/Blender/729161059_122129137989227372_2119379467105641608_n.jpg", title: "Blender", isNew: true },
+      { kind: "image", src: "assets/portfolio/Blender/730515842_122129138025227372_6917284710634811069_n.jpg", title: "Blender", isNew: true },
+      { kind: "image", src: "assets/portfolio/Blender/731022981_122129138097227372_3343757545491637809_n.jpg", title: "Blender", isNew: true },
+      { kind: "image", src: "assets/portfolio/Blender/731022983_122129137869227372_3146431933500769239_n.jpg", title: "Blender", isNew: true },
+      { kind: "image", src: "assets/portfolio/Blender/731111486_122129137719227372_7132016307451341053_n.jpg", title: "Blender", isNew: true },
+      { kind: "image", src: "assets/portfolio/Blender/731173252_122129138007227372_3079296019126298120_n.jpg", title: "Blender", isNew: true },
+      { kind: "image", src: "assets/portfolio/Blender/731761406_122129137935227372_8234667455354584460_n.jpg", title: "Blender", isNew: true },
+      { kind: "image", src: "assets/portfolio/Blender/732544969_122129137713227372_6722696926729427673_n.jpg", title: "Blender", isNew: true },
+      { kind: "image", src: "assets/portfolio/Blender/732733270_122129138211227372_3905108587584141255_n.jpg", title: "Blender", isNew: true },
       { kind: "image", src: "assets/portfolio/Blender/DSC01487.JPG", title: "Blender" },
       { kind: "image", src: "assets/portfolio/Blender/DSC01491.JPG", title: "Blender" },
       { kind: "image", src: "assets/portfolio/Blender/DSC02103.JPG", title: "Blender" },
@@ -1312,6 +1453,11 @@ const PORTFOLIO_ALBUMS = [
       { kind: "image", src: "assets/portfolio/Blender/DSC02245.JPG", title: "Blender" },
       { kind: "image", src: "assets/portfolio/Blender/DSC02302.JPG", title: "Blender" },
       { kind: "image", src: "assets/portfolio/Blender/DSC02330.JPG", title: "Blender" },
+      { kind: "image", src: "assets/portfolio/Blender/DSC05104.JPG", title: "Blender" },
+      { kind: "image", src: "assets/portfolio/Blender/DSC05176.JPG", title: "Blender" },
+      { kind: "image", src: "assets/portfolio/Blender/DSC05597.JPG", title: "Blender" },
+      { kind: "image", src: "assets/portfolio/Blender/DSC05651.JPG", title: "Blender" },
+      { kind: "image", src: "assets/portfolio/Blender/f2e958b3-6c80-4356-94f5-5dead58a7aaa.png", title: "Blender" },
     ],
   },
 
