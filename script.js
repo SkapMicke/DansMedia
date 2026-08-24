@@ -29,16 +29,6 @@ if (scrollTopBtn) {
    THEME ANIMATION
    ========================= */
 
-const themeBtn = $("#themeBtn");
-if (themeBtn) {
-  themeBtn.addEventListener("click", () => {
-    document.documentElement.style.pointerEvents = "none";
-    setTimeout(() => {
-      document.documentElement.style.pointerEvents = "auto";
-    }, 350);
-  });
-}
-
 function preloadImages(urls, { concurrency = 10 } = {}) {
   // Preloadar en lista bilder med "concurrency" så du inte dödar nätet helt.
   const queue = [...urls];
@@ -123,11 +113,21 @@ function openModal({ title, meta, kind, src, html }) {
   if (existingDownload) existingDownload.remove();
 
   if (kind === "video") {
-    const iframe = document.createElement("iframe");
-    iframe.src = src;
-    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-    iframe.allowFullscreen = true;
-    modalBody.appendChild(iframe);
+    if (/\.(mp4|webm|ogg)(?:[?#]|$)/i.test(src || "")) {
+      const video = document.createElement("video");
+      video.src = src;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      video.preload = "metadata";
+      modalBody.appendChild(video);
+    } else {
+      const iframe = document.createElement("iframe");
+      iframe.src = src;
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      iframe.allowFullscreen = true;
+      modalBody.appendChild(iframe);
+    }
   } else if (kind === "html") {
     modalBody.innerHTML = html || "";
   } else {
@@ -427,7 +427,7 @@ function renderAlbums() {
         th.appendChild(w);
         // Add 'NY' badge for newly added albums
         try {
-          if (['engdahls', 'streaks'].includes(album.id)) {
+          if (['engdahls', 'streaks', 'martinez'].includes(album.id)) {
             const b = document.createElement('span');
             b.className = 'albumCard__badge albumCard__badge--new';
             b.textContent = 'NYTT BAND';
@@ -446,6 +446,10 @@ function renderAlbums() {
 async function openAlbum(albumId) {
   const album = PORTFOLIO_ALBUMS.find(a => a.id === albumId);
   if (!album) return;
+
+  if (window.location.pathname.includes("portfolio")) {
+    history.replaceState(null, "", `#${encodeURIComponent(album.id)}`);
+  }
 
   albumTitle.textContent = album.title;
   albumDesc.textContent = album.desc;
@@ -565,6 +569,120 @@ async function openAlbum(albumId) {
   preloadImages(urlsToPreload.slice(0, 12), { concurrency: 4 });
 }
 
+// Dokumentationskort -> öppna album direkt
+const documentationLinks = document.querySelectorAll("[data-open-album]");
+documentationLinks.forEach((link) => {
+  link.addEventListener("click", (event) => {
+    const albumId = link.dataset.openAlbum;
+    if (!albumId) return;
+
+    event.preventDefault();
+    openAlbum(albumId);
+    document.getElementById("album")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+});
+
+// Dokumentationsvideor - fylla videoGrid
+function renderDocumentationVideos() {
+  const videoGrid = document.getElementById("docVideoGrid");
+  if (!videoGrid) return;
+
+  const videos = [
+    {
+      title: "Engdahls",
+      src: "assets/portfolio/Engdahls/Engdahlz.mp4",
+      isPlayable: true,
+      meta: "Dokumentation",
+      description: "Dokumentation från Engdahls dansband under en spektakulär kväll på scen.",
+    },
+    {
+      title: "Följ med Sannex Ullared 2026",
+      src: "assets/portfolio/Sannex/Foljamed.mp4",
+      isPlayable: true,
+      meta: "Dokumentation",
+      description: "En rolig dokumentation med SANNEX från EN KVÄLL I JUNI - ULLARED 2026, Deras sista år... Där jag fick chansen att dokumentera hela deras kväll.",
+    },
+  ];
+
+  videoGrid.innerHTML = "";
+  videos.forEach((video) => {
+    // Create wrapper for card + description
+    const wrapper = document.createElement("div");
+    wrapper.className = "videoCardWrapper";
+
+    const card = document.createElement("button");
+    card.type = "button";
+    card.className = "videoCard";
+    if (!video.isPlayable) {
+      card.style.cursor = "default";
+      card.style.pointerEvents = "none";
+    }
+
+    const videoEl = document.createElement("video");
+    videoEl.src = video.src;
+    videoEl.muted = true;
+    videoEl.playsInline = true;
+    videoEl.preload = "metadata";
+    videoEl.style.pointerEvents = "none";
+
+    const overlay = document.createElement("div");
+    overlay.className = "videoCard__overlay";
+
+    if (video.isPlayable) {
+      overlay.innerHTML = '<div class="videoCard__play">▶</div>';
+    } else {
+      overlay.innerHTML = `<div class="videoCard__release">${video.releaseText}</div>`;
+      overlay.style.opacity = "1";
+      overlay.style.cursor = "default";
+    }
+    overlay.style.pointerEvents = "none";
+
+    card.appendChild(videoEl);
+    card.appendChild(overlay);
+
+    if (video.isPlayable) {
+      card.addEventListener("click", () => {
+        openModal({
+          title: video.title,
+          meta: `VIDEO • ${video.meta}`,
+          kind: "video",
+          src: video.src,
+        });
+      });
+    }
+
+    wrapper.appendChild(card);
+
+    // Add description if provided
+    if (video.description) {
+      const description = document.createElement("div");
+      description.className = "videoCard__description";
+      description.textContent = video.description;
+      wrapper.appendChild(description);
+    }
+
+    videoGrid.appendChild(wrapper);
+
+    // Set preview frame
+    videoEl.addEventListener(
+      "loadedmetadata",
+      () => {
+        try {
+          const t = Math.min(0.25, Math.max(0, (videoEl.duration || 1) - 0.1));
+          videoEl.currentTime = t;
+        } catch {}
+      },
+      { once: true }
+    );
+  });
+}
+
+// Kalla vid page load
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", renderDocumentationVideos);
+} else {
+  renderDocumentationVideos();
+}
 
 // 6) Tillbaka
 if (albumBackBtn) {
@@ -725,10 +843,14 @@ function makeVideoThumbnail(videoSrc, { maxW = 900 } = {}) {
 }
 
 
+const MEDIA_PAGE_SIZE = 10;
+let mediaVisibleCount = MEDIA_PAGE_SIZE;
 
-function renderMedia(album, items) {
+function renderMedia(album, items, { resetPage = true } = {}) {
   if (!mediaGrid) return;
   mediaGrid.innerHTML = "";
+
+  if (resetPage) mediaVisibleCount = MEDIA_PAGE_SIZE;
 
   // Support passing explicit items (from sections) or derive from album
   const mediaItems = Array.isArray(items) ? items : getAlbumItems(album);
@@ -764,7 +886,9 @@ function renderMedia(album, items) {
     return bNew - aNew;
   });
 
-  orderedItems.forEach((item, index) => {
+  const visibleItems = orderedItems.slice(0, mediaVisibleCount);
+
+  visibleItems.forEach((item, index) => {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "mediaItem";
@@ -908,6 +1032,21 @@ function renderMedia(album, items) {
       }
     } catch (e) {}
   });
+
+  if (orderedItems.length > visibleItems.length) {
+    const moreWrap = document.createElement("div");
+    moreWrap.className = "mediaGrid__more";
+    const moreBtn = document.createElement("button");
+    moreBtn.type = "button";
+    moreBtn.className = "btn btn--ghost";
+    moreBtn.textContent = `Visa mer (${Math.min(MEDIA_PAGE_SIZE, orderedItems.length - visibleItems.length)})`;
+    moreBtn.addEventListener("click", () => {
+      mediaVisibleCount += MEDIA_PAGE_SIZE;
+      renderMedia(album, mediaItems, { resetPage: false });
+    });
+    moreWrap.appendChild(moreBtn);
+    mediaGrid.appendChild(moreWrap);
+  }
 }
 
 
@@ -962,52 +1101,57 @@ const PORTFOLIO_ALBUMS = [
         id: "nassjo",
         title: "Nässjö",
         items: [
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/19aac251-22c4-4a94-9d58-0f8b4d2a90e3.png", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/dfd51446-bda0-42e5-9664-e02dc2667d61.png", title: "Nässjö" },
           { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC01571.JPG", title: "Nässjö" },
           { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC01665.JPG", title: "Nässjö" },
           { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC01691.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC01711.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC01715.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC07398.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC07403.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC07412.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC07431.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC07435.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC07443.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC07446.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC07464.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC07468.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC07505.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC07558.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC07618.JPG", title: "Nässjö" },
           { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC07740.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC07747.JPG", title: "Nässjö" },
           { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC07754.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC07786.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC07787.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC07899.JPG", title: "Nässjö" },
           { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC07931.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC07944.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC08030.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC08066.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC08087.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC08106.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC08113.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC08241.JPG", title: "Nässjö" },
           { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC08244.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC08257.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC08275.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC08313.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC08325.JPG", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC08327.JPG", title: "Nässjö" },
           { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/DSC08329.JPG", title: "Nässjö" },
           { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/kenn.png", title: "Nässjö" },
           { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/Kenny.png", title: "Nässjö" },
           { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/kenny2.png", title: "Nässjö" },
           { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/Kjetilsson.png", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/S1.png", title: "Nässjö" },
-          { kind: "image", src: "assets/portfolio/Streaplers/Nässjö/S2.png", title: "Nässjö" },
+        ],
+      },
+      {
+        id: "sagnernas",
+        title: "Sägnernas",
+        items: [
+          { kind: "image", src: "assets/portfolio/Streaplers/Sägnernas/760554970_122133863235227372_6453229102155393460_n.jpg", title: "Sägnernas" },
+          { kind: "image", src: "assets/portfolio/Streaplers/Sägnernas/760654676_122133718467227372_8047978340532728700_n.jpg", title: "Sägnernas" },
+          { kind: "image", src: "assets/portfolio/Streaplers/Sägnernas/761291889_122133718443227372_2537330491711118486_n.jpg", title: "Sägnernas" },
+          { kind: "image", src: "assets/portfolio/Streaplers/Sägnernas/761573792_122133718023227372_5740607333971765352_n.jpg", title: "Sägnernas" },
+          { kind: "image", src: "assets/portfolio/Streaplers/Sägnernas/761615160_122133718125227372_2998199590119277124_n.jpg", title: "Sägnernas" },
+          { kind: "image", src: "assets/portfolio/Streaplers/Sägnernas/762007463_122133718161227372_2035185571727711654_n.jpg", title: "Sägnernas" },
+          { kind: "image", src: "assets/portfolio/Streaplers/Sägnernas/762070658_122133718509227372_4130823838984694132_n.jpg", title: "Sägnernas" },
+          { kind: "image", src: "assets/portfolio/Streaplers/Sägnernas/762584834_122133718311227372_1967097885067765697_n.jpg", title: "Sägnernas" },
+          { kind: "image", src: "assets/portfolio/Streaplers/Sägnernas/762605992_122133717999227372_782308238638544972_n.jpg", title: "Sägnernas" },
+          { kind: "image", src: "assets/portfolio/Streaplers/Sägnernas/762689025_122133863601227372_7022896172829402996_n.jpg", title: "Sägnernas" },
+          { kind: "image", src: "assets/portfolio/Streaplers/Sägnernas/762903575_122133864273227372_4210288527098374457_n.jpg", title: "Sägnernas" },
+          { kind: "image", src: "assets/portfolio/Streaplers/Sägnernas/762937397_122134056963227372_8349632892398250423_n.jpg", title: "Sägnernas" },
+          { kind: "image", src: "assets/portfolio/Streaplers/Sägnernas/762937399_122133863271227372_8515253772175374741_n.jpg", title: "Sägnernas" },
+          { kind: "image", src: "assets/portfolio/Streaplers/Sägnernas/762974376_122134056921227372_7809375638792128132_n.jpg", title: "Sägnernas" },
+          { kind: "image", src: "assets/portfolio/Streaplers/Sägnernas/763355853_122133718173227372_1956657335973481757_n.jpg", title: "Sägnernas" },
+          { kind: "image", src: "assets/portfolio/Streaplers/Sägnernas/763671419_122133718155227372_2713580773256933645_n.jpg", title: "Sägnernas" },
+          { kind: "image", src: "assets/portfolio/Streaplers/Sägnernas/763961510_122133718167227372_144185416377983953_n.jpg", title: "Sägnernas" },
+          { kind: "image", src: "assets/portfolio/Streaplers/Sägnernas/764774463_122133863355227372_6307043613748729449_n.jpg", title: "Sägnernas" },
+          { kind: "image", src: "assets/portfolio/Streaplers/Sägnernas/764832867_122134056651227372_1091266266826995551_n.jpg", title: "Sägnernas" },
+          { kind: "image", src: "assets/portfolio/Streaplers/Sägnernas/764953655_122134057029227372_4747640474665288347_n.jpg", title: "Sägnernas" },
+          { kind: "image", src: "assets/portfolio/Streaplers/Sägnernas/765070780_122134056693227372_2593776832512822637_n.jpg", title: "Sägnernas" },
+          { kind: "image", src: "assets/portfolio/Streaplers/Sägnernas/765116503_122133864177227372_1898098931128173334_n.jpg", title: "Sägnernas" },
+          { kind: "image", src: "assets/portfolio/Streaplers/Sägnernas/765178512_122134056759227372_4142534054683676070_n.jpg", title: "Sägnernas" },
+          { kind: "image", src: "assets/portfolio/Streaplers/Sägnernas/766008199_122134056795227372_8811646572337255509_n.jpg", title: "Sägnernas" },
+        ],
+      },
+      {
+        id: "ovrigt",
+        title: "Övrigt",
+        items: [
+          { kind: "image", src: "assets/portfolio/Streaplers/762629834_122133718005227372_4420802099033353692_n.jpg", title: "Streaplers" },
+          { kind: "image", src: "assets/portfolio/Streaplers/763308695_122134056489227372_8610754734277568945_n.jpg", title: "Streaplers" },
+          { kind: "image", src: "assets/portfolio/Streaplers/vm.jpg", title: "Streaplers" },
         ],
       },
     ],
@@ -1095,69 +1239,32 @@ const PORTFOLIO_ALBUMS = [
     thumb: "assets/portfolio/Sounders/sounders.png",
     sections: [
       {
-        id: "ljungsbro",
-        title: "Ljungsbro Dansfest 2026",
+        id: "bilder",
+        title: "Bilder",
         items: [
-          { kind: "image", src: "assets/portfolio/Sounders/DSC01825.JPG", title: "Ljungsbro" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC01829.JPG", title: "Ljungsbro" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC01836.JPG", title: "Ljungsbro" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC01854.JPG", title: "Ljungsbro" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC02018.JPG", title: "Ljungsbro" },
-
-          { kind: "image", src: "assets/portfolio/Sounders/_DSC0319.JPG", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/_DSC0330.JPG", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/_DSC0448.JPG", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC_0008.JPG", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC_0010.JPG", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC_0113.JPG", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC_0200.JPG", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC_0281.JPG", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC_0311.JPG", title: "Sounders Live" },
-
-          { kind: "image", src: "assets/portfolio/Sounders/DSC01457_resultat.png", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC01465_resultat.png", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC01534_resultat.png", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC01546_resultat.png", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC01582_resultat.png", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC01597_resultat.png", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC01605_resultat.png", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC01610_resultat.png", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC01625_resultat.png", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC01654_resultat.png", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC01656_resultat.png", title: "Sounders Live" },
-
-          { kind: "image", src: "assets/portfolio/Sounders/DSC01766_resultat.png", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC01769_resultat.png", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC01771_resultat.png", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC01779_resultat.png", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC01792_resultat.png", title: "Sounders Live" },
-
-          { kind: "image", src: "assets/portfolio/Sounders/DSC08600.JPG", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC08612.JPG", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC08629.JPG", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC08638.JPG", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC09111.JPG", title: "Sounders Live" },
-          { kind: "image", src: "assets/portfolio/Sounders/DSC09813.JPG", title: "Sounders Live" },
-
-          { kind: "image", src: "assets/portfolio/Sounders/SoundersBirka (96).JPG", title: "Birka Gotland" },
-          { kind: "image", src: "assets/portfolio/Sounders/SoundersBirka (97).JPG", title: "Birka Gotland" },
-          { kind: "image", src: "assets/portfolio/Sounders/SoundersBirka (100).JPG", title: "Birka Gotland" },
-          { kind: "image", src: "assets/portfolio/Sounders/SoundersBirka (112).JPG", title: "Birka Gotland" },
-          { kind: "image", src: "assets/portfolio/Sounders/SoundersBirka (243).JPG", title: "Birka Gotland" },
-          { kind: "image", src: "assets/portfolio/Sounders/SoundersBirka (507).JPG", title: "Birka Gotland" },
-          { kind: "image", src: "assets/portfolio/Sounders/SoundersBirka (515).JPG", title: "Birka Gotland" },
-          { kind: "image", src: "assets/portfolio/Sounders/SoundersBirka (525).JPG", title: "Birka Gotland" },
-          { kind: "image", src: "assets/portfolio/Sounders/SoundersBirka (553).JPG", title: "Birka Gotland" },
-          { kind: "image", src: "assets/portfolio/Sounders/SoundersBirka (567).JPG", title: "Birka Gotland" },
-          { kind: "image", src: "assets/portfolio/Sounders/SoundersBirka (571).JPG", title: "Birka Gotland" },
-          { kind: "image", src: "assets/portfolio/Sounders/SoundersBirka (589).JPG", title: "Birka Gotland" },
-
-          { kind: "image", src: "assets/portfolio/albums/sounders/images/banner.jpg", title: "Sounders Banner" },
-          { kind: "image", src: "assets/portfolio/albums/sounders/images/halloween.jpg", title: "Halloween Event" },
-          { kind: "image", src: "assets/portfolio/albums/sounders/images/logo.jpg", title: "Sounders Logo" },
-          { kind: "image", src: "assets/portfolio/albums/sounders/images/sounders.jpg", title: "Sounders Dansorkester" },
-          { kind: "image", src: "assets/portfolio/albums/sounders/images/tackbåt.jpg", title: "Tackbåt Event" },
-          { kind: "image", src: "assets/portfolio/albums/sounders/images/tacksundspärlan.jpg", title: "Tacksundspärlan" },
+          { kind: "image", src: "assets/portfolio/Sounders/04b01cba-91a1-4c25-8c36-65203f9a7afa.png", title: "Sounders" },
+          { kind: "image", src: "assets/portfolio/Sounders/745019825_122131770735227372_5387381991159468561_n.jpg", title: "Sounders" },
+          { kind: "image", src: "assets/portfolio/Sounders/747653186_122131763931227372_4598490399969840471_n.jpg", title: "Sounders" },
+          { kind: "image", src: "assets/portfolio/Sounders/748585270_122131771251227372_5681718905259013301_n.jpg", title: "Sounders" },
+          { kind: "image", src: "assets/portfolio/Sounders/748986149_122131769181227372_1899171185789195890_n.jpg", title: "Sounders" },
+          { kind: "image", src: "assets/portfolio/Sounders/749330033_122131769133227372_5822467262124324312_n.jpg", title: "Sounders" },
+          { kind: "image", src: "assets/portfolio/Sounders/749432718_122131764105227372_3117121349528130458_n.jpg", title: "Sounders" },
+          { kind: "image", src: "assets/portfolio/Sounders/749629280_122131764177227372_7159708849835600857_n.jpg", title: "Sounders" },
+          { kind: "image", src: "assets/portfolio/Sounders/751871022_122131770945227372_691342318812497924_n.jpg", title: "Sounders" },
+          { kind: "image", src: "assets/portfolio/Sounders/752488812_122131763877227372_4333224264280170504_n.jpg", title: "Sounders" },
+          { kind: "image", src: "assets/portfolio/Sounders/752489204_122131763823227372_3661337937764315696_n.jpg", title: "Sounders" },
+          { kind: "image", src: "assets/portfolio/Sounders/753164007_122131768551227372_6076466191858455219_n.jpg", title: "Sounders" },
+          { kind: "image", src: "assets/portfolio/Sounders/78cf99e1-2b23-46f1-bf56-0d30c191a940.png", title: "Sounders" },
+          { kind: "image", src: "assets/portfolio/Sounders/banner.jpg", title: "Sounders" },
+          { kind: "image", src: "assets/portfolio/Sounders/DSC01825.JPG", title: "Sounders" },
+          { kind: "image", src: "assets/portfolio/Sounders/DSC01829.JPG", title: "Sounders" },
+          { kind: "image", src: "assets/portfolio/Sounders/DSC01836.JPG", title: "Sounders" },
+          { kind: "image", src: "assets/portfolio/Sounders/DSC01854.JPG", title: "Sounders" },
+          { kind: "image", src: "assets/portfolio/Sounders/DSC02018.JPG", title: "Sounders" },
+          { kind: "image", src: "assets/portfolio/Sounders/DSC02361.JPG", title: "Sounders" },
+          { kind: "image", src: "assets/portfolio/Sounders/DSC02416.JPG", title: "Sounders" },
+          { kind: "image", src: "assets/portfolio/Sounders/logo.jpg", title: "Sounders" },
+          { kind: "image", src: "assets/portfolio/Sounders/sounders.png", title: "Sounders" },
         ],
       },
       {
@@ -1179,11 +1286,52 @@ const PORTFOLIO_ALBUMS = [
   },
 
   {
+    id: "alingsascountryfest2026",
+    title: "Alingsås Country Fest 2026",
+    type: "bild",
+    desc: "Bilder från Alingsås Country Fest 2026.",
+    thumb: "assets/portfolio/AlingsasCountryFest2026/767160587_122134654593227372_5881961123667991222_n.jpg",
+    items: [
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/767160587_122134654593227372_5881961123667991222_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/767160588_122134654479227372_5482328998437240421_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/767190355_122134652793227372_8239467217932565266_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/767540369_122134653807227372_2063544923343582797_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/767540374_122134653303227372_486219707415683839_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/768205305_122134652763227372_1137184495447898799_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/768219016_122134653093227372_7923992907910195307_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/768347735_122134652931227372_5057332800883590205_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/768452626_122134654647227372_2214077955752724321_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/768452630_122134652877227372_6039214641511063401_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/768987644_122134653477227372_7221571650819160117_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/769024889_122134653969227372_8217010404589579258_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/769130762_122134654023227372_8335289648432224073_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/769168435_122134653735227372_1077004632362858187_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/769175799_122134653021227372_739719208687575993_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/769309303_122134653495227372_9094157169286636058_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/769309305_122134654371227372_3169177131154015284_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/769324479_122134654539227372_4025509711499203601_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/769375185_122134653201227372_763747392037714865_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/769394881_122134654137227372_3817256926177641504_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/770562168_122134653639227372_9031800290306680836_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/770572403_122134654197227372_6453552692244204066_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/770584781_122134652541227372_1831294406456977016_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/770937827_122134652601227372_4866295692089618918_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/770937828_122134653147227372_6582234723837016487_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/771617056_122134654413227372_4732071417644576060_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/771651999_122134654047227372_4841832698512561102_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/771694046_122134654305227372_2386590806872093191_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/771821230_122134653501227372_2544721229570537562_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/772036230_122134654251227372_133284504609291896_n.jpg", title: "Alingsås Country Fest 2026" },
+      { kind: "image", src: "assets/portfolio/AlingsasCountryFest2026/772792511_122134653645227372_6449653150024111222_n.jpg", title: "Alingsås Country Fest 2026" },
+    ],
+  },
+
+  {
     id: "sannex",
     title: "Sannex",
     type: "bild",
     desc: "Bilder från Sannex spelningar och events.",
-    thumb: "assets/portfolio/Sannex/Sannexojag.jpg",
+    thumb: "assets/portfolio/Sannex/nygruppsannex.jpg",
     items: [
       { kind: "image", src: "assets/portfolio/Sannex/Sannexojag.jpg", title: "Sannex", isNew: true },
       { kind: "image", src: "assets/portfolio/Sannex/Sannex.jpg", title: "Sannex", isNew: true },
@@ -1256,13 +1404,43 @@ const PORTFOLIO_ALBUMS = [
     ],
   },
 
+  {
+    id: "martinez",
+    title: "Martinez",
+    type: "bild",
+    desc: "Bilder från Martinez.",
+    thumb: "assets/portfolio/Martinez/grupp.jpg",
+    items: [
+      { kind: "image", src: "assets/portfolio/Martinez/758808159_122133454515227372_138213582086362557_n.jpg", title: "Martinez" },
+      { kind: "image", src: "assets/portfolio/Martinez/758808161_122133457755227372_1591720979954412019_n.jpg", title: "Martinez" },
+      { kind: "image", src: "assets/portfolio/Martinez/758943830_122133455781227372_918500324958514904_n.jpg", title: "Martinez" },
+      { kind: "image", src: "assets/portfolio/Martinez/758943834_122133454923227372_7278462534025301110_n.jpg", title: "Martinez" },
+      { kind: "image", src: "assets/portfolio/Martinez/759078039_122133456801227372_395898925055275069_n.jpg", title: "Martinez" },
+      { kind: "image", src: "assets/portfolio/Martinez/759320391_122133456927227372_6495754266474218975_n.jpg", title: "Martinez" },
+      { kind: "image", src: "assets/portfolio/Martinez/759433706_122133455727227372_5034357160018096760_n.jpg", title: "Martinez" },
+      { kind: "image", src: "assets/portfolio/Martinez/759676770_122133455241227372_7832450022429932311_n.jpg", title: "Martinez" },
+      { kind: "image", src: "assets/portfolio/Martinez/759796334_122133455523227372_2412066044371305742_n.jpg", title: "Martinez" },
+      { kind: "image", src: "assets/portfolio/Martinez/759803439_122133455313227372_2292445961015511684_n.jpg", title: "Martinez" },
+      { kind: "image", src: "assets/portfolio/Martinez/760285867_122133456021227372_5165445921298099955_n.jpg", title: "Martinez" },
+      { kind: "image", src: "assets/portfolio/Martinez/760487877_122133455091227372_7245776874648026668_n.jpg", title: "Martinez" },
+      { kind: "image", src: "assets/portfolio/Martinez/760522842_122133455475227372_6258183572446499668_n.jpg", title: "Martinez" },
+      { kind: "image", src: "assets/portfolio/Martinez/760545135_122133457185227372_7339744771369650268_n.jpg", title: "Martinez" },
+      { kind: "image", src: "assets/portfolio/Martinez/760701360_122133456435227372_7005894631980585175_n.jpg", title: "Martinez" },
+      { kind: "image", src: "assets/portfolio/Martinez/760898266_122133454851227372_9114806380994697003_n.jpg", title: "Martinez" },
+      { kind: "image", src: "assets/portfolio/Martinez/761414196_122133457899227372_1418193593604359239_n.jpg", title: "Martinez" },
+      { kind: "image", src: "assets/portfolio/Martinez/761515102_122133457287227372_7557941025347650267_n.jpg", title: "Martinez" },
+      { kind: "image", src: "assets/portfolio/Martinez/761545711_122133457071227372_5461028080955439524_n.jpg", title: "Martinez" },
+      { kind: "image", src: "assets/portfolio/Martinez/grupp.jpg", title: "Martinez" },
+    ],
+  },
+
   // Engdahls (added)
   {
     id: "engdahls",
     title: "Engdahls",
     type: "bild",
     desc: "Bilder från Engdahls.",
-    thumb: "assets/portfolio/Engdahls/eng.png",
+    thumb: "assets/portfolio/Engdahls/engdahlstrum.jpg",
     items: [
       { kind: "image", src: "assets/portfolio/Engdahls/1.jpg", title: "Engdahls" },
       { kind: "image", src: "assets/portfolio/Engdahls/2.jpg", title: "Engdahls" },
@@ -1340,7 +1518,7 @@ const PORTFOLIO_ALBUMS = [
     title: "Casanovas",
     type: "bild",
     desc: "Bilder från Casanovas.",
-    thumb: "assets/portfolio/Casanovas/NyGrupp.jpg",
+    thumb: "assets/portfolio/Casanovas/casanovas.jpg",
     items: [
       { kind: "image", src: "assets/portfolio/Casanovas/NyGrupp.jpg", title: "Casanovas", isNew: true },
       { kind: "image", src: "assets/portfolio/Casanovas/CasanovasGrupp.png", title: "Casanovas" },
@@ -1419,7 +1597,7 @@ const PORTFOLIO_ALBUMS = [
     title: "Blender",
     type: "bild",
     desc: "Bilder från Blender.",
-    thumb: "assets/portfolio/Blender/Blenders.png",
+    thumb: "assets/portfolio/Blender/nygrupp.jpg",
     items: [
       { kind: "image", src: "assets/portfolio/Blender/Blenders.png", title: "Blender", isNew: true },
       { kind: "image", src: "assets/portfolio/Blender/Blender.png", title: "Blender", isNew: true },
@@ -1727,6 +1905,70 @@ async function createOvrigtItems() {
   }
 }
 
+function portfolioKey(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "");
+}
+
+async function syncPortfolioCatalog() {
+  if (typeof location !== "undefined" && location.protocol === "file:") return false;
+
+  try {
+    const res = await fetch(`assets/portfolio/catalog.json?v=${Date.now()}`, { cache: "no-store" });
+    if (!res.ok) throw new Error("portfolio catalog not found");
+    const data = await res.json();
+    if (!Array.isArray(data.albums)) return false;
+
+    data.albums.forEach((entry) => {
+      if (!entry || !entry.title || !Array.isArray(entry.files)) return;
+
+      const entryKey = portfolioKey(entry.id || entry.title);
+      let album = PORTFOLIO_ALBUMS.find((candidate) =>
+        portfolioKey(candidate.id) === entryKey ||
+        portfolioKey(candidate.title) === portfolioKey(entry.title)
+      );
+
+      const basePath = `assets/portfolio/${entry.title}/`;
+      const catalogItems = entry.files.map((file, index) => {
+        const cleanFile = String(file || "").trim();
+        const ext = (cleanFile.split(".").pop() || "").toLowerCase();
+        const kind = ["mp4", "webm", "ogg"].includes(ext) ? "video" : "image";
+        return {
+          kind,
+          src: `${basePath}${cleanFile}`,
+          title: `${entry.title} ${index + 1}`,
+        };
+      }).filter((item) => item.src);
+
+      if (!album) {
+        album = {
+          id: entryKey,
+          title: entry.title,
+          type: "bild",
+          desc: `Bilder från ${entry.title}.`,
+          thumb: entry.thumb ? `${basePath}${entry.thumb}` : catalogItems[0]?.src || "",
+          items: [],
+        };
+        PORTFOLIO_ALBUMS.push(album);
+      }
+
+      // Replace stale hardcoded entries, but retain videos defined outside the catalog.
+      const existingVideos = getAlbumItems(album).filter((item) => item.kind === "video");
+      album.items = catalogItems.concat(existingVideos);
+      delete album.sections;
+      if (!album.thumb && catalogItems[0]) album.thumb = catalogItems[0].src;
+    });
+
+    return true;
+  } catch (error) {
+    console.warn("Portfolio catalog could not be loaded", error);
+    return false;
+  }
+}
+
 // Försök läsa in ett manifest för ett album (så du kan slänga in videor i en mapp)
 async function loadAlbumManifest(album) {
   if (!album || !album.id) return;
@@ -1804,20 +2046,25 @@ const LIVEFOTO_ALBUM_TEMPLATE = {
 // Ersätt din nuvarande "renderAlbums();" längst ner med denna init.
 // (Den kommer själv kalla renderAlbums när livefoto är klart.)
 async function initPortfolio() {
+  const catalogLoaded = await syncPortfolioCatalog();
   // Om du redan har PORTFOLIO_ALBUMS definierad ovan, så hittar vi livefoto-albumet:
-  const liveAlbum = PORTFOLIO_ALBUMS.find(a => a.id === "livefoto");
+  let liveAlbum = PORTFOLIO_ALBUMS.find(a => a.id === "livefoto");
   const ovrigtAlbum = PORTFOLIO_ALBUMS.find(a => a.id === "ovrigt");
 
-  if (liveAlbum) {
-    liveAlbum.items = await createLiveFotoItems();
+  if (!liveAlbum) {
+    liveAlbum = { ...LIVEFOTO_ALBUM_TEMPLATE };
+    PORTFOLIO_ALBUMS.push(liveAlbum);
   }
 
-  if (ovrigtAlbum) {
+  liveAlbum.items = await createLiveFotoItems();
+
+  if (ovrigtAlbum && !catalogLoaded) {
     ovrigtAlbum.items = await createOvrigtItems();
   }
 
   // Försök läsa manifest för varje album så lokala videofiler/bilder i mappar tas med
   for (const album of PORTFOLIO_ALBUMS) {
+    if (album.id === "livefoto" || album.id === "ovrigt") continue;
     // hoppa över om album redan har items
     try {
       await loadAlbumManifest(album);
@@ -1827,6 +2074,11 @@ async function initPortfolio() {
   }
 
   renderAlbums();
+
+  if (window.location.hash) {
+    const albumId = decodeURIComponent(window.location.hash.slice(1));
+    if (PORTFOLIO_ALBUMS.some(album => album.id === albumId)) openAlbum(albumId);
+  }
 
   // Render homepage collage om vi är på startsidan
   try { renderHomepageCollage(); } catch (e) { /* ignore */ }
@@ -2009,37 +2261,8 @@ function renderHomepageCollage({ limit = 5 } = {}){
 })();
 
 /* =========================
-   CHATBOT (Ai-Roffe)
-   ========================= */
-
-const chatbotBtn = $("#chatbotBtn");
-const chatModal = $("#chatModal");
-const chatCloseBtn = $("#chatCloseBtn");
-const chatBackdrop = $("#chatBackdrop");
-const chatInput = $("#chatInput");
-const chatSendBtn = $("#chatSendBtn");
-const chatMessages = $("#chatMessages");
-
-// Öppna chat
-if (chatbotBtn) {
-  chatbotBtn.addEventListener("click", () => {
-    chatModal.setAttribute("aria-hidden", "false");
-    chatInput?.focus();
-  });
-}
-
-// Stäng chat
-if (chatCloseBtn) {
-  chatCloseBtn.addEventListener("click", () => {
-    chatModal.setAttribute("aria-hidden", "true");
-  });
-}
-
-if (chatBackdrop) {
-  chatBackdrop.addEventListener("click", () => {
-    chatModal.setAttribute("aria-hidden", "true");
-  });
-}
+  Legacy response data
+  ========================= */
 
 // Detektera språk
 function detectLanguage(text) {
@@ -2200,8 +2423,8 @@ function getAiResponse(userMessage) {
   // Hälsningar
   if (msg.match(/^(hej|hallo|hey|hi|hello|hey there)/i)) {
     return lang === "en" 
-      ? "Hi! 👋 I'm Ai-Roffe, DansMedia's assistant. How can I help you today?"
-      : "Hej! 👋 Jag är Ai-Roffe, DansMedia:s assistent. Hur kan jag hjälpa dig idag?";
+      ? "Hi! How can I help you today?"
+      : "Hej! Hur kan jag hjälpa dig idag?";
   }
   
   // Sök efter keywords - MYCKET MER OMFATTANDE
@@ -2283,63 +2506,6 @@ function getAiResponse(userMessage) {
   
   // Default fallback - intelligent
   return lang === "en" ? kb.fallback_en : knowledgebaseSV.fallback_sv;
-}
-
-// Skicka meddelande
-function sendMessage() {
-  const userText = chatInput.value.trim();
-  if (!userText) return;
-  
-  // Lägg till användarens meddelande
-  addMessage(userText, "user");
-  chatInput.value = "";
-  
-  // Simulera AI-svar med kort delay
-  setTimeout(() => {
-    const aiResponse = getAiResponse(userText);
-    addMessage(aiResponse, "bot");
-  }, 300);
-}
-
-// Lägg till meddelande i chatt
-function addMessage(text, sender) {
-  const msg = document.createElement("div");
-  msg.className = `chatMessage chatMessage--${sender}`;
-  
-  const bubble = document.createElement("div");
-  bubble.className = "chatMessage__bubble";
-  bubble.textContent = text;
-  
-  msg.appendChild(bubble);
-  chatMessages.appendChild(msg);
-  
-  // Scrolla ner automatiskt
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
-// Skicka-knapp
-if (chatSendBtn) {
-  chatSendBtn.addEventListener("click", sendMessage);
-}
-
-// Enter-tangent
-if (chatInput) {
-  chatInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      sendMessage();
-    }
-  });
-}
-
-// Initiera med välkomstmeddelande
-if (chatMessages) {
-  const initMsg = document.createElement("div");
-  initMsg.className = "chatMessage chatMessage--bot";
-  const bubble = document.createElement("div");
-  bubble.className = "chatMessage__bubble";
-  bubble.textContent = "Hej! 👋 Jag är Ai-Roffe. Fråga mig vad som helst om DansMedia!";
-  initMsg.appendChild(bubble);
-  chatMessages.appendChild(initMsg);
 }
 
 

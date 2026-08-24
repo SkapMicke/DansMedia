@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://simonsdansmedia.se/sitemap.xml

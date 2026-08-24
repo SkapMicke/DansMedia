@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dokumentationsvideor – Simons DansMedia AB</title>
+  <meta name="description" content="Dokumentationsvideor från dansband, evenemang och spelningar. Promo, klipp och material för sociala medier." />
+  <meta name="theme-color" content="#14110d" />
+  <meta property="og:title" content="Dokumentationsvideor – Simons DansMedia" />
+  <meta property="og:description" content="Videor från dokumentationerna – promo, klipp från spelningar och material för sociala medier." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="sv_SE" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+
+  <link rel="icon" href="/assets/favicon/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
+</head>
+
+<body>
+  <div class="bg">
+    <div class="bg__blob bg__blob--a"></div>
+    <div class="bg__blob bg__blob--b"></div>
+    <div class="bg__grid"></div>
+    <div class="bg__noise"></div>
+  </div>
+
+  <header class="header" id="top">
+    <div class="container header__inner">
+      <a class="brand" href="index.html" aria-label="Simons DansMedia">
+        <img class="brand__logo" src="assets/logo.png" alt="Simons DansMedia logga" />
+        <span class="brand__text">
+          <strong>Simons DansMedia</strong><span>Foto • Film • Dokumentation</span>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Huvudmeny">
+        <a href="index.html">Hem</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="dokumentation.html">Videor</a>
+        <a href="tjanster.html">Dokumentation & Media</a>
+        <a href="om-mig.html">Om mig</a>
+        <a href="kontakt.html" class="btn btn--small">Kontakt</a>
+      </nav>
+
+      <div class="header__actions">
+        <button class="menuBtn" id="menuBtn" type="button" aria-label="Öppna meny" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobileNav" id="mobileNav" aria-hidden="true">
+      <div class="container mobileNav__inner">
+        <a href="index.html">Hem</a>
+        <a href="portfolio.html">Band & Uppdrag</a>
+        <a href="dokumentation.html">Videor</a>
+        <a href="tjanster.html">Dokumentation & Media</a>
+        <a href="om-mig.html">Om mig</a>
+        <a href="kontakt.html" class="btn">Kontakt</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" style="padding-top: 120px;">
+      <div class="container">
+        <div class="premiumKicker" style="margin-bottom: 16px;">Videor</div>
+        <h1 style="margin: 0 0 16px; font-size: clamp(36px, 6vw, 64px); line-height: 0.95; letter-spacing: -0.055em;">Dokumentationsvideor från banden</h1>
+        <p class="muted" style="margin-bottom: 48px; max-width: 720px; font-size: 18px; line-height: 1.75;">Här ser vi de dokumentationer som gjorts på de olika dansbanden runt om i världen, allt är filmat, fotograferat & redigerat av SimonsDansmedia.com</p>
+        <div class="videoGrid" id="docVideoGrid"></div>
+      </div>
+    </section>
+
+    <section class="section section--alt">
+      <div class="container">
+        <div class="storyBlock">
+          <div class="storyBlock__media" aria-label="Videodjuvde"></div>
+          <div class="storyBlock__text">
+            <h2>Från idé till färdig video</h2>
+            <p>
+              Varje video börjar med att förstå vad ni behöver – och slutar med material som faktiskt fungerar. Jag arbetar nära under evenemang, fångar naturliga moment, och levererar allt från råmaterial till slutklipp optimerat för sociala medier.
+            </p>
+            <div class="storyList">
+              <div class="storyList__item">Planering och preproduktion</div>
+              <div class="storyList__item">Inspelning under live-evenemang</div>
+              <div class="storyList__item">Redigering och färgbehandling</div>
+              <div class="storyList__item">Leverans i rätt format för era kanaler</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="premiumIntro">
+          <h2>Behöver ni videohjälp för er kväll?</h2>
+          <p>
+            Från promo-klipp till fullständig dokumentation – jag kan anpassa efter vad ni behöver. Kontakta mig för att diskutera vad som passar er.
+          </p>
+        </div>
+
+        <div style="margin-top: 40px;">
+          <a class="btn" href="tjanster.html">Se alla tjänster</a>
+          <a class="btn btn--ghost" href="kontakt.html">Fråga om video</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="pageNav">
+          <a href="portfolio.html" class="pageNav__prev">
+            <span class="pageNav__arrow">←</span>
+            <div>
+              <div class="pageNav__title">Portfolio</div>
+              <div class="muted">Se bilder & album</div>
+            </div>
+          </a>
+          <a href="om-mig.html" class="pageNav__next">
+            <div>
+              <div class="pageNav__title">Om mig</div>
+              <div class="muted">Lär känna mig</div>
+            </div>
+            <span class="pageNav__arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="modal" id="modal" aria-hidden="true" data-close="true">
+      <div class="modal__head">
+        <div>
+          <div class="muted tiny">Media</div>
+          <div class="modal__title" id="modalTitle">—</div>
+          <div class="muted" id="modalMeta">—</div>
+        </div>
+        <button id="modalClose" class="btn btn--ghost btn--small" type="button">Stäng</button>
+      </div>
+      <div class="modal__body" id="modalBody"></div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img src="assets/logga.png" alt="Simons DansMedia" class="brand__logo" />
+        <div>
+          <div class="footer__t">Simons DansMedia</div>
+          <div class="muted tiny">Foto • Film • Dokumentation</div>
+        </div>
+      </div>
+      <div class="footer__links">
+        <div class="footer__col">
+          <div class="footer__heading">Navigering</div>
+          <a href="index.html">Start</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="tjanster.html">Dokumentation & Media</a>
+          <a href="dokumentation.html">Videor</a>
+          <a href="kontakt.html">Kontakt</a>
+        </div>
+        <div class="footer__col">
+          <div class="footer__heading">Kontakt</div>
+          <button id="copyEmailBtn2" class="footer__email" type="button">
+            <span id="emailText2">mail@simonsdansmedia.se</span>
+            <span class="copyIcon">📋</span>
+          </button>
+          <a href="tel:+46701234567">+46 70-123 45 67</a>
+        </div>
+        <div class="footer__col">
+          <div class="footer__heading">Följ</div>
+          <a href="https://instagram.com" target="_blank">Instagram</a>
+          <a href="https://facebook.com" target="_blank">Facebook</a>
+          <a href="https://tiktok.com" target="_blank">TikTok</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container" style="display:flex; align-items:center; justify-content:space-between;">
+        <div class="muted tiny">© 2026 Simons DansMedia. Alla rättigheter förbehållna.</div>
+        <button id="scrollTopBtn" class="scrollTopBtn" aria-label="Tillbaka till toppen">↑</button>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Load documentation videos on this page
+    document.addEventListener("DOMContentLoaded", () => {
+      renderDocumentationVideos();
+    });
+  </script>
+</body>
+</html>

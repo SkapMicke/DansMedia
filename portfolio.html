@@ -442,19 +442,14 @@
 
       <nav class="nav" aria-label="Huvudmeny">
         <a href="index.html">Hem</a>
-        <a href="tjanster.html">Dokumentation & Media</a>
         <a href="portfolio.html">Portfolio</a>
+        <a href="dokumentation.html">Videor</a>
+        <a href="tjanster.html">Dokumentation & Media</a>
         <a href="om-mig.html">Om mig</a>
         <a href="kontakt.html" class="btn btn--small">Kontakt</a>
       </nav>
 
       <div class="header__actions">
-        <button class="chatbotBtn" id="chatbotBtn" type="button" aria-label="Öppna AI-chatt" title="Chatta med Ai-Roffe">
-          <span>🤖</span>
-        </button>
-        <button class="iconBtn" id="themeBtn" type="button" aria-label="Växla tema">
-          <span class="iconBtn__dot"></span>
-        </button>
         <button class="menuBtn" id="menuBtn" type="button" aria-label="Öppna meny" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -464,8 +459,9 @@
     <div class="mobileNav" id="mobileNav" aria-hidden="true">
       <div class="container mobileNav__inner">
         <a href="index.html">Hem</a>
-        <a href="tjanster.html">Dokumentation & Media</a>
         <a href="portfolio.html">Band & Uppdrag</a>
+        <a href="dokumentation.html">Videor</a>
+        <a href="tjanster.html">Dokumentation & Media</a>
         <a href="om-mig.html">Om mig</a>
         <a href="kontakt.html" class="btn">Kontakt</a>
       </div>
@@ -504,6 +500,17 @@
         <div class="trustStrip__item">
           <div class="trustStrip__n">Äkta</div>
           <div class="trustStrip__l">material från riktiga kvällar</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Dokumentationsvideor">
+      <div class="container">
+        <div style="text-align: center; padding: 60px 0;">
+          <div class="premiumKicker" style="margin-bottom: 16px; justify-content: center;">Videor</div>
+          <h2 style="margin: 0 0 12px;">Dokumentationsvideor från banden</h2>
+          <p class="muted" style="margin-bottom: 28px; max-width: 720px; margin-left: auto; margin-right: auto;">Se ett urval av videor från dokumentationerna – promo, klipp från spelningar och material som banden använder för sociala medier och hemsidor.</p>
+          <a class="btn" href="dokumentation.html">Se alla videor</a>
         </div>
       </div>
     </section>
@@ -713,10 +720,10 @@
               <div class="pageNav__title">Dokumentation & Media</div>
             </div>
           </a>
-          <a href="om-mig.html" class="pageNav__next">
+          <a href="dokumentation.html" class="pageNav__next">
             <div>
               <div class="muted tiny">Nästa</div>
-              <div class="pageNav__title">Om mig</div>
+              <div class="pageNav__title">Dokumentationsvideor</div>
             </div>
             <span class="pageNav__arrow">→</span>
           </a>
@@ -753,8 +760,9 @@
         <div class="footer__col">
           <div class="footer__heading">Navigering</div>
           <a href="index.html">Hem</a>
-          <a href="tjanster.html">Dokumentation & Media</a>
           <a href="portfolio.html">Band & Uppdrag</a>
+          <a href="dokumentation.html">Dokumentationsvideor</a>
+          <a href="tjanster.html">Dokumentation & Media</a>
           <a href="om-mig.html">Om mig</a>
           <a href="kontakt.html">Kontakt</a>
         </div>
@@ -767,7 +775,7 @@
 
         <div class="footer__col">
           <div class="footer__heading">Följ</div>
-          <a href="#">Instagram</a>
+          <a href="https://www.instagram.com/simonsdansmedia/" target="_blank" rel="noopener noreferrer">Instagram</a>
           <a href="https://www.facebook.com/share/1H7SdxtUKB/">Facebook</a>
         </div>
       </div>
@@ -779,24 +787,6 @@
       </div>
     </div>
   </footer>
-
-  <div class="chatModal" id="chatModal" aria-hidden="true">
-    <div class="chatModal__backdrop" id="chatBackdrop"></div>
-    <div class="chatModal__panel">
-      <div class="chatModal__header">
-        <div>
-          <div class="chatModal__title">Ai-Roffe</div>
-          <div class="chatModal__subtitle">Simons DansMedia Assistent</div>
-        </div>
-        <button class="chatModal__close" id="chatCloseBtn" type="button" aria-label="Stäng chatt">×</button>
-      </div>
-      <div class="chatModal__messages" id="chatMessages"></div>
-      <div class="chatModal__input">
-        <input type="text" id="chatInput" placeholder="Ställ en fråga..." />
-        <button id="chatSendBtn" type="button" aria-label="Skicka">Skicka</button>
-      </div>
-    </div>
-  </div>
 
   <script src="script.js"></script>
 </body>

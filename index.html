@@ -16,6 +16,18 @@
 
   <meta name="twitter:card" content="summary_large_image" />
 
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Simons DansMedia",
+      "url": "https://simonsdansmedia.se/",
+      "description": "Dansbandsfotograf och videograf för band, folkparker och arrangörer.",
+      "areaServed": "SE",
+      "serviceType": ["Fotografering", "Videoproduktion", "Hemsidor", "Marknadsföringsmaterial"]
+    }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
@@ -144,6 +156,52 @@
 
     .homepageCollage__ctaInner{
       line-height:1.35;
+    }
+
+    .homepageMediaShowcase{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .homepageMediaShowcase__item{
+      position:relative;
+      display:block;
+      overflow:hidden;
+      min-height:220px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+      text-decoration:none;
+    }
+
+    .homepageMediaShowcase__item img{
+      display:block;
+      width:100%;
+      height:100%;
+      min-height:220px;
+      object-fit:cover;
+      transition:transform .35s ease, filter .35s ease;
+    }
+
+    .homepageMediaShowcase__item span{
+      position:absolute;
+      left:14px;
+      right:14px;
+      bottom:14px;
+      padding:10px 12px;
+      color:#fff;
+      font-weight:800;
+      background:rgba(0,0,0,.58);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:10px;
+      backdrop-filter:blur(10px);
+    }
+
+    .homepageMediaShowcase__item:hover img{
+      transform:scale(1.04);
+      filter:brightness(1.08) saturate(1.08);
     }
 
     /* Högerbilden ska synas tydligt, men inte ta över hela sidan */
@@ -319,6 +377,10 @@
         grid-template-columns:repeat(2,1fr);
       }
 
+      .homepageMediaShowcase{
+        grid-template-columns:1fr;
+      }
+
       .followMeCard{
         max-width:320px;
         height:300px;
@@ -448,21 +510,14 @@
 
       <nav class="nav" aria-label="Huvudmeny">
         <a href="index.html">Hem</a>
-        <a href="tjanster.html">Dokumenation & Media</a>
         <a href="portfolio.html">Portfolio</a>
+        <a href="dokumentation.html">Videor</a>
+        <a href="tjanster.html">Dokumenation & Media</a>
         <a href="om-mig.html">Om mig</a>
         <a href="kontakt.html" class="btn btn--small">Kontakt</a>
       </nav>
 
       <div class="header__actions">
-        <button class="chatbotBtn" id="chatbotBtn" type="button" aria-label="Öppna AI-chatt">
-          <span>🤖</span>
-        </button>
-
-        <button class="iconBtn" id="themeBtn" type="button" aria-label="Växla tema">
-          <span class="iconBtn__dot"></span>
-        </button>
-
         <button class="menuBtn" id="menuBtn" type="button" aria-label="Öppna meny" aria-expanded="false">
           <span></span>
           <span></span>
@@ -474,8 +529,9 @@
     <div class="mobileNav" id="mobileNav" aria-hidden="true">
       <div class="container mobileNav__inner">
         <a href="index.html">Hem</a>
-        <a href="tjanster.html">Dokumenation & Media</a>
         <a href="portfolio.html">Portfolio</a>
+        <a href="dokumentation.html">Videor</a>
+        <a href="tjanster.html">Dokumenation & Media</a>
         <a href="om-mig.html">Om mig</a>
         <a href="kontakt.html" class="btn">Kontakt</a>
       </div>
@@ -516,28 +572,27 @@
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="hero__right">
-          <div class="followMeCard">
-            <img class="followMeCard__img"
-                 src="assets/foljamed.png"
-                 alt="Simons DansMedia följer med dansband bakom scenen och på spelningar" />
-
-            <div class="followMeCard__overlay">
-              <div class="followMeCard__top">
-                <div class="followMeCard__tag">Dansbandsliv</div>
-              </div>
-
-              <div class="followMeCard__content">
-                <h2>Livefoto och video med värme, rörelse och timing.</h2>
-                <p>Jag fångar både scenens intensitet och de lugna ögonblicken bakom kulisserna, så att ni får material som känns äkta och säljande.</p>
-                <div class="followMeCard__actions">
-                  <a class="btn" href="kontakt.html">Boka nu</a>
-                  <a class="btn btn--ghost" href="portfolio.html">Portfolio</a>
-                </div>
-              </div>
-            </div>
+    <section class="section section--alt homepageMediaSection">
+      <div class="container">
+        <div class="section__head section__head--row">
+          <div>
+            <div class="badge">Utvalt material</div>
+            <h2>Följ med bakom scenen och se vad jag bygger.</h2>
           </div>
+        </div>
+
+        <div class="homepageMediaShowcase" aria-label="Utvalt material">
+          <a class="homepageMediaShowcase__item" href="assets/foljamed.png" target="_blank" rel="noopener">
+            <img src="assets/foljamed.png" alt="Följ med Simons DansMedia bakom scenen" loading="lazy" />
+            <span>Följ med bakom scenen</span>
+          </a>
+          <a class="homepageMediaShowcase__item" href="assets/hemsidor.png" target="_blank" rel="noopener">
+            <img src="assets/hemsidor.png" alt="Hemsidor skapade av Simons DansMedia" loading="lazy" />
+            <span>Hemsidor och digital närvaro</span>
+          </a>
         </div>
       </div>
     </section>
@@ -670,6 +725,7 @@
         </div>
 
         <div id="homepageCollage" class="homepageCollage" aria-label="Utvald portfolio från Simons DansMedia"></div>
+
       </div>
     </section>
 
@@ -710,8 +766,9 @@
         <div class="footer__col">
           <div class="footer__heading">Navigering</div>
           <a href="index.html">Hem</a>
-          <a href="tjanster.html">Dokumenation & Media</a>
           <a href="portfolio.html">Portfolio</a>
+          <a href="dokumentation.html">Videor</a>
+          <a href="tjanster.html">Dokumenation & Media</a>
           <a href="om-mig.html">Om mig</a>
           <a href="kontakt.html">Kontakt</a>
         </div>
@@ -724,7 +781,7 @@
 
         <div class="footer__col">
           <div class="footer__heading">Följ</div>
-          <a href="#">Instagram</a>
+          <a href="https://www.instagram.com/simonsdansmedia/" target="_blank" rel="noopener noreferrer">Instagram</a>
           <a href="https://www.facebook.com/share/1H7SdxtUKB/">Facebook</a>
           <a href="https://www.youtube.com/@simonsdansmedia" target="_blank" rel="noopener noreferrer">YouTube</a>
         </div>
@@ -737,32 +794,6 @@
       </div>
     </div>
   </footer>
-
-  <!-- Chat -->
-  <div class="chatModal" id="chatModal" aria-hidden="true">
-    <div class="chatModal__backdrop" id="chatBackdrop"></div>
-
-    <div class="chatModal__panel">
-      <div class="chatModal__header">
-        <div>
-          <div class="chatModal__title">Ai-Roffe</div>
-          <div class="chatModal__subtitle">Simons DansMedia Assistent</div>
-        </div>
-
-        <button class="chatModal__close"
-                id="chatCloseBtn"
-                type="button"
-                aria-label="Stäng chatt">×</button>
-      </div>
-
-      <div class="chatModal__messages" id="chatMessages"></div>
-
-      <div class="chatModal__input">
-        <input type="text" id="chatInput" placeholder="Ställ en fråga..." />
-        <button id="chatSendBtn" type="button" aria-label="Skicka">Skicka</button>
-      </div>
-    </div>
-  </div>
 
   <script>
     // Startsidan: visar olika band från portfolion. Om PORTFOLIO_ALBUMS finns används den automatiskt.
